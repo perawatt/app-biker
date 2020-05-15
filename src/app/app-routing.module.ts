@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'order-cancel-pending',
     loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
   },
+  {
+    path: 'order-send-success',
+    loadChildren: () => import('./order-send-success/order-send-success.module').then( m => m.OrderSendSuccessPageModule)
+  },
 
 
 ];
