@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'order-arrived',
     loadChildren: () => import('./order-arrived/order-arrived.module').then( m => m.OrderArrivedPageModule)
+  },  {
+    path: 'order-cancel-pending',
+    loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
   },
+
 
 ];
 
