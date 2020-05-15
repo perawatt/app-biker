@@ -27,6 +27,22 @@ const routes: Routes = [
     path: 'order-cancel',
     loadChildren: () => import('./order-cancel/order-cancel.module').then( m => m.OrderCancelPageModule)
   },
+  {
+    path: 'order-customer-contact',
+    loadChildren: () => import('./order-customer-contact/order-customer-contact.module').then( m => m.OrderCustomerContactPageModule)
+  },
+  {
+    path: 'profile-main',
+    loadChildren: () => import('./profile-main/profile-main.module').then( m => m.ProfileMainPageModule)
+  },
+  {
+    path: 'order-shipping',
+    loadChildren: () => import('./order-shipping/order-shipping.module').then( m => m.OrderShippingPageModule)
+  },
+  {
+    path: 'order-arrived',
+    loadChildren: () => import('./order-arrived/order-arrived.module').then( m => m.OrderArrivedPageModule)
+  },
 
 ];
 
