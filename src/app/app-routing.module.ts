@@ -18,6 +18,14 @@ const routes: Routes = [
     path: 'order-cancel',
     loadChildren: () => import('./order-cancel/order-cancel.module').then( m => m.OrderCancelPageModule)
   },
+  {
+    path: 'order-customer-contact',
+    loadChildren: () => import('./order-customer-contact/order-customer-contact.module').then( m => m.OrderCustomerContactPageModule)
+  },
+  {
+    path: 'profile-main',
+    loadChildren: () => import('./profile-main/profile-main.module').then( m => m.ProfileMainPageModule)
+  },
 
 ];
 
