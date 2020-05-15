@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'history-detail',
     loadChildren: () => import('./history-detail/history-detail.module').then( m => m.HistoryDetailPageModule)
   },
+  {
+    path: 'order-send-success',
+    loadChildren: () => import('./order-send-success/order-send-success.module').then( m => m.OrderSendSuccessPageModule)
+  },
 
 ];
 
