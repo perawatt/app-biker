@@ -10,7 +10,15 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'order-received',
+    loadChildren: () => import('./order-received/order-received.module').then( m => m.OrderReceivedPageModule)
   },
+  {
+    path: 'order-cancel',
+    loadChildren: () => import('./order-cancel/order-cancel.module').then( m => m.OrderCancelPageModule)
+  },
+
 ];
 
 @NgModule({

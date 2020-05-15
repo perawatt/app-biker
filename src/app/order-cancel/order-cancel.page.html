@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ยกเลิกคำสั่งซื้อ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-item color="light" lines="none">
+    <ion-label>
+      <h2><b>ใส่เหตุผล</b></h2>
+    </ion-label>
+  </ion-item>
+  <ion-item color="light" lines="inset">
+    <ion-label></ion-label>
+    <ion-select cancelText="ยกเลิก" interface="action-sheet" slot="end">
+      <ion-select-option value="">รถเสีย</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item color="light" lines="none">
+    <ion-label>
+      <h2><b>หมายเหตุ</b></h2>
+    </ion-label>
+  </ion-item>
+  <ion-item color="light">
+    <ion-input></ion-input>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button class="ion-no-margin" expand="full" color="warning"><b>ตกลง</b></ion-button>
+</ion-footer>
