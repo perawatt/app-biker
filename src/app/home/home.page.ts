@@ -12,18 +12,6 @@ export class HomePage {
 
   constructor(public router: Router, private modalController: ModalController) {}
 
-  xxx(){
-    this.router.navigate(['/history-main']);
-  }
-
-  yyy(){
-    this.router.navigate(['/history-detail']);
-  }
-
-  // zzz(){
-  //   this.router.navigate(['/order-send-success']);
-  // }
-
   async zzz() {
     const modal = await this.modalController.create({
       component: OrderSendSuccessPage,
