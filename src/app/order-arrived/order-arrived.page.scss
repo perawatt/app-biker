@@ -1,0 +1,162 @@
+#stepProgressBar{ // ทั้งกล่อง
+    display: flex; // bullet แนวตั้ง/แนวนอน
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+    // margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.step{
+    text-align: center;
+}
+
+//จุดขาว
+.bullet1{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid white; 
+    color: white; //text number
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet1.start{ //วงกลมที่เลือก
+    color: orange; //text
+    border: orange;
+    background-color: orange;
+}
+
+.bullet1.start::after{ //เส้น
+    content: ''; //text ระหว่างเส้น
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: white;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}
+
+.bullet11{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid white; 
+    color: white; //text number
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet11.start{ //วงกลมที่เลือก
+    color: white; //text
+    border: white;
+    background-color: white;
+}
+
+.bullet11.start::after{ //เส้น
+    content: ''; //text ระหว่างเส้น
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: white;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}
+
+//bullet2
+.bullet2{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid white; 
+    color: white; //text number
+    background-color: orange;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet22{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid white; 
+    color: white; //text number
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet2.completed{ //วงกลมที่เลือก
+    color: orange; //text
+    border: orange;
+    background-color: orange;
+}
+
+.bullet22.completed{ //วงกลมที่เลือก
+    color: orange; //text
+    border: orange;
+    background-color: orange;
+}
+
+.bullet2.completed::after{ //เส้น
+    content: ''; //text ระหว่างเส้น
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: orange;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}
+
+.bullet22.completed::after{ //เส้น
+    content: ''; //text ระหว่างเส้น
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: white;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}
+
+
+//bullet3
+.bullet3{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid orange; 
+    color: orange; //text number
+    background-color: orange;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet3.completed{ //วงกลมที่เลือก
+    color: orange; //text
+    border: orange;
+    background-color: orange;
+}
+
+.bullet3.completed::after{ //เส้น
+    content: ''; //text ระหว่างเส้น
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: pink;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}

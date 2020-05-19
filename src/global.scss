@@ -39,3 +39,56 @@ ion-card{
     margin-left: auto;
     margin-right: auto;;
 }
+
+//step progress bar
+.container{
+    background-color: lightgrey;
+}
+
+#stepProgressBar{ // ทั้งกล่อง
+    display: flex; // bullet แนวตั้ง/แนวนอน
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+    // margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.step{
+    text-align: center;
+}
+
+// .step-text{
+//     margin-bottom: 10px;
+//     color: green;
+// }
+
+.bullet{
+    height: 20;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid white; 
+    color: white; //text number
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    // transition: background-color 100ms;
+    line-height: 20px;
+}
+
+.bullet.completed{ //วงกลมที่เลือก
+    color: orange; //text
+    border: orange;
+    background-color: orange;
+}
+
+.bullet.completed::after{ //เส้น
+    content: '';
+    position: absolute;
+    height: 2px; //ความหนาของเส้น
+    width: 120px; //ความยาวเส้น
+    background-color: orange;
+    right: -120px; //ความห่างจาก bullet
+    bottom: 10px;
+}
