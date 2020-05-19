@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { OrderSendSuccessPageModule } from './order-send-success/order-send-success.module';
+import { NativeService } from 'src/providers/navigateService';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { OrderSendSuccessPageModule } from './order-send-success/order-send-succ
   providers: [
     StatusBar,
     SplashScreen,
+    NativeService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
