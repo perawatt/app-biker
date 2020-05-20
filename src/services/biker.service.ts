@@ -25,32 +25,32 @@ export class BikerService implements IBikerService {
 
   updateBikerStatusOn(): Promise<any> {
     let apiUrl = this.baseUrl + "BikerWorkStatusTurnOn/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();
+    return this.http.put(apiUrl,{}).toPromise();
   }
 
   updateBikerStatusOff(): Promise<any> {
     let apiUrl = this.baseUrl + "BikerWorkStatusTurnOff/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();
+    return this.http.put(apiUrl,{}).toPromise();
   }
 
   updateOrderStatusToReceived(orderId: string): Promise<any> {
     let apiUrl = this.baseUrl + "BikerAcceptOrder/" + orderId + "/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();
+    return this.http.put(apiUrl,{}).toPromise();
   }
 
   updateOrderStatusToShipping(orderId: string): Promise<any> {
     let apiUrl = this.baseUrl + "OrderStatusUpdateToShipping/" + orderId + "/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();  
+    return this.http.put(apiUrl,{}).toPromise();
   }
 
   updateOrderStatusToArrived(orderId: string): Promise<any> {
     let apiUrl = this.baseUrl + "OrderStatusUpdateToDestination/" + orderId + "/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();    
+    return this.http.put(apiUrl,{}).toPromise();
   }
 
   updateOrderStatusToSendSuccess(orderId: string): Promise<any> {
     let apiUrl = this.baseUrl + "OrderStatusUpdateToDone/" + orderId + "/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();     
+    return this.http.put(apiUrl,{}).toPromise();
   }
   
   createOrderCancelRequest(orderId: string, data: any): Promise<any> {

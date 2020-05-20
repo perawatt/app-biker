@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { OrderSendSuccessPageModule } from './order-send-success/order-send-success.module';
 import { NativeService } from 'src/providers/navigateService';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule,    
+    HttpClientModule,
     OrderSendSuccessPageModule,
   ],
   providers: [

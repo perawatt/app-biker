@@ -2,7 +2,7 @@
   <ng-container>
     <ion-item lines="none" color="light">
       <ion-label><b>เปิดรับงาน</b></ion-label>
-      <ion-toggle slot="end" name="blackberry" color="warning" checked></ion-toggle>
+      <ion-toggle slot="end" name="blackberry" color="warning" [(ngModel)]="IsBikerOn" (ionChange)="toggleChange()"></ion-toggle>
     </ion-item>
   </ng-container>
 
@@ -47,7 +47,7 @@
     </ion-list>
   </ion-card>
 
-  <ion-button (click)="zzz()"><b>modalorder</b></ion-button>
+  <!-- <ion-button (click)="zzz()"><b>modalorder</b></ion-button> -->
 
 </ion-content>
 
