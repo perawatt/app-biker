@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment, BikerId } from 'src/environments/environment';
 
@@ -7,7 +7,12 @@ declare function TheSHybridFunc(methodName: string, parameter: string, callback:
 
 @Injectable()
 export class NativeService {
-    constructor(private router: Router) { }
+
+    private NotificationCannel = new Map();
+
+    constructor(private router: Router, private zone: NgZone) {
+        (<any>window).onSendNotification = (notiChannel: any) => { this.executeOnNotification(notiChannel) };
+    }
 
     public async NavigateToPage(pageName: string, params?: any) {
         if (environment.production) {
@@ -36,10 +41,13 @@ export class NativeService {
             await this.retry(() => this.tryCallNativeFunc());
             return this.callNativeFunc("GetBikerId", "");
         }
-        else
-        {
+        else {
             return BikerId;
         }
+    }
+
+    public RegisterNotificationHander(noriChannel: string, fn: () => void) {
+        this.NotificationCannel.set(noriChannel,fn);
     }
 
     private callNativeFunc(fName: string, fParam: string) {
@@ -110,5 +118,13 @@ export class NativeService {
                 resolve(it);
             }).catch(reject);
         });
+    }
+
+    private executeOnNotification(notiChannel: any) {
+        if (this.NotificationCannel.has(notiChannel)) {
+            this.zone.run(() => {
+                this.NotificationCannel.get(notiChannel)();
+            });
+        }
     }
 }
