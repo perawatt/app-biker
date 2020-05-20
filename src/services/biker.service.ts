@@ -2,63 +2,76 @@ import { Injectable } from '@angular/core';
 import { IBikerService } from './ibiker';
 import { API_URL } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { NativeService } from 'src/providers/navigateService';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BikerService implements IBikerService {
 
-  getBikerInfo(): Promise<any> {
-    let apiUrl = this.baseUrl + "GetBikerInfo/" + this.bikerId;
+  async getBikerInfo(): Promise<any> {
+    var bikerId = await this.svc.GetBikerId();
+    let apiUrl = this.baseUrl + "GetBikerInfo/" + bikerId;
     return this.http.get(apiUrl).toPromise();
   }
 
-  getOrderInfo(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "GetUnfinishOrder/" + orderId + "/" + this.bikerId;
+  async getOrderInfo(): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "GetUnfinishedOrder/" + bikerId;
+  }
+
+  async getOrderHistories(orderId: string): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "GetFinishOrder/" + bikerId;
     return this.http.get(apiUrl).toPromise();
   }
 
-  getOrderHistories(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "GetFinishOrder/" + this.bikerId;
-    return this.http.get(apiUrl).toPromise();
+  async updateBikerStatusOn(): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "BikerWorkStatusTurnOn/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateBikerStatusOn(): Promise<any> {
-    let apiUrl = this.baseUrl + "BikerWorkStatusTurnOn/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
+  async updateBikerStatusOff(): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "BikerWorkStatusTurnOff/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateBikerStatusOff(): Promise<any> {
-    let apiUrl = this.baseUrl + "BikerWorkStatusTurnOff/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
+  async updateOrderStatusToReceived(orderId: string): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "BikerAcceptOrder/" + orderId + "/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateOrderStatusToReceived(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "BikerAcceptOrder/" + orderId + "/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
+  async updateOrderStatusToShipping(orderId: string): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToShipping/" + orderId + "/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateOrderStatusToShipping(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToShipping/" + orderId + "/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
+  async updateOrderStatusToArrived(orderId: string): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToDestination/" + orderId + "/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateOrderStatusToArrived(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToDestination/" + orderId + "/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
+  async updateOrderStatusToSendSuccess(orderId: string): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToDone/" + orderId + "/" + bikerId;
+    return this.http.put(apiUrl, {}).toPromise();
   }
 
-  updateOrderStatusToSendSuccess(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToDone/" + orderId + "/" + this.bikerId;
-    return this.http.put(apiUrl,{}).toPromise();
-  }
-  
-  createOrderCancelRequest(orderId: string, data: any): Promise<any> {
-    let apiUrl = this.baseUrl + "CancelOrderRequest/" + orderId + "/" + this.bikerId;
+  async createOrderCancelRequest(orderId: string, data: any): Promise<any> {
+    var bikerId = await this.GetBikerId();
+    let apiUrl = this.baseUrl + "CancelOrderRequest/" + orderId + "/" + bikerId;
     return this.http.post(apiUrl, data).toPromise();
   }
 
-  private bikerId: string = "1";
+  private async GetBikerId() {
+    return await this.svc.GetBikerId();
+  }
+
   private baseUrl: string = API_URL;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private svc: NativeService) { }
 }

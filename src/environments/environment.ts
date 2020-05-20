@@ -6,7 +6,9 @@ export const environment = {
   production: false
 };
 
-export const API_URL = 'http://delivery-3rd-api.azurewebsites.net/api/Biker/';
+export const API_URL = 'https://delivery-3rd-api.azurewebsites.net/api/Biker/';
+
+export const BikerId = "1";
 
 /*
  * For easier debugging in development mode, you can import the following file

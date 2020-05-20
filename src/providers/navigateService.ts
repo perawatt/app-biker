@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment, BikerId } from 'src/environments/environment';
 
 declare function TheSHybridCall(methodName: string, parameter: any): void;
 declare function TheSHybridFunc(methodName: string, parameter: string, callback: any): void;
@@ -28,6 +28,17 @@ export class NativeService {
         if (environment.production) {
             await this.retry(() => this.tryCallNativeFunc());
             this.callAppMethod("SetPageTitle", title);
+        }
+    }
+
+    public async GetBikerId() {
+        if (environment.production) {
+            await this.retry(() => this.tryCallNativeFunc());
+            return this.callNativeFunc("GetBikerId", "");
+        }
+        else
+        {
+            return BikerId;
         }
     }
 
