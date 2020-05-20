@@ -7,9 +7,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderArrivedPage implements OnInit {
 
-  constructor() { }
+  public page: string;
+  public isCancel: boolean;
+
+  constructor() {
+    this.page = "start";
+    this.isCancel = false;
+
+  }
 
   ngOnInit() {
+  }
+
+  onClick(footer: string) {
+    if (footer == "start") {
+      this.page = "center";
+      console.log('1');
+    }
+    else if (footer == "center") {
+      this.page = "end";
+      console.log('2');
+    }
+    else if (footer == "end") {
+      //open modal
+      console.log('3');
+    }
+  }
+
+  cancel() {
+    this.isCancel = true;
   }
 
 }
