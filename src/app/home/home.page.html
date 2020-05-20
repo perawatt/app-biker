@@ -6,15 +6,15 @@
   </ion-item>
 
   <ng-container *ngIf="IsBikerOn">
-    <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+    <ion-card *ngIf="order$ | async as data" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header>
         <ion-label>
-          <h1><b>คำสั่งซื้อ 5454</b></h1>
+          <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
           <ion-text color="warning">
-            <h3>B120 (2 รายการ)</h3>
+            <h3>B120 ({{ data.orderList != null ? data.orderList.lenght : 0 | number }} รายการ)</h3>
           </ion-text>
           <ion-text color="secondary">
-            <p>600 m.</p>
+            <p>-</p>
           </ion-text>
         </ion-label>
       </ion-card-header>
@@ -25,11 +25,9 @@
               src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
           </ion-avatar>
           <ion-label>
-            <h3><b>ร้าน Wib cafe</b></h3>
+            <h3><b>{{ data.restaurant?.name }}</b></h3>
             <ion-text color="secondary">
-              <p class="ion-text-wrap"> 147/2 นะจ๊ะ เเเเเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเ
-                เเเเเเเเเเเเเเเเเเเเเเ
-                เเเเเเเเเเเเเเเเ</p>
+              <p class="ion-text-wrap">{{ data.restaurant?.address }}</p>
             </ion-text>
           </ion-label>
 
@@ -40,11 +38,9 @@
               src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
           </ion-avatar>
           <ion-label>
-            <h3><b>เอร์นไง</b></h3>
+            <h3><b>{{ data.customer?.name }}</b></h3>
             <ion-text color="secondary">
-              <p class="ion-text-wrap"> 147/2 นะจ๊ะ เเเเเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเ
-                เเเเเเเเเเเเเเเเเเเเเเ
-                เเเเเเเเเเเเเเเเ</p>
+              <p class="ion-text-wrap">{{ data.customer?.address }}</p>
             </ion-text>
           </ion-label>
         </ion-item>

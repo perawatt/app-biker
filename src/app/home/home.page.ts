@@ -13,6 +13,9 @@ import { stringify } from 'querystring';
 })
 export class HomePage implements OnInit {
 
+  //MOCK ORDER ID
+  orderId = "637255589336844832";
+
   bikerInfo$ = Promise.resolve([]);
   order$ = Promise.resolve([]);
   IsBikerOn: boolean;
@@ -39,9 +42,9 @@ export class HomePage implements OnInit {
       console.log("get: " + this.IsBikerOn);
 
       if (this.IsBikerOn) {
-        this.order$ = this.bikerSvc.getOrderInfo();
+        this.order$ = this.bikerSvc.getNewOrderInfo(this.orderId);
         this.order$.then((it: any) => {
-          console.log(it);
+          console.log("order: " + JSON.stringify(it));
         })
       }
     })
