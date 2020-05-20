@@ -1,11 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      home
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content mode="ios">
   <ng-container>
     <ion-item lines="none" color="light">
@@ -59,9 +51,9 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer mode="ios">
   <ion-toolbar color="medium">
     <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
   </ion-toolbar>
-  <ion-button class="ion-no-margin" expand="full" color="warning"><b>รับออเดอร์</b></ion-button>
+  <ion-button class="ion-no-margin" expand="full" color="warning" (click)="receiveOrder()"><b>รับออเดอร์</b></ion-button>
 </ion-footer>

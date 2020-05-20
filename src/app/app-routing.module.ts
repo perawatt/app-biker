@@ -3,13 +3,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'history-main',
@@ -42,7 +42,8 @@ const routes: Routes = [
   {
     path: 'order-arrived',
     loadChildren: () => import('./order-arrived/order-arrived.module').then( m => m.OrderArrivedPageModule)
-  },  {
+  },
+  {
     path: 'order-cancel-pending',
     loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
   },
@@ -56,7 +57,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   exports: [RouterModule]
 })

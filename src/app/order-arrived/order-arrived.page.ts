@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NativeService } from '../../providers/navigateService';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-arrived',
