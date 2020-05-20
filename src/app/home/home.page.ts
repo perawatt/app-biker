@@ -14,7 +14,7 @@ import { stringify } from 'querystring';
 export class HomePage implements OnInit {
 
   bikerInfo$ = Promise.resolve([]);
-  data$ = Promise.resolve([]);
+  order$ = Promise.resolve([]);
   IsBikerOn: boolean;
   constructor(public router: Router, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) { }
 
@@ -29,33 +29,37 @@ export class HomePage implements OnInit {
   //   modal.present();
   // }
   ngOnInit() {
-    this.getBikerInfo();
+    this.bikerInfo$ = this.bikerSvc.getBikerInfo();
+    this.getBikerStatusAndOrder();
+  }
+
+  getBikerStatusAndOrder() {
+    this.bikerInfo$.then((it: any) => {
+      this.IsBikerOn = it?.onWorkStatus;
+      console.log("get: " + this.IsBikerOn);
+
+      if (this.IsBikerOn) {
+        this.order$ = this.bikerSvc.getOrderInfo();
+        this.order$.then((it: any) => {
+          console.log(it);
+        })
+      }
+    })
   }
 
   receiveOrder() {
     this.nativeSvc.NavigateToPage("order-received", { id: "id001" });
   }
 
-  getBikerInfo() {
-    this.bikerInfo$ = this.bikerSvc.getBikerInfo();
-    this.bikerInfo$.then((it: any) => {
-      this.IsBikerOn = it?.onWorkStatus;
-      console.log("get: " + this.IsBikerOn);
-    })
-  }
-
   toggleChange() {
     console.log("toggle: " + this.IsBikerOn);
-    let bikerStatus$ = Promise.resolve([]);
+
     if (this.IsBikerOn) {
-      bikerStatus$ = this.bikerSvc.updateBikerStatusOn();
+      this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
     }
     else {
-      bikerStatus$ = this.bikerSvc.updateBikerStatusOff();
+      this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
     };
-      bikerStatus$.then((it: any) => {
-      console.log("response:" + it.onWorkStatus);
-      this.IsBikerOn = it?.onWorkStatus;
-    })
+    this.getBikerStatusAndOrder();
   }
 }
