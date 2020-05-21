@@ -11,7 +11,7 @@ export class NativeService {
     private NotificationCannel = new Map();
 
     constructor(private router: Router, private zone: NgZone) {
-        (<any>window).onSendNotification = (notiChannel: any) => { this.executeOnNotification(notiChannel) };
+        (<any>window).onSendNotification = (notiChannel: any, params: any) => { this.executeOnNotification(notiChannel, params) };
     }
 
     public async NavigateToPage(pageName: string, params?: any) {
@@ -46,9 +46,14 @@ export class NativeService {
         }
     }
 
-    public RegisterNotificationHander(noriChannel: string, fn: () => void) {
-        this.NotificationCannel.set(noriChannel,fn);
+    public async RegisterNotificationHander(noriChannel: string, fn: (params) => void) {
+        this.NotificationCannel.set(noriChannel, fn);
     }
+
+    public async HasNotificationToTrigger(noriChannel: string) {
+        await this.retry(() => this.tryCallNativeFunc());
+        return this.callNativeFunc("HasNotificationToTrigger", noriChannel);
+    };
 
     private callNativeFunc(fName: string, fParam: string) {
         return new Promise((resolve, reject) => {
@@ -120,10 +125,10 @@ export class NativeService {
         });
     }
 
-    private executeOnNotification(notiChannel: any) {
+    private executeOnNotification(notiChannel: any, params: any) {
         if (this.NotificationCannel.has(notiChannel)) {
             this.zone.run(() => {
-                this.NotificationCannel.get(notiChannel)();
+                this.NotificationCannel.get(notiChannel)(params);
             });
         }
     }
