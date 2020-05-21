@@ -53,25 +53,25 @@ export class BikerService implements IBikerService {
 
   async updateOrderStatusToReceived(orderId: string): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "BikerAcceptOrder/" + orderId + "/" + bikerId;
+    let apiUrl = this.baseUrl + "BikerAcceptOrder/" + bikerId + "/" + orderId;
     return this.http.put(apiUrl, {}).toPromise();
   }
 
   async updateOrderStatusToShipping(orderId: string): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToShipping/" + orderId + "/" + bikerId;
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToShipping/" + bikerId + "/" + orderId;
     return this.http.put(apiUrl, {}).toPromise();
   }
 
   async updateOrderStatusToArrived(orderId: string): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToDestination/" + orderId + "/" + bikerId;
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToDestination/" + bikerId + "/" + orderId;
     return this.http.put(apiUrl, {}).toPromise();
   }
 
   async updateOrderStatusToSendSuccess(orderId: string): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "OrderStatusUpdateToDone/" + orderId + "/" + bikerId;
+    let apiUrl = this.baseUrl + "OrderStatusUpdateToDone/" + bikerId + "/" + orderId;
     return this.http.put(apiUrl, {}).toPromise();
   }
 

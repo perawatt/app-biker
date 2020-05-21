@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-send-success',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderSendSuccessPage implements OnInit {
 
-  constructor() { }
+  public doWork: boolean;
+
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
   }
 
+  working() {
+    this.doWork = true;
+    this.modalController.dismiss(this.doWork);
+  }
+
+  cancel() {
+    this.modalController.dismiss();
+  }
 }
