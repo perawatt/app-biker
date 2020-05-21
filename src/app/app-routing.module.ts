@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./history-detail/history-detail.module').then( m => m.HistoryDetailPageModule)
   },
   {
-    path: 'order-received',
-    loadChildren: () => import('./order-received/order-received.module').then( m => m.OrderReceivedPageModule)
-  },
-  {
     path: 'order-cancel',
     loadChildren: () => import('./order-cancel/order-cancel.module').then( m => m.OrderCancelPageModule)
   },
@@ -36,21 +32,14 @@ const routes: Routes = [
     loadChildren: () => import('./profile-main/profile-main.module').then( m => m.ProfileMainPageModule)
   },
   {
-    path: 'order-shipping',
-    loadChildren: () => import('./order-shipping/order-shipping.module').then( m => m.OrderShippingPageModule)
-  },
-  {
-    path: 'order-arrived',
-    loadChildren: () => import('./order-arrived/order-arrived.module').then( m => m.OrderArrivedPageModule)
-  },
-  {
     path: 'order-cancel-pending',
     loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
   },
   {
     path: 'order-send-success',
     loadChildren: () => import('./order-send-success/order-send-success.module').then( m => m.OrderSendSuccessPageModule)
-  },  {
+  },
+  {
     path: 'order-stage',
     loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
   },
