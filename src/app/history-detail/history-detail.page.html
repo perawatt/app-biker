@@ -1,17 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title color="warning">รายละเอียดงาน</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content mode="ios">
   <ng-container *ngIf="orderInfo$| async as data">
     <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
         <ion-label>
-          <h1><b>{{data._id}}คำสั่งซื้อ 5454</b></h1>
+          <h1><b>คำสั่งซื้อ {{data._id}}</b></h1>
           <ion-text color="secondary">
-            <p>{{data.acceptRequestDate |date}} (11.00)</p>
+            <p>{{data.acceptRequestDate | date:'M/d/yy, (H:mm)'}} </p>
           </ion-text>
           <ion-text color="warning">
             <h3> ฿{{data.deliveryPrice}} ({{data.orderList?.count()}} รายการ)</h3>
@@ -48,13 +42,14 @@
           </ion-avatar>
           <ion-label>
             <h3>
-              <ion-icon name="navigate-circle-outline"></ion-icon>{{data.distance}}
+              <ion-icon name="navigate-circle-outline"></ion-icon> {{ data.distance? null:0}}
             </h3>
             <h3>
-              <ion-icon name="time-outline"></ion-icon>{{data.predictDeliveryTime |date}} นาที
+              <ion-icon name="time-outline"></ion-icon>
+              {{data.predictDeliveryTime?.hours }}:{{data.predictDeliveryTime?.minutes }} นาที
             </h3>
             <ion-text>
-              <h3> ค่าคอมมิชชั่น :{{data.commissionPrice}} บาท </h3>
+              <h3> ค่าคอมมิชชั่น :{{data.commissionPrice }} บาท </h3>
               <h3> คะแนน : 4.5</h3>
             </ion-text>
           </ion-label>

@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-main.page.scss'],
 })
 export class HistoryMainPage implements OnInit {
+
+  date = new Date();
   orderHistory$ = Promise.resolve([]);
   constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ngOnInit() {
     this.svc.SetPageTitle("งานย้อนหลัง");
-    this.orderHistory$ = this.bikerSvc.getOrderInfo();
+    this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
       console.log("get: " + JSON.stringify(it));
     })
