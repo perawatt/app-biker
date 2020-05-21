@@ -23,6 +23,7 @@ export class BikerService implements IBikerService {
   async getOrderInfo(): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
     let apiUrl = this.baseUrl + "GetUnfinishedOrder/" + bikerId;
+    return this.http.get(apiUrl).toPromise();
   }
 
   async getOrderHistories(orderId: string): Promise<any> {

@@ -31,12 +31,15 @@
     </ion-item>
   </ion-card>
 
-  <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+  <ion-card *ngFor="let data of orderHistory$ | async" color="light" (click)="detailHistory(data._id)"
+    class="ion-no-margin ion-margin-horizontal ion-margin-top">
+  <!-- <ion-card *ngIf="orderHistory$ | async as data" color="light" (click)="detailHistory(data._id)"
+    class="ion-no-margin ion-margin-horizontal ion-margin-top"> -->
     <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
       <ion-label>
-        <h1><b>คำสั่งซื้อ 5454</b></h1>
+        <h1><b>คำสั่งซื้อ {{data._id}} </b></h1>
         <ion-text color="secondary">
-          <h3>5/12/2562 (11.00)</h3>
+          <h3>{{data.acceptRequestDate |date}} (11.00)</h3>
         </ion-text>
       </ion-label>
     </ion-card-header>
@@ -45,31 +48,9 @@
         <img src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
       </ion-avatar>
       <ion-label>
-        <h3><b>เอิร์นไง</b></h3>
+        <h3><b>{{data.biker?.name}}</b></h3>
         <ion-text color="secondary">
-          <p class="ion-text-wrap">147/2 พิมานคอนโดพาร์ค, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
-        </ion-text>
-      </ion-label>
-    </ion-item>
-  </ion-card>
-
-  <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
-    <ion-card-header class="ion-no-padding ion-padding-horizontal  ion-margin-top">
-      <ion-label>
-        <h1><b>คำสั่งซื้อ 5454</b></h1>
-        <ion-text color="secondary">
-          <h3>5/12/2562 (10.00)</h3>
-        </ion-text>
-      </ion-label>
-    </ion-card-header>
-    <ion-item lines="none" color="light">
-      <ion-avatar slot="start">
-        <img src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
-      </ion-avatar>
-      <ion-label>
-        <h3><b>จุ๊ๆไง</b></h3>
-        <ion-text color="secondary">
-          <p class="ion-text-wrap">147/2 พิมานคอนโดพาร์ค, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+          <p class="ion-text-wrap">{{data.customer?.address}}</p>
         </ion-text>
       </ion-label>
     </ion-item>
