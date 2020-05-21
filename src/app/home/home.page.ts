@@ -51,7 +51,7 @@ export class HomePage implements OnInit {
   }
 
   receiveOrder() {
-    this.nativeSvc.NavigateToPage("order-received", { id: "id001" });
+    this.nativeSvc.NavigateToPage("order-stage", { id: "id001" });
   }
 
   toggleChange() {

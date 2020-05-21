@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NativeService } from '../../providers/navigateService';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-order-arrived',
-  templateUrl: './order-arrived.page.html',
-  styleUrls: ['./order-arrived.page.scss'],
+  selector: 'app-order-stage',
+  templateUrl: './order-stage.page.html',
+  styleUrls: ['./order-stage.page.scss'],
 })
-export class OrderArrivedPage implements OnInit {
+export class OrderStagePage implements OnInit {
 
   public page: string;
   public isCancel: boolean;
