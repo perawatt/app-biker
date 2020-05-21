@@ -1,3 +1,5 @@
+import { NativeService } from 'src/providers/navigateService';
+import { BikerService } from './../../services/biker.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-main.page.scss'],
 })
 export class HistoryMainPage implements OnInit {
-
-  constructor() { }
+  orderHistory$ = Promise.resolve([]);
+  constructor(private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ngOnInit() {
+    this.orderHistory$ = this.bikerSvc.getOrderInfo();
+    this.orderHistory$.then((it: any) => {
+      console.log("get: " + JSON.stringify(it));
+
+    })
+  }
+
+  detailHistory(_id: string) {
+    console.log(_id);
+    
+    this.nativeSvc.NavigateToPage("history-detail", { id: _id });
   }
 
 }
