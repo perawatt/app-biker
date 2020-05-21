@@ -5,6 +5,7 @@ import { OrderSendSuccessPage } from '../order-send-success/order-send-success.p
 import { NativeService } from '../../providers/navigateService';
 import { BikerService } from '../../services/biker.service';
 import { stringify } from 'querystring';
+import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-approve.page';
 
 @Component({
   selector: 'app-home',
@@ -21,16 +22,18 @@ export class HomePage implements OnInit {
   IsBikerOn: boolean;
   constructor(public router: Router, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) { }
 
-  // async zzz() {
-  //   const modal = await this.modalController.create({
-  //     component: OrderSendSuccessPage,
-  //     cssClass: 'dialog-modal-4-order-success',
-  //     backdropDismiss: false
-  //   });
-  //   modal.onDidDismiss().then(data => {
-  //   })
-  //   modal.present();
-  // }
+  async zzz() {
+    const modal = await this.modalController.create({
+      component: OrderSendSuccessPage,
+      // component: OrderCancelApprovePage,
+      cssClass: 'dialog-modal-4-order-success',
+      backdropDismiss: false
+    });
+    modal.onDidDismiss().then(data => {
+    })
+    modal.present();
+  }
+
   ngOnInit() {
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.getBikerStatusAndOrder();

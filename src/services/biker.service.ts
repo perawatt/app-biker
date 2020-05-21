@@ -77,7 +77,7 @@ export class BikerService implements IBikerService {
 
   async createOrderCancelRequest(orderId: string, data: any): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "CancelOrderRequest/" + orderId + "/" + bikerId;
+    let apiUrl = this.baseUrl + "CancelOrderRequest/" + bikerId + "/" + orderId;
     return this.http.post(apiUrl, data).toPromise();
   }
 
