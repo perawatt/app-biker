@@ -9,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryMainPage implements OnInit {
   orderHistory$ = Promise.resolve([]);
-  constructor(private bikerSvc: BikerService, private nativeSvc: NativeService) { }
+  constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ngOnInit() {
+    this.svc.SetPageTitle("งานย้อนหลัง");
     this.orderHistory$ = this.bikerSvc.getOrderInfo();
     this.orderHistory$.then((it: any) => {
       console.log("get: " + JSON.stringify(it));
@@ -21,7 +22,7 @@ export class HistoryMainPage implements OnInit {
 
   detailHistory(_id: string) {
     console.log(_id);
-    
+
     this.nativeSvc.NavigateToPage("history-detail", { id: _id });
   }
 
