@@ -1,51 +1,53 @@
 <ion-content mode="ios">
-  <ng-container>
-    <ion-item lines="none" color="light">
-      <ion-label><b>เปิดรับงาน</b></ion-label>
-      <ion-toggle slot="end" name="blackberry" color="warning" [(ngModel)]="IsBikerOn" (ionChange)="toggleChange()"></ion-toggle>
-    </ion-item>
+  <ion-item lines="none" color="light">
+    <ion-label><b>เปิดรับงาน</b></ion-label>
+    <ion-toggle slot="end" name="blackberry" color="warning" [(ngModel)]="IsBikerOn" (ionChange)="toggleChange()">
+    </ion-toggle>
+  </ion-item>
+
+  <ng-container *ngIf="IsBikerOn">
+    <ion-card *ngIf="order$ | async as data" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+      <ion-card-header>
+        <ion-label>
+          <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
+          <ion-text color="warning">
+            <h3>B120 ({{ data.orderList != null ? data.orderList.lenght : 0 | number }} รายการ)</h3>
+          </ion-text>
+          <ion-text color="secondary">
+            <p>-</p>
+          </ion-text>
+        </ion-label>
+      </ion-card-header>
+      <ion-list>
+        <ion-item color="light">
+          <ion-avatar slot="start">
+            <img
+              src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
+          </ion-avatar>
+          <ion-label>
+            <h3><b>{{ data.restaurant?.name }}</b></h3>
+            <ion-text color="secondary">
+              <p class="ion-text-wrap">{{ data.restaurant?.address }}</p>
+            </ion-text>
+          </ion-label>
+
+        </ion-item>
+        <ion-item lines="none" color="light">
+          <ion-avatar slot="start">
+            <img
+              src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
+          </ion-avatar>
+          <ion-label>
+            <h3><b>{{ data.customer?.name }}</b></h3>
+            <ion-text color="secondary">
+              <p class="ion-text-wrap">{{ data.customer?.address }}</p>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
   </ng-container>
 
-  <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
-    <ion-card-header>
-      <ion-label>
-        <h1><b>คำสั่งซื้อ 5454</b></h1>
-        <ion-text color="warning">
-          <h3>B120 (2 รายการ)</h3>
-        </ion-text>
-        <ion-text color="secondary">
-          <p>600 m.</p>
-        </ion-text>
-      </ion-label>
-    </ion-card-header>
-    <ion-list>
-      <ion-item color="light">
-        <ion-avatar slot="start">
-          <img src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
-        </ion-avatar>
-        <ion-label>
-          <h3><b>ร้าน Wib cafe</b></h3>
-          <ion-text color="secondary">
-            <p class="ion-text-wrap"> 147/2 นะจ๊ะ เเเเเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเเ
-              เเเเเเเเเเเเเเเเ</p>
-          </ion-text>
-        </ion-label>
-
-      </ion-item>
-      <ion-item lines="none" color="light">
-        <ion-avatar slot="start">
-          <img src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
-        </ion-avatar>
-        <ion-label>
-          <h3><b>เอร์นไง</b></h3>
-          <ion-text color="secondary">
-            <p class="ion-text-wrap"> 147/2 นะจ๊ะ เเเเเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเ เเเเเเเเเเเเเเเเเเเเเเ
-              เเเเเเเเเเเเเเเเ</p>
-          </ion-text>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-card>
 
   <!-- <ion-button (click)="zzz()"><b>modalorder</b></ion-button> -->
 
@@ -55,5 +57,6 @@
   <ion-toolbar color="medium">
     <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
   </ion-toolbar>
-  <ion-button class="ion-no-margin" expand="full" color="warning" (click)="receiveOrder()"><b>รับออเดอร์</b></ion-button>
+  <ion-button class="ion-no-margin" expand="full" color="warning" (click)="receiveOrder()"><b>รับออเดอร์</b>
+  </ion-button>
 </ion-footer>

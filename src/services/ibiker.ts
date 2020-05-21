@@ -2,7 +2,9 @@ export interface IBikerService {
 
     getBikerInfo(): Promise<any>;
 
-    getOrderInfo(orderId: string): Promise<any>;
+    getNewOrderInfo(orderId: string): Promise<any>;
+
+    getOrderInfo(): Promise<any>;
 
     getOrderHistories(orderId: string): Promise<any>;
 
