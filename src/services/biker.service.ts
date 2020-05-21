@@ -36,8 +36,6 @@ export class BikerService implements IBikerService {
     var bikerId = await this.svc.GetBikerId();
     let apiUrl = this.baseUrl + "GetFinishOrder/" + bikerId;
     if (date) apiUrl += "?date=" + date.toISOString();
-    console.log(apiUrl);
-    
     return this.http.get(apiUrl).toPromise();
   }
 
