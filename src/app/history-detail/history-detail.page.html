@@ -6,7 +6,6 @@
 
 <ion-content mode="ios">
   <ng-container *ngIf="orderInfo$| async as data">
-
     <ion-card color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
         <ion-label>
@@ -16,7 +15,6 @@
           </ion-text>
           <ion-text color="warning">
             <h3> ฿{{data.deliveryPrice}} ({{data.orderList?.count()}} รายการ)</h3>
-            <!-- <h3>{{data.orderList?.sum(it => it.price)}} ฿120 (2 รายการ)</h3> -->
           </ion-text>
         </ion-label>
       </ion-card-header>
@@ -33,7 +31,6 @@
             </ion-text>
           </ion-label>
         </ion-item>
-
         <ion-item color="light">
           <ion-avatar slot="start">
             <img
