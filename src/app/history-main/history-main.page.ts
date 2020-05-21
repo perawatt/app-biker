@@ -12,8 +12,9 @@ export class HistoryMainPage implements OnInit {
   constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ngOnInit() {
+    let date = new Date("2020-05-19");
     this.svc.SetPageTitle("งานย้อนหลัง");
-    this.orderHistory$ = this.bikerSvc.getOrderInfo();
+    this.orderHistory$ = this.bikerSvc.getOrderHistories(date);
     this.orderHistory$.then((it: any) => {
       console.log("get: " + JSON.stringify(it));
     })

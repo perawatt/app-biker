@@ -4,9 +4,11 @@ export interface IBikerService {
 
     getNewOrderInfo(orderId: string): Promise<any>;
 
-    getOrderInfo(): Promise<any>;
+    getOrderInfo(orderId: string): Promise<any>;
 
-    getOrderHistories(orderId: string): Promise<any>;
+    getOrderHistoryInfo(orderId: string): Promise<any>;
+
+    getOrderHistories(date: Date): Promise<any>;
 
     updateBikerStatusOn(): Promise<any>;
 

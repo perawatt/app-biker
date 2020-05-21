@@ -20,15 +20,22 @@ export class BikerService implements IBikerService {
     return this.http.get(apiUrl).toPromise();
   }
 
-  async getOrderInfo(): Promise<any> {
+  async getOrderInfo(orderId: string): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
-    let apiUrl = this.baseUrl + "GetUnfinishedOrder/" + bikerId;
+    let apiUrl = this.baseUrl + "GetUnfinishedOrder/" + bikerId + "/" + orderId;
     return this.http.get(apiUrl).toPromise();
   }
 
-  async getOrderHistories(orderId: string): Promise<any> {
+  async getOrderHistoryInfo(orderId: string): Promise<any> {
+    var bikerId = await this.svc.GetBikerId();
+    let apiUrl = this.baseUrl + "GetFinishOrder/" + bikerId + "/" + orderId;
+    return this.http.get(apiUrl).toPromise();
+  }
+
+  async getOrderHistories(date: Date): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
     let apiUrl = this.baseUrl + "GetFinishOrder/" + bikerId;
+    if (date) apiUrl += "?" + date;
     return this.http.get(apiUrl).toPromise();
   }
 
