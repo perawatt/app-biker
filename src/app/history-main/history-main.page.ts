@@ -8,15 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-main.page.scss'],
 })
 export class HistoryMainPage implements OnInit {
+
+  date = new Date("2020-05-19");
   orderHistory$ = Promise.resolve([]);
   constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ngOnInit() {
-    let date = new Date("2020-05-19");
+
     this.svc.SetPageTitle("งานย้อนหลัง");
-    this.orderHistory$ = this.bikerSvc.getOrderHistories(date);
+    this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
       console.log("get: " + JSON.stringify(it));
+      console.log("this date:" + this.date);
+
     })
   }
 

@@ -35,7 +35,9 @@ export class BikerService implements IBikerService {
   async getOrderHistories(date: Date): Promise<any> {
     var bikerId = await this.svc.GetBikerId();
     let apiUrl = this.baseUrl + "GetFinishOrder/" + bikerId;
-    if (date) apiUrl += "?" + date;
+    if (date) apiUrl += "?date=" + date.toISOString();
+    console.log(apiUrl);
+    
     return this.http.get(apiUrl).toPromise();
   }
 
