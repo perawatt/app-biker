@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BikerService } from 'src/services/biker.service';
 import { ModalController } from '@ionic/angular';
 import { OrderSendSuccessPage } from '../order-send-success/order-send-success.page';
-import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-approve.page';
+import { OrderCancelPage } from '../order-cancel/order-cancel.page';
 
 @Component({
   selector: 'app-order-stage',
@@ -22,13 +22,15 @@ export class OrderStagePage implements OnInit {
 
   constructor(private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
     // this.route.params.subscribe(param => { this.header = param["id"] });
+    this.route.params.subscribe(param => { this.orderId = param["orderId"] });
+    console.log('con', this.orderId);
     this.page = "received";
     this.isCancel = false;
   }
 
   ngOnInit() {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
-    // console.log(this.header);
+    console.log('init', this.orderId);
     this.getOrderInfo();
   }
 
@@ -69,16 +71,9 @@ export class OrderStagePage implements OnInit {
     }
   }
 
-  async openModalCancel() {
-    this.isCancel = true;
-    const modal = await this.modalController.create({
-      component: OrderCancelApprovePage,
-      cssClass: 'dialog-modal-4-order-success',
-      backdropDismiss: false
-    });
-    modal.onDidDismiss().then(data => {
-    })
-    modal.present();
+  requestCancel() {
+    this.nativeSvc.NavigateToPage("order-cancel", { orderId: this.orderId });
+
   }
 
 }

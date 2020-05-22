@@ -15,7 +15,7 @@ import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-app
 export class HomePage implements OnInit {
 
   //MOCK ORDER ID
-  public orderId = "637257278509746367";
+  public orderId = "637257462349664954";
   public testx: string;
   public bikerInfo$ = Promise.resolve([]);
   public order$ = Promise.resolve([]);
@@ -24,21 +24,9 @@ export class HomePage implements OnInit {
   constructor(public router: Router, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
-  // async zzz() {
-  //   const modal = await this.modalController.create({
-  //     component: OrderSendSuccessPage,
-  // component: OrderCancelApprovePage,
-  //     cssClass: 'dialog-modal-4-order-success',
-  //     backdropDismiss: false
-  //   });
-  //   modal.onDidDismiss().then(data => {
-  //   })
-  //   modal.present();
-  // }
-
   ngOnInit() {
     console.log(this.IsBikerOn);
-    
+
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.getBikerStatusAndOrder();
 
@@ -47,7 +35,7 @@ export class HomePage implements OnInit {
     this.openModal(this.testx);
     console.log(this.order$);
 
-    //todo ได้รับ feed จาก admin
+    //todo ได้รับ feed
     setTimeout(() => {
       if (this.IsBikerOn) {
         if (this.orderId) {
@@ -71,6 +59,7 @@ export class HomePage implements OnInit {
 
   toggleChange() {
     console.log("toggle: " + this.IsBikerOn);
+    this.IsBikerOn = !this.IsBikerOn
     if (this.IsBikerOn) {
       this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
     }
@@ -94,7 +83,9 @@ export class HomePage implements OnInit {
         this.IsBikerOn = it?.data
         console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
-          this.toggleChange()
+          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+
+          // this.toggleChange()
         }
         else {
           this.getBikerStatusAndOrder();

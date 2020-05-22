@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 export class HistoryDetailPage implements OnInit {
   _id: string;
   orderInfo$ = Promise.resolve([]);
-  orderId = "637254783895100250";
   constructor(private svc: NativeService, private route: ActivatedRoute, private bikerSvc: BikerService) {
     this.route.params.subscribe(param => { this._id = param["id"] });
   }
@@ -19,7 +18,7 @@ export class HistoryDetailPage implements OnInit {
   ngOnInit() {
     console.log(this._id);
     this.svc.SetPageTitle("รายละเอียดงาน");
-    this.orderInfo$ = this.bikerSvc.getOrderHistoryInfo(this.orderId);
+    this.orderInfo$ = this.bikerSvc.getOrderHistoryInfo(this._id);
   }
 
 }

@@ -17,6 +17,8 @@ export class OrderCancelPage implements OnInit {
 
   constructor(private svc: NativeService, private fb: FormBuilder, private bikerSvc: BikerService, private nativeSvc: NativeService, public route: ActivatedRoute) {
     this.route.params.subscribe(param => { this.orderId = param["orderId"] });
+    console.log('con',this.orderId);
+    
     this.fg = this.fb.group({
       'heading': null,
       'info': null,
@@ -25,15 +27,17 @@ export class OrderCancelPage implements OnInit {
 
   ngOnInit() {
     this.svc.SetPageTitle("ยกเลิกคำสั่งซื้อ");
+    console.log('nit',this.orderId);
+
   }
 
   handleSubmit() {
+    console.log(this.orderId);
     console.log('heading', this.fg.get('heading').value);
     console.log('heading2', this.fg.get('info').value);
     if (this.fg.get('heading').value != null && this.fg.get('info').value != null)
       this.bikerSvc.createOrderCancelRequest(this.orderId, this.fg.value).then((it: any) => {
         this.nativeSvc.NavigateToPage("order-stage", { orderId: this.orderId });
-        console.log("order: " + JSON.stringify(it));
       })
   }
 

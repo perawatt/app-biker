@@ -40,15 +40,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="openModalCancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
@@ -161,15 +161,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="openModalCancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
@@ -254,15 +254,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="openModalCancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
