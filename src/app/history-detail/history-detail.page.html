@@ -57,9 +57,8 @@
       </ion-list>
     </ion-card>
   </ng-container>
-
-  <ng-container *ngFor="let data of orderInfo$?.orderList">
-    <ion-card class="ion-padding-vertical ion-no-margin ion-margin-horizontal ion-margin-top" color="light">
+  <ng-container *ngIf="(orderInfo$ | async)?.orderList as item ">
+    <ion-card *ngFor="let data of item" class="ion-padding-vertical ion-no-margin ion-margin-horizontal ion-margin-top" color="light">
       <ion-list>
         <ion-item color="light" lines="none">
           <ion-avatar slot="start">

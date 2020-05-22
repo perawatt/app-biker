@@ -40,15 +40,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
@@ -63,9 +63,9 @@
               <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
             </ion-avatar>
             <ion-label>
-              <h3><b> {{ data.restaurant.name}} </b></h3>
+              <h3><b> {{ data.restaurant?.name}} </b></h3>
               <ion-text color="secondary">
-                <p class="ion-text-wrap"> {{ data.restaurant.address}} </p>
+                <p class="ion-text-wrap"> {{ data.restaurant?.address}} </p>
               </ion-text>
             </ion-label>
           </ion-item>
@@ -161,15 +161,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
@@ -184,9 +184,9 @@
               <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
             </ion-avatar>
             <ion-label>
-              <h3><b>เอิร์นไง</b></h3>
+              <h3><b>{{ data.customer?.name}} เอิร์นไง </b></h3>
               <ion-text color="secondary">
-                <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+                <p class="ion-text-wrap"> {{ data.customer?.address}} หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
               </ion-text>
             </ion-label>
           </ion-item>
@@ -254,15 +254,15 @@
             <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
 
-          <ion-note *ngIf="isCancel == false" slot="end">
-            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+          <ion-note *ngIf="data.cancelRequestId == null" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="requestCancel()">
               <ion-text color="dark">
                 ยกเลิก
               </ion-text>
             </ion-button>
           </ion-note>
 
-          <ion-note *ngIf="isCancel == true" slot="end">
+          <ion-note *ngIf="data.cancelRequestId != null" slot="end">
             <ion-label>
               <ion-text color="danger">
                 <h3><b>รอการอนุมัติยกเลิก !</b></h3>
@@ -277,9 +277,9 @@
               <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
             </ion-avatar>
             <ion-label>
-              <h3><b>เอิร์นไง</b></h3>
+              <h3><b>{{ data.customer?.name}} เอิร์นไง</b></h3>
               <ion-text color="secondary">
-                <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+                <p class="ion-text-wrap">{{ data.customer?.address}} หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
               </ion-text>
             </ion-label>
           </ion-item>
@@ -357,15 +357,15 @@
 
 <ion-footer>
   <ion-button *ngIf="(page == 'received') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
-    (click)="onClick('received')"><b>เตรียมจัดส่ง</b></ion-button>
+    (click)="changePage('received')"><b>เตรียมจัดส่ง</b></ion-button>
   <ion-button *ngIf="(page == 'received') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
     disabled><b>เตรียมจัดส่ง</b></ion-button>
   <ion-button *ngIf="(page == 'shipping') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
-    (click)="onClick('shipping')"><b>ถึงจุดส่งของแล้ว</b></ion-button>
+    (click)="changePage('shipping')"><b>ถึงจุดส่งของแล้ว</b></ion-button>
   <ion-button *ngIf="(page == 'shipping') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
     disabled><b>ถึงจุดส่งของแล้ว</b></ion-button>
   <ion-button *ngIf="(page == 'arrived') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
-    (click)="onClick('arrived')"><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
+    (click)="changePage('arrived')"><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
   <ion-button *ngIf="(page == 'arrived') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
     disabled><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
 </ion-footer>

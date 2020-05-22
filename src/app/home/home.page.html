@@ -1,12 +1,12 @@
 <ion-content mode="ios">
   <ion-item lines="none" color="light">
     <ion-label><b>เปิดรับงาน</b></ion-label>
-    <ion-toggle slot="end" name="blackberry" color="warning" [(ngModel)]="IsBikerOn" (ionChange)="toggleChange()">
+    <ion-toggle slot="end" name="blackberry" color="warning" [(ngModel)]="IsBikerOn" (click)="toggleChange()">
     </ion-toggle>
   </ion-item>
 
-  <ng-container *ngIf="IsBikerOn">
-    <ion-card *ngIf="order$ | async as data" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+  <ng-container *ngIf="order$ | async as data">
+    <ion-card *ngIf="data._id" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header>
         <ion-label>
           <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
@@ -57,6 +57,6 @@
   <ion-toolbar color="medium">
     <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
   </ion-toolbar>
-  <ion-button class="ion-no-margin" expand="full" color="warning" (click)="receiveOrder()"><b>รับออเดอร์</b>
+  <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!IsBikerOn" (click)="receiveOrder()"><b>รับออเดอร์</b>
   </ion-button>
 </ion-footer>
