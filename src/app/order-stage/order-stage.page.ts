@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NativeService } from 'src/providers/navigateService';
+import { NativeService } from 'src/providers/NativeService';
 import { ActivatedRoute } from '@angular/router';
 import { BikerService } from 'src/services/biker.service';
 import { ModalController } from '@ionic/angular';

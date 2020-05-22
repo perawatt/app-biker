@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IBikerService } from './ibiker';
 import { API_URL } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { NativeService } from 'src/providers/navigateService';
+import { NativeService } from 'src/providers/NativeService';
 
 @Injectable({
   providedIn: 'root'

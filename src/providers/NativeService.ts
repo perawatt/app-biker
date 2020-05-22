@@ -49,31 +49,41 @@ export class NativeService {
     }
 
     public async RegisterNotificationHander(notiChannel: string, fn: (params) => void) {
-        if(this.NotificationCannel.has(notiChannel))
-        {
+        if (this.NotificationCannel.has(notiChannel)) {
             this.NotificationCannel.delete(notiChannel);
         }
         this.NotificationCannel.set(notiChannel, fn);
     }
 
     public async ExecuteNotiIfExist(notiChannel: string) {
-        if (environment.production) 
-        {
+        if (environment.production) {
             await this.retry(() => this.tryCallNativeFunc());
             this.callAppMethod("ExecuteNotiIfExist", notiChannel);
+        } else {
+            console.log("ExecuteNotiIfExist with key: " + notiChannel);
         }
     };
 
     public async RemoveNotificationChannel(notiChannel: string) {
-        if (environment.production) 
-        {
+        if (environment.production) {
             await this.retry(() => this.tryCallNativeFunc());
             this.callAppMethod("RemoveNotificationChannel", notiChannel);
+        } else {
+            console.log("RemoveNotificationChannel with key: " + notiChannel);
         }
     }
 
     public async RegisterRefreshOnGoBack(fn: () => void) {
         this.callBackFunc = fn;
+    }
+
+    public async OpenMapDirection(lat: number, lon: number) {
+        if (environment.production) {
+            await this.retry(() => this.tryCallNativeFunc());
+            this.callAppMethod("OpenMapDirection", JSON.stringify({ latitude: lat, longitude: lon }));
+        } else {
+            window.open("https://www.google.com/maps?saddr=My+Location&daddr=" + lat + "," + lon + "", "_blank");
+        }
     }
 
     private callNativeFunc(fName: string, fParam: string) {

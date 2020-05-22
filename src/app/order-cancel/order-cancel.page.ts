@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BikerService } from 'src/services/biker.service';
-import { NativeService } from 'src/providers/navigateService';
+import { NativeService } from 'src/providers/NativeService';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OrderSendSuccessPage } from '../order-send-success/order-send-success.page';
-import { NativeService } from '../../providers/navigateService';
+import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
 import { stringify } from 'querystring';
 import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-approve.page';

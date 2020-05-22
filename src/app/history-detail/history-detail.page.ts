@@ -1,6 +1,6 @@
 import { BikerService } from './../../services/biker.service';
 import { Component, OnInit } from '@angular/core';
-import { NativeService } from 'src/providers/navigateService';
+import { NativeService } from 'src/providers/NativeService';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BikerService } from 'src/services/biker.service';
-import { NativeService } from 'src/providers/navigateService';
+import { NativeService } from 'src/providers/NativeService';
 
 @Component({
   selector: 'app-profile-main',
