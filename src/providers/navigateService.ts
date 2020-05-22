@@ -9,9 +9,11 @@ declare function TheSHybridFunc(methodName: string, parameter: string, callback:
 export class NativeService {
 
     private NotificationCannel = new Map();
+    private callBackFunc: () => void;
 
     constructor(private router: Router, private zone: NgZone) {
         (<any>window).onSendNotification = (notiChannel: any, params: any) => { this.executeOnNotification(notiChannel, params) };
+        (<any>window).refreshOnGoBack = () => { this.executeCallBackFunc() }
     }
 
     public async NavigateToPage(pageName: string, params?: any) {
@@ -46,14 +48,33 @@ export class NativeService {
         }
     }
 
-    public async RegisterNotificationHander(noriChannel: string, fn: (params) => void) {
-        this.NotificationCannel.set(noriChannel, fn);
+    public async RegisterNotificationHander(notiChannel: string, fn: (params) => void) {
+        if(this.NotificationCannel.has(notiChannel))
+        {
+            this.NotificationCannel.delete(notiChannel);
+        }
+        this.NotificationCannel.set(notiChannel, fn);
     }
 
-    public async HasNotificationToTrigger(noriChannel: string) {
-        await this.retry(() => this.tryCallNativeFunc());
-        return this.callNativeFunc("HasNotificationToTrigger", noriChannel);
+    public async ExecuteNotiIfExist(notiChannel: string) {
+        if (environment.production) 
+        {
+            await this.retry(() => this.tryCallNativeFunc());
+            this.callAppMethod("ExecuteNotiIfExist", notiChannel);
+        }
     };
+
+    public async RemoveNotificationChannel(notiChannel: string) {
+        if (environment.production) 
+        {
+            await this.retry(() => this.tryCallNativeFunc());
+            this.callAppMethod("RemoveNotificationChannel", notiChannel);
+        }
+    }
+
+    public async RegisterRefreshOnGoBack(fn: () => void) {
+        this.callBackFunc = fn;
+    }
 
     private callNativeFunc(fName: string, fParam: string) {
         return new Promise((resolve, reject) => {
@@ -129,6 +150,14 @@ export class NativeService {
         if (this.NotificationCannel.has(notiChannel)) {
             this.zone.run(() => {
                 this.NotificationCannel.get(notiChannel)(params);
+            });
+        }
+    }
+
+    private executeCallBackFunc() {
+        if (this.callBackFunc) {
+            this.zone.run(() => {
+                this.callBackFunc();
             });
         }
     }
