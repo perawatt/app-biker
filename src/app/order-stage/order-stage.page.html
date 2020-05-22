@@ -1,477 +1,311 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>คำสั่งซื้อ</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content mode="ios" class="ion-text-center">
-  <ng-container *ngIf="page == 'start'">
-    <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-      <ion-text color="light">
-        00.01 นาที
-      </ion-text>
-    </ion-button>
-  
-    <div id="stepProgressBar">
-      <div class="step">
-        <div class="bullet1 start">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet11 start">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet1">.</div>
-      </div>
-    </div>
+  <ng-container *ngIf="orderInfo$ | async as data">
+    <ion-list *ngIf="page == 'received'">
+      <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
+        <ion-text color="light">
+          00.01 นาที
+        </ion-text>
+      </ion-button>
 
-    <ion-item color="medium" lines="none">
-      <ion-label color="secondary" class="ion-text-left">
-        <h2>รับออเดอร์</h2>
-        <h3>10.00 น.</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-center">
-        <h2>กำลังจัดส่ง</h2>
-        <h3>&nbsp;</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-end">
-        <h2>ถึงแล้ว</h2>
-        <h3>&nbsp;</h3>
-      </ion-label>
-    </ion-item>
-  
-    <ion-card color="light" class="ion-margin-top ion-padding-vertical">
-      <ion-item color="light" lines="none">
-        <ion-label color="dark" slot="start">
-          <h1><b>คำสั่งซื้อ 5632</b></h1>
+      <div id="stepProgressBar">
+        <div class="step">
+          <div class="bullet1 start">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet11 start">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet1">.</div>
+        </div>
+      </div>
+
+      <ion-item color="medium" lines="none">
+        <ion-label color="secondary" class="ion-text-left">
+          <h2>รับออเดอร์</h2>
+          <h3> {{ data.acceptRequestDate }} </h3>
         </ion-label>
-        
-        <ion-note *ngIf="isCancel == false" slot="end">
-          <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
-            <ion-text color="dark">
-              ยกเลิก
-            </ion-text>
-          </ion-button>
-        </ion-note>
-
-        <ion-note *ngIf="isCancel == true" slot="end">
-          <ion-label>
-            <ion-text color="danger">
-            <h3><b>รอการอนุมัติยกเลิก !</b></h3>
-          </ion-text>
-          </ion-label>
-      </ion-note>
-
-      </ion-item>
-      <ion-list>
-        <ion-item color="light" lines="none">
-          <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
-          </ion-avatar>
-          <ion-label>
-            <h3><b>ร้าน Wib cafe</b></h3>
-            <ion-text color="secondary">
-              <p class="ion-text-wrap"> 147/2 พิมานคอนโดพาร์ค, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
-            </ion-text>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-note slot="end">
-            <ion-text color="dark">
-              <ion-label>
-                <p>
-                  <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
-                </p>
-              </ion-label>
-            </ion-text>
-          </ion-note>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-  
-    <ion-item lines="none">
-      <ion-label color="dark">
-        <h1><b>ช่องทางการติดต่อ</b></h1>
-      </ion-label>
-    </ion-item>
-  
-    <ion-row>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  
-    <ion-card color="light" class="ion-margin-top ion-padding-vertical">
-      <ion-list>
-        <ion-item color="light" lines="none">
-          <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
-          </ion-avatar>
-          <ion-label>
-            <h3><b>WIB cafe</b></h3>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light">
-          <ion-label color="dark">
-            <p>x1 เอ็กเปรซโซเย็น</p>
-            <ion-text color="danger">
-              <p>หวานน้อย</p>
-            </ion-text>
-          </ion-label>
-          <ion-label>
-            <ion-note slot="end" class="ion-text-end">
-              <ion-text color="dark">
-                <p>฿50.00</p>
-                <p>ยกเลิก</p>
-              </ion-text>
-            </ion-note>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-label color="dark">
-            <p>x1 อเมริกาโน่เย็น</p>
-            <ion-text color="danger">
-              <p>ไม่หวาน</p>
-            </ion-text>
-          </ion-label>
-          <ion-label>
-            <ion-note slot="end" class="ion-text-end">
-              <ion-text color="dark">
-                <p>฿50.00</p>
-                <p>ยกเลิก</p>
-              </ion-text>
-            </ion-note>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card>  
-  </ng-container>
-
-  <ng-container *ngIf="page == 'center'">
-    <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-      <ion-text color="light">
-        15.05 นาที
-      </ion-text>
-    </ion-button>
-  
-    <div id="stepProgressBar">
-      <div class="step">
-        <div class="bullet2 completed">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet22 completed">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet22">.</div>
-      </div>
-    </div>
-
-    <ion-item color="medium" lines="none">
-      <ion-label color="secondary" class="ion-text-left">
-        <h2>รับออเดอร์</h2>
-        <h3>10.00 น.</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-center">
-        <h2>กำลังจัดส่ง</h2>
-        <h3>10.05 น.</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-end">
-        <h2>ถึงแล้ว</h2>
-        <h3>&nbsp;</h3>
-      </ion-label>
-    </ion-item>
-  
-    <ion-card color="light" class="ion-margin-top ion-padding-vertical">
-      <ion-item color="light" lines="none">
-        <ion-label color="dark" slot="start">
-          <h1><b>คำสั่งซื้อ 5632</b></h1>
+        <ion-label color="secondary" class="ion-text-center">
+          <h2>กำลังจัดส่ง</h2>
+          <h3>&nbsp;</h3>
         </ion-label>
-
-        <ion-note *ngIf="isCancel == false" slot="end">
-          <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
-            <ion-text color="dark">
-              ยกเลิก
-            </ion-text>
-          </ion-button>
-        </ion-note>
-
-        <ion-note *ngIf="isCancel == true" slot="end">
-          <ion-label>
-            <ion-text color="danger">
-            <h3><b>รอการอนุมัติยกเลิก !</b></h3>
-          </ion-text>
-          </ion-label>
-      </ion-note>
-
-      </ion-item>
-      <ion-list>
-        <ion-item color="light" lines="none">
-          <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
-          </ion-avatar>
-          <ion-label>
-            <h3><b>เอิร์นไง</b></h3>
-            <ion-text color="secondary">
-              <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
-            </ion-text>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-note slot="start">
-            <ion-text color="dark">
-              <ion-label>
-                <p>
-                  <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
-                </p>
-              </ion-label>
-            </ion-text>
-          </ion-note>
-          <ion-note slot="end">
-            <ion-text color="success">
-              <ion-label>
-                <p>
-                  <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
-                </p>
-              </ion-label>
-            </ion-text>
-          </ion-note>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-  
-    <ion-item lines="none">
-      <ion-label color="dark">
-        <h1><b>ช่องทางการติดต่อ</b></h1>
-      </ion-label>
-    </ion-item>
-  
-    <ion-row>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  
-    <ion-card color="light" class="ion-margin-top ion-padding-vertical">
-      <ion-list>
-        <ion-item color="light" lines="none">
-          <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
-          </ion-avatar>
-          <ion-label>
-            <h3><b>WIB cafe</b></h3>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light">
-          <ion-label color="dark">
-            <p>x1 เอ็กเปรซโซเย็น</p>
-            <ion-text color="danger">
-              <p>หวานน้อย</p>
-            </ion-text>
-          </ion-label>
-          <ion-label>
-            <ion-note slot="end" class="ion-text-end">
-              <ion-text color="dark">
-                <p>฿50.00</p>
-                <p>ยกเลิก</p>
-              </ion-text>
-            </ion-note>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-label color="dark">
-            <p>x1 อเมริกาโน่เย็น</p>
-            <ion-text color="danger">
-              <p>ไม่หวาน</p>
-            </ion-text>
-          </ion-label>
-          <ion-label>
-            <ion-note slot="end" class="ion-text-end">
-              <ion-text color="dark">
-                <p>฿50.00</p>
-                <p>ยกเลิก</p>
-              </ion-text>
-            </ion-note>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card>  
-  </ng-container>
-
-  <ng-container *ngIf="page == 'end'">
-
-    <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-      <ion-text color="light">
-        15.20 นาที
-      </ion-text>
-    </ion-button>
-
-    <div id="stepProgressBar">
-      <div class="step">
-        <div class="bullet3 completed">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet3 completed">.</div>
-      </div>
-      <div class="step">
-        <div class="bullet3">.</div>
-      </div>
-    </div>
-
-    <ion-item color="medium" lines="none">
-      <ion-label color="secondary" class="ion-text-left">
-        <h2>รับออเดอร์</h2>
-        <h3>10.00 น.</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-center">
-        <h2>กำลังจัดส่ง</h2>
-        <h3>10.05 น.</h3>
-      </ion-label>
-      <ion-label color="secondary" class="ion-text-end">
-        <h2>ถึงแล้ว</h2>
-        <h3>&nbsp;</h3>
-      </ion-label>
-    </ion-item>
-
-    <ion-card color="light" class="ion-margin-top ion-padding-vertical">
-      <ion-item color="light" lines="none">
-        <ion-label color="dark" slot="start">
-          <h1><b>คำสั่งซื้อ 5632</b></h1>
+        <ion-label color="secondary" class="ion-text-end">
+          <h2>ถึงแล้ว</h2>
+          <h3>&nbsp;</h3>
         </ion-label>
-
-        <ion-note *ngIf="isCancel == false" slot="end">
-          <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
-            <ion-text color="dark">
-              ยกเลิก
-            </ion-text>
-          </ion-button>
-        </ion-note>
-
-        <ion-note *ngIf="isCancel == true" slot="end">
-          <ion-label>
-            <ion-text color="danger">
-            <h3><b>รอการอนุมัติยกเลิก !</b></h3>
-          </ion-text>
-          </ion-label>
-      </ion-note>
-
       </ion-item>
-      <ion-list>
-        <ion-item color="light" lines="none">
-          <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
-          </ion-avatar>
-          <ion-label>
-            <h3><b>เอิร์นไง</b></h3>
-            <ion-text color="secondary">
-              <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
-            </ion-text>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-note slot="start">
-            <ion-text color="dark">
-              <ion-label>
-                <p>
-                  <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
-                </p>
-              </ion-label>
-            </ion-text>
-          </ion-note>
-          <ion-note slot="end">
-            <ion-text color="success">
-              <ion-label>
-                <p>
-                  <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
-                </p>
-              </ion-label>
-            </ion-text>
-          </ion-note>
-        </ion-item>
-      </ion-list>
-    </ion-card>
 
-    <ion-item lines="none">
-      <ion-label color="dark">
-        <h1><b>ช่องทางการติดต่อ</b></h1>
-      </ion-label>
-    </ion-item>
+      <ion-card color="light" class="ion-margin-top ion-padding-vertical">
+        <ion-item color="light" lines="none">
+          <ion-label color="dark" slot="start">
+            <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
+          </ion-label>
 
-    <ion-row>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
-            </h2>
+          <ion-note *ngIf="isCancel == false" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+              <ion-text color="dark">
+                ยกเลิก
+              </ion-text>
+            </ion-button>
+          </ion-note>
+
+          <ion-note *ngIf="isCancel == true" slot="end">
+            <ion-label>
+              <ion-text color="danger">
+                <h3><b>รอการอนุมัติยกเลิก !</b></h3>
+              </ion-text>
+            </ion-label>
+          </ion-note>
+
+        </ion-item>
+        <ion-list>
+          <ion-item color="light" lines="none">
+            <ion-avatar slot="start">
+              <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
+            </ion-avatar>
+            <ion-label>
+              <h3><b> {{ data.restaurant.name}} </b></h3>
+              <ion-text color="secondary">
+                <p class="ion-text-wrap"> {{ data.restaurant.address}} </p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item color="light" lines="none">
+            <ion-note slot="end">
+              <ion-text color="dark">
+                <ion-label>
+                  <p>
+                    <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
+                  </p>
+                </ion-label>
+              </ion-text>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
+      <ion-item lines="none">
+        <ion-label color="dark">
+          <h1><b>ช่องทางการติดต่อ</b></h1>
+        </ion-label>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="4">
+          <ion-button expand="block" shape="round" color="light" type="submit">
+            <ion-label>
+              <h2>
+                <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
+              </h2>
+            </ion-label>
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button expand="block" shape="round" color="light" type="submit">
+            <ion-label>
+              <h2>
+                <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
+              </h2>
+            </ion-label>
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button expand="block" shape="round" color="light" type="submit">
+            <ion-label>
+              <h2>
+                <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
+              </h2>
+            </ion-label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-list>
+
+    <ion-list *ngIf="page == 'shipping'">
+      <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
+        <ion-text color="light">
+          15.05 นาที
+        </ion-text>
+      </ion-button>
+
+      <div id="stepProgressBar">
+        <div class="step">
+          <div class="bullet2 completed">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet22 completed">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet22">.</div>
+        </div>
+      </div>
+
+      <ion-item color="medium" lines="none">
+        <ion-label color="secondary" class="ion-text-left">
+          <h2>รับออเดอร์</h2>
+          <h3>{{ data.acceptRequestDate}}</h3>
+        </ion-label>
+        <ion-label color="secondary" class="ion-text-center">
+          <h2>กำลังจัดส่ง</h2>
+          <h3>{{ data.shippingDate }}</h3>
+        </ion-label>
+        <ion-label color="secondary" class="ion-text-end">
+          <h2>ถึงแล้ว</h2>
+          <h3>&nbsp;</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-card color="light" class="ion-margin-top ion-padding-vertical">
+        <ion-item color="light" lines="none">
+          <ion-label color="dark" slot="start">
+            <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
-            </h2>
+
+          <ion-note *ngIf="isCancel == false" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+              <ion-text color="dark">
+                ยกเลิก
+              </ion-text>
+            </ion-button>
+          </ion-note>
+
+          <ion-note *ngIf="isCancel == true" slot="end">
+            <ion-label>
+              <ion-text color="danger">
+                <h3><b>รอการอนุมัติยกเลิก !</b></h3>
+              </ion-text>
+            </ion-label>
+          </ion-note>
+
+        </ion-item>
+        <ion-list>
+          <ion-item color="light" lines="none">
+            <ion-avatar slot="start">
+              <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
+            </ion-avatar>
+            <ion-label>
+              <h3><b>เอิร์นไง</b></h3>
+              <ion-text color="secondary">
+                <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item color="light" lines="none">
+            <ion-note slot="start">
+              <ion-text color="dark">
+                <ion-label>
+                  <p>
+                    <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
+                  </p>
+                </ion-label>
+              </ion-text>
+            </ion-note>
+            <ion-note slot="end">
+              <ion-text color="success">
+                <ion-label>
+                  <p>
+                    <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
+                  </p>
+                </ion-label>
+              </ion-text>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngIf="page == 'arrived'">
+      <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
+        <ion-text color="light">
+          15.20 นาที
+        </ion-text>
+      </ion-button>
+
+      <div id="stepProgressBar">
+        <div class="step">
+          <div class="bullet3 completed">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet3 completed">.</div>
+        </div>
+        <div class="step">
+          <div class="bullet3">.</div>
+        </div>
+      </div>
+
+      <ion-item color="medium" lines="none">
+        <ion-label color="secondary" class="ion-text-left">
+          <h2>รับออเดอร์</h2>
+          <h3>{{ data.acceptRequestDate }}</h3>
+        </ion-label>
+        <ion-label color="secondary" class="ion-text-center">
+          <h2>กำลังจัดส่ง</h2>
+          <h3>{{ data.shippingDate }}</h3>
+        </ion-label>
+        <ion-label color="secondary" class="ion-text-end">
+          <h2>ถึงแล้ว</h2>
+          <h3>{{ data.destinationDate }}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-card color="light" class="ion-margin-top ion-padding-vertical">
+        <ion-item color="light" lines="none">
+          <ion-label color="dark" slot="start">
+            <h1><b>คำสั่งซื้อ {{ data._id }} </b></h1>
           </ion-label>
-        </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit">
-          <ion-label>
-            <h2>
-              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
-            </h2>
-          </ion-label>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+
+          <ion-note *ngIf="isCancel == false" slot="end">
+            <ion-button shape="round" color="tertiary" type="submit" (click)="cancel()">
+              <ion-text color="dark">
+                ยกเลิก
+              </ion-text>
+            </ion-button>
+          </ion-note>
+
+          <ion-note *ngIf="isCancel == true" slot="end">
+            <ion-label>
+              <ion-text color="danger">
+                <h3><b>รอการอนุมัติยกเลิก !</b></h3>
+              </ion-text>
+            </ion-label>
+          </ion-note>
+
+        </ion-item>
+        <ion-list>
+          <ion-item color="light" lines="none">
+            <ion-avatar slot="start">
+              <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
+            </ion-avatar>
+            <ion-label>
+              <h3><b>เอิร์นไง</b></h3>
+              <ion-text color="secondary">
+                <p class="ion-text-wrap"> หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item color="light" lines="none">
+            <ion-note slot="start">
+              <ion-text color="dark">
+                <ion-label>
+                  <p>
+                    <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
+                  </p>
+                </ion-label>
+              </ion-text>
+            </ion-note>
+            <ion-note slot="end">
+              <ion-text color="success">
+                <ion-label>
+                  <p>
+                    <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
+                  </p>
+                </ion-label>
+              </ion-text>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ion-list>
 
     <ion-card color="light" class="ion-margin-top ion-padding-vertical">
       <ion-list>
@@ -518,16 +352,20 @@
       </ion-list>
     </ion-card>
   </ng-container>
-
-  
 </ion-content>
 
 
 <ion-footer>
-  <ion-button *ngIf="(page == 'start') && (isCancel == false)"  class="ion-no-margin" expand="full" color="warning" (click)="onClick('start')"><b>เตรียมจัดส่ง</b></ion-button>
-  <ion-button *ngIf="(page == 'start') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary" disabled><b>เตรียมจัดส่ง</b></ion-button>
-  <ion-button *ngIf="(page == 'center') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning" (click)="onClick('center')"><b>ถึงจุดส่งของแล้ว</b></ion-button>
-  <ion-button *ngIf="(page == 'center') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary" disabled><b>ถึงจุดส่งของแล้ว</b></ion-button>
-  <ion-button *ngIf="(page == 'end') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning" (click)="onClick('end')"><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
-  <ion-button *ngIf="(page == 'end') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary" disabled><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
+  <ion-button *ngIf="(page == 'received') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
+    (click)="onClick('received')"><b>เตรียมจัดส่ง</b></ion-button>
+  <ion-button *ngIf="(page == 'received') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
+    disabled><b>เตรียมจัดส่ง</b></ion-button>
+  <ion-button *ngIf="(page == 'shipping') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
+    (click)="onClick('shipping')"><b>ถึงจุดส่งของแล้ว</b></ion-button>
+  <ion-button *ngIf="(page == 'shipping') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
+    disabled><b>ถึงจุดส่งของแล้ว</b></ion-button>
+  <ion-button *ngIf="(page == 'arrived') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
+    (click)="onClick('arrived')"><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
+  <ion-button *ngIf="(page == 'arrived') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
+    disabled><b>ลูกค้าได้รับอาหารแล้ว</b></ion-button>
 </ion-footer>
