@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment, BikerId } from 'src/environments/environment';
+import { NavController } from '@ionic/angular';
 
 declare function TheSHybridCall(methodName: string, parameter: any): void;
 declare function TheSHybridFunc(methodName: string, parameter: string, callback: any): void;
@@ -11,36 +12,52 @@ export class NativeService {
     private NotificationCannel = new Map();
     private callBackFunc: () => void;
 
-    constructor(private router: Router, private zone: NgZone) {
+    constructor(private router: Router, private zone: NgZone, private navCtrl: NavController) {
         (<any>window).onSendNotification = (notiChannel: any, params: any) => { this.executeOnNotification(notiChannel, params) };
         (<any>window).refreshOnGoBack = () => { this.executeCallBackFunc() }
     }
 
-    public async NavigateToPage(pageName: string, params?: any) {
+    public async NavigateToPage(pageName: string, params?: object) {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             this.callNativeFunc("NavigateToPage", JSON.stringify({ pagename: pageName, params: params })).then(isMainPage => {
                 if (!isMainPage) {
-                    if (params != null) { this.router.navigate(['/' + pageName, params]); }
+                    if (params != null && params != undefined) { this.router.navigate(['/' + pageName, params]); }
                     else { this.router.navigate(['/' + pageName]); }
                 }
             });
         } else {
-            if (params != null) { this.router.navigate(['/' + pageName, params]); }
+            if (params != null && params != undefined) { this.router.navigate(['/' + pageName, params]); }
             else { this.router.navigate(['/' + pageName]); }
+        }
+    }
+
+    public async GoBack() {
+        if (environment.production) {
+            this.callAppMethod("Goback", "");
+        } else {
+            this.navCtrl.pop();
+        }
+    }
+
+    public async PopToRoot(){
+        if (environment.production) {
+            this.callAppMethod("PopToRoot", "");
+        } else {
+  
         }
     }
 
     public async SetPageTitle(title: string) {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             this.callAppMethod("SetPageTitle", title);
         }
     }
 
     public async GetBikerId() {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             return this.callNativeFunc("GetBikerId", "");
         }
         else {
@@ -57,7 +74,7 @@ export class NativeService {
 
     public async ExecuteNotiIfExist(notiChannel: string) {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             this.callAppMethod("ExecuteNotiIfExist", notiChannel);
         } else {
             console.log("ExecuteNotiIfExist with key: " + notiChannel);
@@ -66,7 +83,7 @@ export class NativeService {
 
     public async RemoveNotificationChannel(notiChannel: string) {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             this.callAppMethod("RemoveNotificationChannel", notiChannel);
         } else {
             console.log("RemoveNotificationChannel with key: " + notiChannel);
@@ -79,7 +96,7 @@ export class NativeService {
 
     public async OpenMapDirection(lat: number, lon: number) {
         if (environment.production) {
-            await this.retry(() => this.tryCallNativeFunc());
+            await this.retry(() => this.WaitForNativeAppReady());
             this.callAppMethod("OpenMapDirection", JSON.stringify({ latitude: lat, longitude: lon }));
         } else {
             window.open("https://www.google.com/maps?saddr=My+Location&daddr=" + lat + "," + lon + "", "_blank");
@@ -108,7 +125,7 @@ export class NativeService {
         });
     }
 
-    private tryCallNativeFunc(): Promise<any> {
+    private WaitForNativeAppReady(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (typeof TheSHybridFunc == "undefined" || !TheSHybridFunc) {
                 reject();
