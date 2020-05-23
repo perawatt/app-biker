@@ -21,9 +21,6 @@ export class OrderStagePage implements OnInit {
   public isCancel: boolean;
 
   constructor(private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
-    // this.route.params.subscribe(param => { this.header = param["id"] });
-    this.route.params.subscribe(param => { this.orderId = param["orderId"] });
-    console.log('con', this.orderId);
     this.page = "received";
     this.isCancel = false;
   }
@@ -38,6 +35,7 @@ export class OrderStagePage implements OnInit {
     this.orderInfo$ = this.bikerSvc.getOrderInfo();
     this.orderInfo$.then((it: any) => {
       this.orderId = it._id
+      this.isCancel = it?.cancelRequestId != null ? true : false;
       console.log(it);
       console.log(this.orderId);
     })

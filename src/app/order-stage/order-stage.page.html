@@ -355,7 +355,7 @@
 </ion-content>
 
 
-<ion-footer>
+<ion-footer mode="ios">
   <ion-button *ngIf="(page == 'received') && (isCancel == false)" class="ion-no-margin" expand="full" color="warning"
     (click)="changePage('received')"><b>เตรียมจัดส่ง</b></ion-button>
   <ion-button *ngIf="(page == 'received') && (isCancel == true)" class="ion-no-margin" expand="full" color="tertiary"
