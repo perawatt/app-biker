@@ -74,7 +74,7 @@ export class OrderStagePage implements OnInit {
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
         console.log(it);
-        this.nativeSvc.NavigateToPage("home", { test: "openModal" });
+        this.nativeSvc.NavigateToPage("home", { openModal: "openModalOrderSendSuccess" });
         console.log('3');
       })
     }

@@ -47,12 +47,9 @@
       </ion-list>
     </ion-card>
   </ng-container>
-
-
-  <!-- <ion-button (click)="zzz()"><b>modalorder</b></ion-button> -->
-
 </ion-content>
 
+ื<ng-container *ngIf="IsBikerOn">
 <ion-footer mode="ios">
   <ion-toolbar color="medium">
     <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
@@ -60,3 +57,4 @@
   <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!orderId" (click)="receiveOrder()"><b>รับออเดอร์</b>
   </ion-button>
 </ion-footer>
+</ng-container>
