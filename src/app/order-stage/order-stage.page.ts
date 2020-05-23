@@ -29,13 +29,24 @@ export class OrderStagePage implements OnInit {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     console.log('init', this.orderId);
     this.getOrderInfo();
+
+    console.log("Page orde :" + this.page);
   }
 
   getOrderInfo() {
     this.orderInfo$ = this.bikerSvc.getOrderInfo();
     this.orderInfo$.then((it: any) => {
       this.orderId = it._id
-      this.isCancel = it?.cancelRequestId != null ? true : false;
+      this.isCancel = (it?.cancelRequestId != null && it?.cancelRequestId != "" && it?.cancelRequestId != undefined) ? true : false;
+
+      if (it?.destinationDate) {
+        this.page = "arrived";
+      } else if (it?.shippingDate) {
+        this.page = "shipping";
+      } else {
+        this.page = "received";
+      }
+
       console.log(it);
       console.log(this.orderId);
     })
