@@ -100,9 +100,8 @@ export class HomePage implements OnInit {
 
   receiveOrder() {
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
-      this.nativeSvc.RemoveNotificationChannel("SendOrder");
+      this.nativeSvc.UpdateSidemenuItem("รับออเดอร์","order-stage");
       this.router.navigate(['/order-stage'])
-      // this.nativeSvc.NavigateToPage("order-stage");
     }).catch(it=>{
       console.log(JSON.stringify(it));
       

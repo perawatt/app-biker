@@ -40,11 +40,11 @@ export class NativeService {
         }
     }
 
-    public async PopToRoot(){
+    public async PopToRoot() {
         if (environment.production) {
             this.callAppMethod("PopToRoot", "");
         } else {
-  
+
         }
     }
 
@@ -100,6 +100,13 @@ export class NativeService {
             this.callAppMethod("OpenMapDirection", JSON.stringify({ latitude: lat, longitude: lon }));
         } else {
             window.open("https://www.google.com/maps?saddr=My+Location&daddr=" + lat + "," + lon + "", "_blank");
+        }
+    }
+
+    public async UpdateSidemenuItem(title: string, page: string, params?: object) {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            this.callAppMethod("UpdateSidemenuItem", JSON.stringify({ title: title, page: page, params: params }));
         }
     }
 
