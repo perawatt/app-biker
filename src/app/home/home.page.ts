@@ -13,15 +13,17 @@ import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-app
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  //MOCK ORDER ID
-  public orderId = "637257462349664954";
   public testx: string;
   public bikerInfo$ = Promise.resolve([]);
   public order$ = Promise.resolve([]);
   public IsBikerOn: boolean;
+  public orderId: string;
 
   constructor(public router: Router, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
+  }
+
+  ionViewDidEnter() {
+    this.GetOrderDetail();
   }
 
   ngOnInit() {
@@ -35,24 +37,25 @@ export class HomePage implements OnInit {
     this.openModal(this.testx);
     console.log(this.order$);
 
-    //todo ได้รับ feed
-    setTimeout(() => {
-      if (this.IsBikerOn) {
-        if (this.orderId) {
-          this.order$ = this.bikerSvc.getNewOrderInfo(this.orderId);
-          this.order$.then((it: any) => {
-            console.log("order: " + JSON.stringify(it));
-          })
-        }
-      }
-    }, 10000);
+    this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
+    this.nativeSvc.RegisterRefreshOnGoBack(()=>this.GetOrderDetail());
+  }
 
+  GetOrderDetail() {
+    if (this.IsBikerOn) {
+      this.order$ = this.bikerSvc.getNewOrderInfo();
+      this.order$.then((it: any) => {
+        console.log("order: " + JSON.stringify(it));
+        this.orderId = it?._id;
+      });
+    }
   }
 
   getBikerStatusAndOrder() {
     this.bikerInfo$.then((it: any) => {
       console.log(it);
       this.IsBikerOn = it?.onWorkStatus;
+      if(this.IsBikerOn) this.GetOrderDetail();
       console.log("get: " + this.IsBikerOn);
     })
   }
@@ -97,7 +100,11 @@ export class HomePage implements OnInit {
 
   receiveOrder() {
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
-      this.nativeSvc.NavigateToPage("order-stage", { id: "id001" });
-    })
+      this.nativeSvc.RemoveNotificationChannel("SendOrder");
+      this.nativeSvc.NavigateToPage("order-stage");
+    }).catch(it=>{
+      console.log(JSON.stringify(it));
+      
+    });
   }
 }

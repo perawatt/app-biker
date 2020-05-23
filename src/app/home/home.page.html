@@ -57,6 +57,6 @@
   <ion-toolbar color="medium">
     <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
   </ion-toolbar>
-  <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!IsBikerOn" (click)="receiveOrder()"><b>รับออเดอร์</b>
+  <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!orderId" (click)="receiveOrder()"><b>รับออเดอร์</b>
   </ion-button>
 </ion-footer>
