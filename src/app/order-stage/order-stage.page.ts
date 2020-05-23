@@ -80,6 +80,11 @@ export class OrderStagePage implements OnInit {
     }
   }
 
+  public OpenMap()
+  {
+    this.nativeSvc.OpenMapDirection(16.483203, 102.819008);
+  }
+
   requestCancel() {
     this.nativeSvc.NavigateToPage("order-cancel", { orderId: this.orderId });
 
