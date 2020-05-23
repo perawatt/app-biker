@@ -13,7 +13,7 @@ import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-app
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public testx: string;
+  public openModal: string;
   public bikerInfo$ = Promise.resolve([]);
   public order$ = Promise.resolve([]);
   public IsBikerOn: boolean;
@@ -32,10 +32,9 @@ export class HomePage implements OnInit {
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.getBikerStatusAndOrder();
 
-    this.route.params.subscribe(param => { this.testx = param["test"] });
-    console.log(this.testx);
-    this.openModal(this.testx);
-    console.log(this.order$);
+    this.route.params.subscribe(param => { this.openModal = param["openModal"] });
+    console.log(this.openModal);
+    this.openModalOrderSendSuccess(this.openModal);
 
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.nativeSvc.RegisterRefreshOnGoBack(()=>this.GetOrderDetail());
@@ -72,9 +71,9 @@ export class HomePage implements OnInit {
     this.getBikerStatusAndOrder();
   }
 
-  async openModal(xx: string) {
-    console.log('xxxxxxx', xx);
-    if ((xx != null) && (xx != undefined)) {
+  async openModalOrderSendSuccess(text: string) {
+    console.log('xxxxxxx', text);
+    if ((text != null) && (text != undefined)) {
       console.log('555555555555');
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
@@ -87,8 +86,6 @@ export class HomePage implements OnInit {
         console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
-
-          // this.toggleChange()
         }
         else {
           this.getBikerStatusAndOrder();

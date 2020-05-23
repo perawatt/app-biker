@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NativeService } from 'src/providers/NativeService';
 
 @Component({
   selector: 'app-order-customer-contact',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderCustomerContactPage implements OnInit {
 
-  constructor() { }
+  constructor(private nativeSvc: NativeService) { }
 
   ngOnInit() {
+    this.nativeSvc.SetPageTitle("ติดต่อลูกค้า");
   }
 
 }

@@ -22,13 +22,13 @@
       <ion-item color="medium" lines="none">
         <ion-label color="secondary" class="ion-text-left">
           <h2>รับออเดอร์</h2>
-          <h3> {{ data.acceptRequestDate }} </h3>
+          <h3> {{ data.acceptRequestDate  | date:'H:mm' }} </h3>
         </ion-label>
         <ion-label color="secondary" class="ion-text-center">
           <h2>กำลังจัดส่ง</h2>
           <h3>&nbsp;</h3>
         </ion-label>
-        <ion-label color="secondary" class="ion-text-end">
+        <ion-label color="secondary" class="ion-text-right">
           <h2>ถึงแล้ว</h2>
           <h3>&nbsp;</h3>
         </ion-label>
@@ -83,43 +83,6 @@
           </ion-item>
         </ion-list>
       </ion-card>
-
-      <ion-item lines="none">
-        <ion-label color="dark">
-          <h1><b>ช่องทางการติดต่อ</b></h1>
-        </ion-label>
-      </ion-item>
-
-      <ion-row>
-        <ion-col size="4">
-          <ion-button expand="block" shape="round" color="light" type="submit">
-            <ion-label>
-              <h2>
-                <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
-              </h2>
-            </ion-label>
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button expand="block" shape="round" color="light" type="submit">
-            <ion-label>
-              <h2>
-                <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
-              </h2>
-            </ion-label>
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button expand="block" shape="round" color="light" type="submit">
-            <ion-label>
-              <h2>
-                <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
-              </h2>
-            </ion-label>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-
     </ion-list>
 
     <ion-list *ngIf="page == 'shipping'">
@@ -144,13 +107,13 @@
       <ion-item color="medium" lines="none">
         <ion-label color="secondary" class="ion-text-left">
           <h2>รับออเดอร์</h2>
-          <h3>{{ data.acceptRequestDate}}</h3>
+          <h3>{{ data.acceptRequestDate | date:'H:mm' }}</h3>
         </ion-label>
         <ion-label color="secondary" class="ion-text-center">
           <h2>กำลังจัดส่ง</h2>
-          <h3>{{ data.shippingDate }}</h3>
+          <h3>{{ data.shippingDate | date:'H:mm' }}</h3>
         </ion-label>
-        <ion-label color="secondary" class="ion-text-end">
+        <ion-label color="secondary" class="ion-text-right">
           <h2>ถึงแล้ว</h2>
           <h3>&nbsp;</h3>
         </ion-label>
@@ -237,15 +200,16 @@
       <ion-item color="medium" lines="none">
         <ion-label color="secondary" class="ion-text-left">
           <h2>รับออเดอร์</h2>
-          <h3>{{ data.acceptRequestDate }}</h3>
+          <h3>{{ data.acceptRequestDate | date:'H:mm' }}</h3>
         </ion-label>
         <ion-label color="secondary" class="ion-text-center">
           <h2>กำลังจัดส่ง</h2>
-          <h3>{{ data.shippingDate }}</h3>
+          <h3>{{ data.shippingDate | date:'H:mm' }}</h3>
         </ion-label>
         <ion-label color="secondary" class="ion-text-end">
           <h2>ถึงแล้ว</h2>
-          <h3>{{ data.destinationDate }}</h3>
+          <!-- <h3>{{ data.destinationDate | date:'H:mm' }}</h3> -->
+          <h3>&nbsp;</h3>
         </ion-label>
       </ion-item>
 
@@ -307,6 +271,42 @@
         </ion-list>
       </ion-card>
     </ion-list>
+
+    <ion-item lines="none">
+      <ion-label color="dark">
+        <h1><b>ช่องทางการติดต่อ</b></h1>
+      </ion-label>
+    </ion-item>
+
+    <ion-row>
+      <ion-col size="4">
+        <ion-button expand="block" shape="round" color="light" type="submit" [routerLink]="['/order-customer-contact']">
+          <ion-label>
+            <h2>
+              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ลูกค้า
+            </h2>
+          </ion-label>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button expand="block" shape="round" color="light" type="submit">
+          <ion-label>
+            <h2>
+              <ion-icon color="warning" slot="start" name="home-outline"></ion-icon>&nbsp;ร้านค้า
+            </h2>
+          </ion-label>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button expand="block" shape="round" color="light" type="submit">
+          <ion-label>
+            <h2>
+              <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>&nbsp;ศูนย์
+            </h2>
+          </ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
     <ion-card color="light" class="ion-margin-top ion-padding-vertical">
       <ion-list>
