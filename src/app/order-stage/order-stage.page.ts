@@ -16,7 +16,6 @@ export class OrderStagePage implements OnInit {
   public header: any;
   public orderId: string;
   public orderInfo$ = Promise.resolve([]);
-
   public page: string;
   public isCancel: boolean;
 
@@ -47,6 +46,7 @@ export class OrderStagePage implements OnInit {
         this.page = "received";
       }
 
+      this.waitReplycancelRequest();
       console.log(it);
       console.log(this.orderId);
     })
@@ -80,14 +80,21 @@ export class OrderStagePage implements OnInit {
     }
   }
 
-  public OpenMap()
-  {
+  public OpenMap() {
     this.nativeSvc.OpenMapDirection(16.483203, 102.819008);
   }
 
   requestCancel() {
     this.nativeSvc.NavigateToPage("order-cancel", { orderId: this.orderId });
+  }
 
+  //todo รอ Noti แจ้งอนุมัติคำขอยกเลิก
+  waitReplycancelRequest() {
+    if (this.isCancel) {
+      setTimeout(() => {
+        this.nativeSvc.NavigateToPage("home", { openModal: "openModalCancelApprove" });
+      }, 20000);
+    }
   }
 
 }

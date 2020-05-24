@@ -73,10 +73,28 @@ export class HomePage implements OnInit {
 
   async openModalOrderSendSuccess(text: string) {
     console.log('xxxxxxx', text);
-    if ((text != null) && (text != undefined)) {
-      console.log('555555555555');
+    if ((text != null) && (text != undefined) && (text == "openModalOrderSendSuccess")) {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
+        cssClass: 'dialog-modal-4-order-success',
+        backdropDismiss: false
+      });
+      modal.onDidDismiss().then(it => {
+        console.log(it);
+        this.IsBikerOn = it?.data
+        console.log("IsBikerOn: ", this.IsBikerOn);
+        if (this.IsBikerOn) {
+          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+        }
+        else {
+          this.getBikerStatusAndOrder();
+        }
+      })
+      modal.present();
+    }
+    else if ((text != null) && (text != undefined) && (text == "openModalCancelApprove")) {
+      const modal = await this.modalController.create({
+        component: OrderCancelApprovePage,
         cssClass: 'dialog-modal-4-order-success',
         backdropDismiss: false
       });
@@ -101,7 +119,7 @@ export class HomePage implements OnInit {
       this.router.navigate(['/order-stage'])
     }).catch(it=>{
       console.log(JSON.stringify(it));
-      
+
     });
   }
 }
