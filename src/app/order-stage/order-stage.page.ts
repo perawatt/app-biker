@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NativeService } from 'src/providers/NativeService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BikerService } from 'src/services/biker.service';
 import { ModalController } from '@ionic/angular';
 import { OrderSendSuccessPage } from '../order-send-success/order-send-success.page';
@@ -19,7 +19,7 @@ export class OrderStagePage implements OnInit {
   public page: string;
   public isCancel: boolean;
 
-  constructor(private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
+  constructor(private router: Router, private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
     this.page = "received";
     this.isCancel = false;
   }
@@ -74,7 +74,7 @@ export class OrderStagePage implements OnInit {
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
         console.log(it);
-        this.nativeSvc.NavigateToPage("home", { openModal: "openModalOrderSendSuccess" });
+        this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess" }]);
         console.log('3');
       })
     }
