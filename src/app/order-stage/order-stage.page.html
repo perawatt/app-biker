@@ -73,8 +73,7 @@
             <ion-note slot="end">
               <ion-text color="dark">
                 <ion-label>
-                  <p (click)="OpenMap()">
-                    <!-- TODO: Add get lat lon location -->
+                  <p (click)="OpenMap(data.restaurant?.coordinates)">
                     <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
                   </p>
                 </ion-label>
@@ -148,9 +147,9 @@
               <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
             </ion-avatar>
             <ion-label>
-              <h3><b>{{ data.customer?.name}} เอิร์นไง </b></h3>
+              <h3><b>{{ data.customer?.name}}</b></h3>
               <ion-text color="secondary">
-                <p class="ion-text-wrap"> {{ data.customer?.address}} หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+                <p class="ion-text-wrap"> {{ data.customer?.address}}</p>
               </ion-text>
             </ion-label>
           </ion-item>
@@ -158,7 +157,7 @@
             <ion-note slot="start">
               <ion-text color="dark">
                 <ion-label>
-                  <p>
+                  <p (click)="OpenMap(data.restaurant?.coordinates)">
                     <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
                   </p>
                 </ion-label>
@@ -167,7 +166,7 @@
             <ion-note slot="end">
               <ion-text color="success">
                 <ion-label>
-                  <p>
+                  <p (click)="OpenMap(data.customer?.coordinates)">
                     <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
                   </p>
                 </ion-label>
@@ -208,7 +207,7 @@
         </ion-label>
         <ion-label color="secondary" class="ion-text-end">
           <h2>ถึงแล้ว</h2>
-          <!-- <h3>{{ data.destinationDate | date:'H:mm' }}</h3> -->
+          <h3>{{ data.destinationDate | date:'H:mm' }}</h3>
           <h3>&nbsp;</h3>
         </ion-label>
       </ion-item>
@@ -242,9 +241,9 @@
               <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
             </ion-avatar>
             <ion-label>
-              <h3><b>{{ data.customer?.name}} เอิร์นไง</b></h3>
+              <h3><b>{{ data.customer?.name}}</b></h3>
               <ion-text color="secondary">
-                <p class="ion-text-wrap">{{ data.customer?.address}} หอแปดหลัง ม.ขอนแก่น, ตำบลศิลา, อำเภอเมืองขอนแก่น, ขอนแก่น, 40000</p>
+                <p class="ion-text-wrap">{{ data.customer?.address}}</p>
               </ion-text>
             </ion-label>
           </ion-item>
@@ -252,7 +251,7 @@
             <ion-note slot="start">
               <ion-text color="dark">
                 <ion-label>
-                  <p>
+                  <p (click)="OpenMap(data.restaurant?.coordinates)">
                     <ion-icon color="warning" name="location-outline"></ion-icon> ร้าน
                   </p>
                 </ion-label>
@@ -261,7 +260,7 @@
             <ion-note slot="end">
               <ion-text color="success">
                 <ion-label>
-                  <p>
+                  <p (click)="OpenMap(data.customer?.coordinates)">
                     <ion-icon color="success" name="location-outline"></ion-icon> ผู้รับ
                   </p>
                 </ion-label>
@@ -312,39 +311,23 @@
       <ion-list>
         <ion-item color="light" lines="none">
           <ion-avatar slot="start">
-            <img src="https://cf.shopee.co.th/file/c0f005d6a465eb0813d6062467c9cd12_tn">
+            <img [src]="data.restaurant?.logoImage">
           </ion-avatar>
           <ion-label>
-            <h3><b>WIB cafe</b></h3>
+            <h3><b>{{ data.restaurant?.name }}</b></h3>
           </ion-label>
         </ion-item>
-        <ion-item color="light">
+        <ion-item *ngFor="let data of data.productList" color="light">
           <ion-label color="dark">
-            <p>x1 เอ็กเปรซโซเย็น</p>
+            <p>x{{ data.quantity }} {{ data.name }}</p>
             <ion-text color="danger">
-              <p>หวานน้อย</p>
+              <p>{{ data.option }}</p>
             </ion-text>
           </ion-label>
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>฿50.00</p>
-                <p>ยกเลิก</p>
-              </ion-text>
-            </ion-note>
-          </ion-label>
-        </ion-item>
-        <ion-item color="light" lines="none">
-          <ion-label color="dark">
-            <p>x1 อเมริกาโน่เย็น</p>
-            <ion-text color="danger">
-              <p>ไม่หวาน</p>
-            </ion-text>
-          </ion-label>
-          <ion-label>
-            <ion-note slot="end" class="ion-text-end">
-              <ion-text color="dark">
-                <p>฿50.00</p>
+                <p>฿{{ data.price | number }}</p>
                 <p>ยกเลิก</p>
               </ion-text>
             </ion-note>

@@ -31,13 +31,13 @@ export class OrderStagePage implements OnInit {
   ngOnInit() {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     console.log('init', this.orderId);
-    this.nativeSvc.RegisterRefreshOnGoBack(()=>this.getOrderInfo());
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderInfo());
     this.nativeSvc.RegisterNotificationHander("ApproveCancelOrder", (param) => this.openApproveCancelOrder());
     console.log("Page orde :" + this.page);
   }
 
   openApproveCancelOrder() {
-    this.nativeSvc.UpdateSidemenuItem("รับออเดอร์","home");
+    this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
     this.router.navigate(['/home', { openModal: "openModalCancelApprove" }]);
   }
 
@@ -89,8 +89,10 @@ export class OrderStagePage implements OnInit {
     }
   }
 
-  public OpenMap() {
-    this.nativeSvc.OpenMapDirection(16.483203, 102.819008);
+  public OpenMap(coordinates: string) {
+    var splitted = coordinates.split(',', 2);
+    console.log(parseFloat(splitted[0]), parseFloat(splitted[1]));    
+    this.nativeSvc.OpenMapDirection(parseFloat(splitted[0]), parseFloat(splitted[1]));
   }
 
   requestCancel() {
