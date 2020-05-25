@@ -37,7 +37,7 @@ export class OrderCancelPage implements OnInit {
     console.log('heading2', this.fg.get('info').value);
     if (this.fg.get('heading').value != null && this.fg.get('info').value != null)
       this.bikerSvc.createOrderCancelRequest(this.orderId, this.fg.value).then((it: any) => {
-        this.nativeSvc.NavigateToPage("order-stage", { orderId: this.orderId });
+        this.nativeSvc.GoBack();
       })
   }
 
