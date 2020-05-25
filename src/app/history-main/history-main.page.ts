@@ -13,8 +13,16 @@ export class HistoryMainPage implements OnInit {
   orderHistory$ = Promise.resolve([]);
   constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
+  ionViewDidEnter() {
+    this.getOrderHistories();
+  }
+
   ngOnInit() {
     this.svc.SetPageTitle("งานย้อนหลัง");
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderHistories());
+  }
+
+  getOrderHistories() {
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
       console.log("get: " + JSON.stringify(it));

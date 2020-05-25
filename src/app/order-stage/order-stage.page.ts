@@ -31,7 +31,6 @@ export class OrderStagePage implements OnInit {
   ngOnInit() {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     console.log('init', this.orderId);
-    // this.getOrderInfo();
     this.nativeSvc.RegisterRefreshOnGoBack(()=>this.getOrderInfo());
     console.log("Page orde :" + this.page);
   }
