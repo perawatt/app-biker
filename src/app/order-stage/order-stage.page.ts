@@ -32,7 +32,13 @@ export class OrderStagePage implements OnInit {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     console.log('init', this.orderId);
     this.nativeSvc.RegisterRefreshOnGoBack(()=>this.getOrderInfo());
+    this.nativeSvc.RegisterNotificationHander("ApproveCancelOrder", (param) => this.openApproveCancelOrder());
     console.log("Page orde :" + this.page);
+  }
+
+  openApproveCancelOrder() {
+    this.nativeSvc.UpdateSidemenuItem("รับออเดอร์","home");
+    this.router.navigate(['/home', { openModal: "openModalCancelApprove" }]);
   }
 
   getOrderInfo() {
@@ -49,7 +55,7 @@ export class OrderStagePage implements OnInit {
         this.page = "received";
       }
 
-      this.waitReplycancelRequest();
+      // this.waitReplycancelRequest();
       console.log(it);
       console.log(this.orderId);
     })
