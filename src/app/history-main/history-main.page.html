@@ -1,8 +1,9 @@
 <ion-content mode="ios">
+  <ng-container *ngIf="orderHistory$ | async as item">
   <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
     <ion-item color="warning">
      
-      <ion-item slot="start" color="warning" lines="none">
+      <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
         <img src="assets/imgs/bikewhite.png" />
       </ion-item>
       <ion-label>
@@ -17,7 +18,7 @@
       <ion-label>
         <ion-note slot="end" class="ion-text-end">
           <ion-text color="light">
-            <p>2 ครั้ง</p>
+            <p>{{ item.length? item.length : 0 | number }} ครั้ง</p>
             <p>&nbsp;</p>
             <p>ดูวันอื่นๆ</p>
           </ion-text>
@@ -26,7 +27,6 @@
     </ion-item>
   </ion-card>
 
-  <ng-container *ngIf="orderHistory$ | async as item">
     <ion-card *ngFor="let data of item" color="light" (click)="detailHistory(data._id)"
       class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">

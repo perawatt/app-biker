@@ -25,7 +25,7 @@ export class HistoryMainPage implements OnInit {
   getOrderHistories() {
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
-      console.log("get: " + JSON.stringify(it));
+      console.log(it);
     })
   }
 
