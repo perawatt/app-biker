@@ -10,15 +10,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./order-cancel.page.scss'],
 })
 export class OrderCancelPage implements OnInit {
+
   public fg: FormGroup;
   private submitRequested: boolean;
-  cancel$ = Promise.resolve([]);
+  public cancel$ = Promise.resolve([]);
   public orderId: string
-
   constructor(private svc: NativeService, private fb: FormBuilder, private bikerSvc: BikerService, private nativeSvc: NativeService, public route: ActivatedRoute) {
     this.route.params.subscribe(param => { this.orderId = param["orderId"] });
-    console.log('con',this.orderId);
-    
+    console.log('con', this.orderId);
     this.fg = this.fb.group({
       'heading': null,
       'info': null,
@@ -27,8 +26,7 @@ export class OrderCancelPage implements OnInit {
 
   ngOnInit() {
     this.svc.SetPageTitle("ยกเลิกคำสั่งซื้อ");
-    console.log('nit',this.orderId);
-
+    console.log('nit', this.orderId);
   }
 
   handleSubmit() {
@@ -40,5 +38,4 @@ export class OrderCancelPage implements OnInit {
         this.nativeSvc.GoBack();
       })
   }
-
 }

@@ -8,20 +8,16 @@ import { NativeService } from 'src/providers/NativeService';
   styleUrls: ['./profile-main.page.scss'],
 })
 export class ProfileMainPage implements OnInit {
-  bikerInfo$ = Promise.resolve([]);
 
-
+  public bikerInfo$ = Promise.resolve([]);
   constructor(private svc: NativeService, private bikerSvc: BikerService) { 
-
   }
 
   ngOnInit() {
     this.svc.SetPageTitle("โปร์ไฟล์");
-
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
       console.log("order: " + JSON.stringify(it));
     })
   }
-
 }

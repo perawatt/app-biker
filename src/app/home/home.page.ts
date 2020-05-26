@@ -13,12 +13,12 @@ import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-app
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
   public openModal: string;
   public bikerInfo$ = Promise.resolve([]);
   public order$ = Promise.resolve([]);
   public IsBikerOn: boolean;
   public orderId: string;
-
   constructor(public router: Router, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
@@ -119,7 +119,6 @@ export class HomePage implements OnInit {
       this.router.navigate(['/order-stage'])
     }).catch(it=>{
       console.log(JSON.stringify(it));
-
     });
   }
 }

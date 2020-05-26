@@ -9,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryMainPage implements OnInit {
 
-  date = new Date();
-  orderHistory$ = Promise.resolve([]);
+  public date = new Date();
+  public orderHistory$ = Promise.resolve([]);
   constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ionViewDidEnter() {

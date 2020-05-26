@@ -9,8 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./history-detail.page.scss'],
 })
 export class HistoryDetailPage implements OnInit {
-  _id: string;
-  orderInfo$ = Promise.resolve([]);
+  public _id: string;
+  public orderInfo$ = Promise.resolve([]);
   constructor(private svc: NativeService, private route: ActivatedRoute, private bikerSvc: BikerService) {
     this.route.params.subscribe(param => { this._id = param["id"] });
   }
