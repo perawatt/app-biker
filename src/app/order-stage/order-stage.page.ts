@@ -18,7 +18,6 @@ export class OrderStagePage implements OnInit {
   public orderInfo$ = Promise.resolve([]);
   public page: string;
   public isCancel: boolean;
-
   constructor(private router: Router, private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
     this.page = "received";
     this.isCancel = false;
@@ -107,5 +106,4 @@ export class OrderStagePage implements OnInit {
       }, 20000);
     }
   }
-
 }

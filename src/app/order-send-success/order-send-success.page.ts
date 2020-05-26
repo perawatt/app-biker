@@ -9,9 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class OrderSendSuccessPage implements OnInit {
 
   public doWork: boolean;
-
   constructor(private modalController: ModalController) { }
-
   ngOnInit() {
   }
 
