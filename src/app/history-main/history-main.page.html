@@ -27,27 +27,26 @@
 
   <ng-container *ngIf="orderHistory$ | async as item">
     <ion-card *ngFor="let data of item" color="light" (click)="detailHistory(data._id)"
-        class="ion-no-margin ion-margin-horizontal ion-margin-top">
-        <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
-          <ion-label>
-            <h1><b>คำสั่งซื้อ {{data._id}} </b></h1>
-            <ion-text color="secondary">
-              <h3>{{data.acceptRequestDate |date}} (11.00)</h3>
-            </ion-text>
-          </ion-label>
-        </ion-card-header>
-        <ion-item lines="none" color="light">
-          <ion-avatar slot="start">
-            <img
-              src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
-          </ion-avatar>
-          <ion-label>
-            <h3><b>{{data.biker?.name}}</b></h3>
-            <ion-text color="secondary">
-              <p class="ion-text-wrap">{{data.customer?.address}}</p>
-            </ion-text>
-          </ion-label>
-        </ion-item>
-      </ion-card>
+      class="ion-no-margin ion-margin-horizontal ion-margin-top">
+      <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
+        <ion-label>
+          <h1><b>คำสั่งซื้อ {{data._id}} </b></h1>
+          <ion-text color="secondary">
+            <p>{{data.acceptRequestDate | date:'M/d/yyy (H:mm)'}} </p>
+          </ion-text>
+        </ion-label>
+      </ion-card-header>
+      <ion-item lines="none" color="light">
+        <ion-avatar slot="start">
+          <img src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
+        </ion-avatar>
+        <ion-label>
+          <h3><b>{{data.customer?.name}}</b></h3>
+          <ion-text color="secondary">
+            <p class="ion-text-wrap">{{data.customer?.address}}</p>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
   </ng-container>
 </ion-content>
