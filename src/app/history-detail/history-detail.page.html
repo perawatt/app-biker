@@ -39,11 +39,9 @@
           <ion-avatar slot="start">
           </ion-avatar>
           <ion-label>
+            <h3><img src="assets/imgs/bikedark.png" alt="" height="13"> {{ data.distance? null:0}}</h3>
             <h3>
-              <ion-icon name="navigate-circle-outline"></ion-icon> {{ data.distance? null:0}}
-            </h3>
-            <h3>
-              <ion-icon name="time-outline"></ion-icon>
+              <ion-icon name="time-outline" color="dark"></ion-icon>
               {{data.predictDeliveryTime?.hours }}:{{data.predictDeliveryTime?.minutes }} นาที
             </h3>
             <ion-text>
