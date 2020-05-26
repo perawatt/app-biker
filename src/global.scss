@@ -45,3 +45,7 @@ ion-card{
     height: 50%;
     border-radius: 8px;
 }
+
+.no-scroll {
+    --overflow: hidden;
+}

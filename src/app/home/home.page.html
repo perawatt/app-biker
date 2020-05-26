@@ -21,8 +21,7 @@
       <ion-list>
         <ion-item color="light">
           <ion-avatar slot="start">
-            <img
-              src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
+            <img src="assets/imgs/ordershop.png" />
           </ion-avatar>
           <ion-label>
             <h3><b>{{ data.restaurant?.name }}</b></h3>
@@ -30,12 +29,11 @@
               <p class="ion-text-wrap">{{ data.restaurant?.address }}</p>
             </ion-text>
           </ion-label>
-
         </ion-item>
+
         <ion-item lines="none" color="light">
           <ion-avatar slot="start">
-            <img
-              src="https://image.shutterstock.com/image-vector/cartoon-cute-squid-bowtie-vector-260nw-740611582.jpg" />
+            <img src="assets/imgs/ordercustomer.png"/>
           </ion-avatar>
           <ion-label>
             <h3><b>{{ data.customer?.name }}</b></h3>
@@ -47,6 +45,12 @@
       </ion-list>
     </ion-card>
   </ng-container>
+
+  <ng-container *ngIf="!IsBikerOn">
+    <div id="biker-logo">
+      <img src="assets/imgs/bikegray.png" alt="">
+    </div>
+  </ng-container >
 </ion-content>
 
 ื<ng-container *ngIf="IsBikerOn">
