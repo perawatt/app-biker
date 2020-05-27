@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
 
   ionViewDidEnter() {
     this.GetOrderDetail();
+    this.nativeSvc.SetPageTitle('');
   }
 
   ngOnInit() {
