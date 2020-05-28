@@ -3,7 +3,7 @@ import { NativeService } from 'src/providers/NativeService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BikerService } from 'src/services/biker.service';
 import { ModalController } from '@ionic/angular';
-import { OrderSendSuccessPage } from '../order-send-success/order-send-success.page';
+import { OrderSendSuccessPage } from '../../modals/order-send-success/order-send-success.page';
 import { OrderCancelPage } from '../order-cancel/order-cancel.page';
 
 @Component({
@@ -104,7 +104,7 @@ export class OrderStagePage implements OnInit {
     if (this.isCancel) {
       setTimeout(() => {
         this.nativeSvc.NavigateToPage("home", { openModal: "openModalCancelApprove" });
-      }, 20000);
+      }, 5000);
     }
   }
 
