@@ -40,7 +40,7 @@ export class OrderStagePage implements OnInit {
   notificationhandler(notiParam: any) {
     switch (notiParam.Status) {
       case "CancelConfirm": this.openApproveCancelOrder("openModalCancelApprove"); break;
-      case "CancelDeny": this.openApproveCancelOrder("openModalCancelDeny"); break;
+      case "CancelDeny": this.getOrderInfo(); break;
       default: break;
     }
   }
