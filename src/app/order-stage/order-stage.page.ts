@@ -107,4 +107,8 @@ export class OrderStagePage implements OnInit {
       }, 20000);
     }
   }
+
+  customerContact(){
+    this.nativeSvc.NavigateToPage("order-customer-contact");
+  }
 }

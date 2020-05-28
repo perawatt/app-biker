@@ -1,21 +1,23 @@
 <ion-content class="ion-text-center">
-  <ion-card color="light">
-    <ion-card-header>
-      <ion-item lines="none" color="light"></ion-item>
-      <ion-avatar class="avatar center">
-        <img src="assets/imgs/ordercustomer.png">
-      </ion-avatar>
-      <ion-item lines="none" color="light" class="ion-margin-top">
-        <ion-label class="ion-text-center">
-          <h1><b>เอิร์นไง</b></h1>
-        </ion-label>
-      </ion-item>
-      <ion-button shape="round" color="success" class="ion-margin-top" >
-        <ion-label color="light" class="ion-margin">
-          <h2>โทร.</h2>
-        </ion-label>
-      </ion-button>
-      <ion-item lines="none" color="light"></ion-item>
-    </ion-card-header>
-  </ion-card>
+  <ng-container *ngIf="order$ | async as data">
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-item lines="none" color="light"></ion-item>
+        <ion-avatar class="avatar center">
+          <img [src]="data.customer?.logoImage ? 'data.customer?.logoImage' : 'assets/imgs/ordercustomer.png'">
+        </ion-avatar>
+        <ion-item lines="none" color="light" class="ion-margin-top">
+          <ion-label class="ion-text-center">
+            <h1><b> {{ data.customer?.name }} </b></h1>
+          </ion-label>
+        </ion-item>
+        <ion-button shape="round" color="success" class="ion-margin-top">
+          <ion-label color="light" class="ion-margin">
+            <h2>โทร.</h2>
+          </ion-label>
+        </ion-button>
+        <ion-item lines="none" color="light"></ion-item>
+      </ion-card-header>
+    </ion-card>
+  </ng-container>
 </ion-content>
