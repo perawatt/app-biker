@@ -53,6 +53,6 @@ ion-card {
 ion-toggle {
     --background: var(--ion-color-medium);
     --background-checked: var(--ion-color-medium);
-    --handle-background: var(--ion-color-dark) url(assets/imgs/biketoggle.png) no-repeat center / contain;
-    --handle-background-checked: var(--ion-color-warning) url(assets/imgs/biketoggle.png) no-repeat center / contain
+    --handle-background: var(--ion-color-dark) url(./assets/imgs/biketoggle.png) no-repeat center / contain;
+    --handle-background-checked: var(--ion-color-warning) url(./assets/imgs/biketoggle.png) no-repeat center / contain
 }
