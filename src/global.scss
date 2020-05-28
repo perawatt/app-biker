@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,16 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-card{
+ion-card {
     box-shadow: none;
 }
 
-.avatar{
+.avatar {
     width: 100px;
     height: 100px;
 }
 
-.center{
+.center {
     float: none;
     margin-left: auto;
     margin-right: auto;
@@ -48,4 +48,11 @@ ion-card{
 
 .no-scroll {
     --overflow: hidden;
+}
+
+ion-toggle {
+    --background: var(--ion-color-medium);
+    --background-checked: var(--ion-color-medium);
+    --handle-background: var(--ion-color-dark) url(assets/imgs/biketoggle.png) no-repeat center / contain;
+    --handle-background-checked: var(--ion-color-warning) url(assets/imgs/biketoggle.png) no-repeat center / contain
 }
