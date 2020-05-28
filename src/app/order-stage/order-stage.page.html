@@ -2,7 +2,7 @@
   <ng-container *ngIf="orderInfo$ | async as data">
     <ion-list *ngIf="page == 'received'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">00.01 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
@@ -82,7 +82,7 @@
 
     <ion-list *ngIf="page == 'shipping'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">15.05 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
@@ -171,7 +171,7 @@
 
     <ion-list *ngIf="page == 'arrived'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">15.20 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
@@ -198,7 +198,6 @@
         <ion-label color="secondary" class="ion-text-end">
           <h2>ถึงแล้ว</h2>
           <h3>{{ data.destinationDate | date:'H:mm' }}</h3>
-          <h3>&nbsp;</h3>
         </ion-label>
       </ion-item>
 
@@ -267,7 +266,7 @@
 
     <ion-row>
       <ion-col size="4">
-        <ion-button expand="block" shape="round" color="light" type="submit" [routerLink]="['/order-customer-contact']">
+        <ion-button expand="block" shape="round" color="light" type="submit" (click)="customerContact()">
           <ion-label>
             <h2><img src="assets/imgs/iconcustomer.png" height="14" alt="">&nbsp;ลูกค้า </h2>
           </ion-label>
@@ -309,7 +308,7 @@
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>฿{{ data.price | number }}</p>
+                <p>฿{{ data.quantity * data.price | number }}</p>
                 <p>ยกเลิก</p>
               </ion-text>
             </ion-note>

@@ -36,18 +36,9 @@ const routes: Routes = [
     loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
   },
   {
-    path: 'order-send-success',
-    loadChildren: () => import('./order-send-success/order-send-success.module').then( m => m.OrderSendSuccessPageModule)
-  },
-  {
     path: 'order-stage',
     loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
-  },  {
-    path: 'order-cancel-approve',
-    loadChildren: () => import('./order-cancel-approve/order-cancel-approve.module').then( m => m.OrderCancelApprovePageModule)
   },
-
-
 
 
 ];

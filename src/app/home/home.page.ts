@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { OrderSendSuccessPage } from '../order-send-success/order-send-success.page';
+import { OrderSendSuccessPage } from '../../modals/order-send-success/order-send-success.page';
 import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
 import { stringify } from 'querystring';
-import { OrderCancelApprovePage } from '../order-cancel-approve/order-cancel-approve.page';
+import { OrderCancelApprovePage } from '../../modals/order-cancel-approve/order-cancel-approve.page';
 
 @Component({
   selector: 'app-home',
@@ -73,7 +73,6 @@ export class HomePage implements OnInit {
   }
 
   async openModalOrderSendSuccess(text: string) {
-    console.log('xxxxxxx', text);
     if ((text != null) && (text != undefined) && (text == "openModalOrderSendSuccess")) {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
