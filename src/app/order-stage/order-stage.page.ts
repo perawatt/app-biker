@@ -34,12 +34,20 @@ export class OrderStagePage implements OnInit {
   ngOnInit() {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderInfo());
-    this.nativeSvc.RegisterNotificationHander("ApproveCancelOrder", (param) => this.openApproveCancelOrder());
+    this.nativeSvc.RegisterNotificationHander("UpdateOrderStatus", (param) => this.notificationhandler(param));
   }
 
-  openApproveCancelOrder() {
+  notificationhandler(notiParam: any) {
+    switch (notiParam.Status) {
+      case "CancelConfirm": this.openApproveCancelOrder("openModalCancelApprove"); break;
+      case "CancelDeny": this.openApproveCancelOrder("openModalCancelDeny"); break;
+      default: break;
+    }
+  }
+
+  openApproveCancelOrder(modal: string) {
     this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
-    this.router.navigate(['/home', { openModal: "openModalCancelApprove" }]);
+    this.router.navigate(['/home', { openModal: modal }]);
   }
 
   getOrderInfo() {
@@ -58,7 +66,6 @@ export class OrderStagePage implements OnInit {
         this.page = "received";
       }
 
-      // this.waitReplycancelRequest();
       this.acceptRequestDate = new Date(it.acceptRequestDate);
       this.shippingDate = new Date(it.shippingDate);
       this.destinationDate = new Date(it.destinationDate);
@@ -115,15 +122,6 @@ export class OrderStagePage implements OnInit {
 
   requestCancel() {
     this.nativeSvc.NavigateToPage("order-cancel", { orderId: this.orderId });
-  }
-
-  //todo รอ Noti แจ้งอนุมัติคำขอยกเลิก
-  waitReplycancelRequest() {
-    if (this.isCancel) {
-      setTimeout(() => {
-        this.nativeSvc.NavigateToPage("home", { openModal: "openModalCancelApprove" });
-      }, 5000);
-    }
   }
 
   customerContact() {
