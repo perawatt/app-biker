@@ -302,7 +302,8 @@
           <ion-label color="dark">
             <p>x{{ data.quantity }} {{ data.name }}</p>
             <ion-text color="danger">
-              <p>{{ data.option }}</p>
+              <p *ngIf="data.option">{{ data.option }}</p>
+              <p *ngIf="!data.option">&nbsp;</p>
             </ion-text>
           </ion-label>
           <ion-label>
