@@ -8,9 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { OrderSendSuccessPageModule } from './order-send-success/order-send-success.module';
 import { NativeService } from 'src/providers/NativeService';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalsModule } from 'src/modals/modals.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     IonicModule.forRoot(),
     AppRoutingModule,    
     HttpClientModule,
-    OrderSendSuccessPageModule,
+    ModalsModule,
   ],
   providers: [
     StatusBar,
