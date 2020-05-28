@@ -73,7 +73,6 @@ export class HomePage implements OnInit {
   }
 
   async openModalOrderSendSuccess(text: string) {
-    console.log('xxxxxxx', text);
     if ((text != null) && (text != undefined) && (text == "openModalOrderSendSuccess")) {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,

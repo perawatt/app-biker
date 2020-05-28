@@ -18,6 +18,10 @@ export class OrderStagePage implements OnInit {
   public orderInfo$ = Promise.resolve([]);
   public page: string;
   public isCancel: boolean;
+  public acceptRequestDate: Date;
+  public shippingDate: Date;
+  public destinationDate: Date;
+  public time: any;
   constructor(private router: Router, private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
     this.page = "received";
     this.isCancel = false;
@@ -29,10 +33,8 @@ export class OrderStagePage implements OnInit {
 
   ngOnInit() {
     this.nativeSvc.SetPageTitle("รับออเดอร์");
-    console.log('init', this.orderId);
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderInfo());
     this.nativeSvc.RegisterNotificationHander("ApproveCancelOrder", (param) => this.openApproveCancelOrder());
-    console.log("Page orde :" + this.page);
   }
 
   openApproveCancelOrder() {
@@ -43,6 +45,8 @@ export class OrderStagePage implements OnInit {
   getOrderInfo() {
     this.orderInfo$ = this.bikerSvc.getOrderInfo();
     this.orderInfo$.then((it: any) => {
+      console.log(it);
+
       this.orderId = it._id
       this.isCancel = (it?.cancelRequestId != null && it?.cancelRequestId != "" && it?.cancelRequestId != undefined) ? true : false;
 
@@ -55,43 +59,57 @@ export class OrderStagePage implements OnInit {
       }
 
       // this.waitReplycancelRequest();
-      console.log(it);
-      console.log(this.orderId);
+      this.acceptRequestDate = new Date(it.acceptRequestDate);
+      this.shippingDate = new Date(it.shippingDate);
+      this.destinationDate = new Date(it.destinationDate);
+
+      // console.log('shippingDate', this.shippingDate.valueOf());
+      // console.log('destinationDate', this.destinationDate.valueOf());
+
+      if ((this.shippingDate.valueOf() == 0) && (this.destinationDate.valueOf() == 0)) {
+        this.time = 0;
+        console.log('0');
+
+      }
+      else if ((this.shippingDate.valueOf() != 0) && (this.destinationDate.valueOf() == 0)) {
+        this.time = (this.shippingDate.valueOf() - this.acceptRequestDate.valueOf());
+        console.log('1');
+      }
+      else {
+        this.time = (this.destinationDate.valueOf() - this.acceptRequestDate.valueOf());
+        console.log('2');
+      }
+
+      setInterval(() => {
+        this.time += 1000
+      }, 1000);
     })
   }
 
   changePage(footer: string) {
     if (footer == "received") {
       this.bikerSvc.updateOrderStatusToShipping(this.orderId).then(it => {
-        console.log(it);
         this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
-        this.page = "shipping";
-        console.log('1');
       });
     }
     else if (footer == "shipping") {
       this.bikerSvc.updateOrderStatusToArrived(this.orderId).then(it => {
-        console.log(it);
         this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
-        this.page = "arrived";
-        console.log('2');
       });
     }
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
-        console.log(it);
-        this.nativeSvc.UpdateSidemenuItem("รับออเดอร์","home");
+        this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
         this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess" }]);
-        console.log('3');
       })
     }
   }
 
   public OpenMap(coordinates: string) {
     var splitted = coordinates.split(',', 2);
-    console.log(parseFloat(splitted[0]), parseFloat(splitted[1]));    
+    console.log(parseFloat(splitted[0]), parseFloat(splitted[1]));
     this.nativeSvc.OpenMapDirection(parseFloat(splitted[0]), parseFloat(splitted[1]));
   }
 
@@ -108,7 +126,7 @@ export class OrderStagePage implements OnInit {
     }
   }
 
-  customerContact(){
+  customerContact() {
     this.nativeSvc.NavigateToPage("order-customer-contact");
   }
 }

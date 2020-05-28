@@ -2,7 +2,7 @@
   <ng-container *ngIf="orderInfo$ | async as data">
     <ion-list *ngIf="page == 'received'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">00.01 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
@@ -82,7 +82,7 @@
 
     <ion-list *ngIf="page == 'shipping'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">15.05 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
@@ -171,7 +171,7 @@
 
     <ion-list *ngIf="page == 'arrived'">
       <ion-button class="ion-margin-top" disabled shape="round" color="warning" type="submit">
-        <ion-text color="light">15.20 นาที</ion-text>
+        <ion-text color="light">{{ time | date:'mm:ss' }} นาที</ion-text>
       </ion-button>
 
       <div id="stepProgressBar">
