@@ -136,7 +136,7 @@
         <ion-list>
           <ion-item color="light" lines="none">
             <ion-avatar slot="start">
-              <img src="assets/imgs/ordercustomer.png"/>
+              <img src="assets/imgs/ordercustomer.png" />
             </ion-avatar>
             <ion-label>
               <h3><b>{{ data.customer?.name}}</b></h3>
@@ -225,7 +225,7 @@
         <ion-list>
           <ion-item color="light" lines="none">
             <ion-avatar slot="start">
-              <img src="assets/imgs/ordercustomer.png"/>
+              <img src="assets/imgs/ordercustomer.png" />
             </ion-avatar>
             <ion-label>
               <h3><b>{{ data.customer?.name}}</b></h3>
@@ -292,7 +292,7 @@
       <ion-list>
         <ion-item color="light" lines="none">
           <ion-avatar slot="start">
-            <img [src]="data.restaurant?.logoImage">
+            <img [src]="data.restaurant?.logoImage != null ? data.restaurant?.logoImage  : 'assets/imgs/dfres@3x.png'">
           </ion-avatar>
           <ion-label>
             <h3><b>{{ data.restaurant?.name }}</b></h3>
