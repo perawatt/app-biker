@@ -57,24 +57,29 @@ export class OrderStagePage implements OnInit {
   getOrderInfo() {
     this.orderInfo$ = this.bikerSvc.getOrderInfo();
     this.orderInfo$.then((it: any) => {
-      console.log(it);
-
-      this.orderId = it._id
-      this.isCancel = (it?.cancelRequestId != null && it?.cancelRequestId != "" && it?.cancelRequestId != undefined) ? true : false;
-
-      if (it?.destinationDate) {
-        this.page = "arrived";
-      } else if (it?.shippingDate) {
-        this.page = "shipping";
-      } else {
-        this.page = "received";
+      if (it == null || it == undefined) {
+        this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
+        this.router.navigate(['/home']);
+      }
+      else{
+        this.orderId = it._id
+        this.isCancel = (it?.cancelRequestId != null && it?.cancelRequestId != "" && it?.cancelRequestId != undefined) ? true : false;
+  
+        if (it?.destinationDate) {
+          this.page = "arrived";
+        } else if (it?.shippingDate) {
+          this.page = "shipping";
+        } else {
+          this.page = "received";
+        }
+  
+        this.acceptRequestDate = new Date(it.acceptRequestDate);
+        this.shippingDate = new Date(it.shippingDate);
+        this.destinationDate = new Date(it.destinationDate);
+  
+        this.time = new Date().valueOf() - new Date(this.acceptRequestDate).valueOf();
       }
 
-      this.acceptRequestDate = new Date(it.acceptRequestDate);
-      this.shippingDate = new Date(it.shippingDate);
-      this.destinationDate = new Date(it.destinationDate);
-
-      this.time = new Date().valueOf() - new Date(this.acceptRequestDate).valueOf();
     })
   }
 
