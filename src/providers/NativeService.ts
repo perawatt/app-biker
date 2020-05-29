@@ -103,6 +103,13 @@ export class NativeService {
         }
     }
 
+    public async PhoneCall(phoneNumber: string) {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            this.callAppMethod("PhoneCall", phoneNumber);
+        }
+    }
+
     public async UpdateSidemenuItem(title: string, page: string, params?: object) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
