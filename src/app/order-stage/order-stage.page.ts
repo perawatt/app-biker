@@ -22,6 +22,7 @@ export class OrderStagePage implements OnInit {
   public shippingDate: Date;
   public destinationDate: Date;
   public time: any;
+  public progressInterval;
   constructor(private router: Router, private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
     this.page = "received";
     this.isCancel = false;
@@ -32,6 +33,9 @@ export class OrderStagePage implements OnInit {
   }
 
   ngOnInit() {
+    this.progressInterval = setInterval(() => {
+      this.time += 1000
+    }, 1000);
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderInfo());
     this.nativeSvc.RegisterNotificationHander("UpdateOrderStatus", (param) => this.notificationhandler(param));
@@ -70,26 +74,7 @@ export class OrderStagePage implements OnInit {
       this.shippingDate = new Date(it.shippingDate);
       this.destinationDate = new Date(it.destinationDate);
 
-      // console.log('shippingDate', this.shippingDate.valueOf());
-      // console.log('destinationDate', this.destinationDate.valueOf());
-
-      if ((this.shippingDate.valueOf() == 0) && (this.destinationDate.valueOf() == 0)) {
-        this.time = 0;
-        console.log('0');
-
-      }
-      else if ((this.shippingDate.valueOf() != 0) && (this.destinationDate.valueOf() == 0)) {
-        this.time = (this.shippingDate.valueOf() - this.acceptRequestDate.valueOf());
-        console.log('1');
-      }
-      else {
-        this.time = (this.destinationDate.valueOf() - this.acceptRequestDate.valueOf());
-        console.log('2');
-      }
-
-      setInterval(() => {
-        this.time += 1000
-      }, 1000);
+      this.time = new Date().valueOf() - new Date(this.acceptRequestDate).valueOf();
     })
   }
 
@@ -109,6 +94,7 @@ export class OrderStagePage implements OnInit {
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
         this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
+        clearInterval(this.progressInterval);        
         this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess" }]);
       })
     }
