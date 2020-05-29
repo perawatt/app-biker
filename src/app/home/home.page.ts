@@ -19,6 +19,10 @@ export class HomePage implements OnInit {
   public order$ = Promise.resolve([]);
   public IsBikerOn: boolean;
   public orderId: string;
+  public orderIdFinish: string;
+  public acceptRequestDate: Date;
+  public doneDate: Date;
+  public time: any;
   constructor(public router: Router, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
@@ -34,11 +38,24 @@ export class HomePage implements OnInit {
     this.getBikerStatusAndOrder();
 
     this.route.params.subscribe(param => { this.openModal = param["openModal"] });
-    console.log(this.openModal);
+    this.route.params.subscribe(param => { this.orderIdFinish = param["orderId"] });
+    console.log(this.orderIdFinish);
+    if (this.orderIdFinish) {
+      this.bikerSvc.getOrderHistoryInfo(this.orderId).then(it => {
+        this.acceptRequestDate = new Date(it.acceptRequestDate);
+        this.doneDate = new Date(it.doneDate);
+        this.time = (this.doneDate.valueOf() - this.acceptRequestDate.valueOf());
+
+        console.log(this.acceptRequestDate);
+        console.log(this.doneDate);
+        console.log(this.time);
+
+      });
+    }
     this.openModalOrderSendSuccess(this.openModal);
 
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
-    this.nativeSvc.RegisterRefreshOnGoBack(()=>this.GetOrderDetail());
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
 
   GetOrderDetail() {
@@ -55,7 +72,7 @@ export class HomePage implements OnInit {
     this.bikerInfo$.then((it: any) => {
       console.log(it);
       this.IsBikerOn = it?.onWorkStatus;
-      if(this.IsBikerOn) this.GetOrderDetail();
+      if (this.IsBikerOn) this.GetOrderDetail();
       console.log("get: " + this.IsBikerOn);
     })
   }
@@ -77,6 +94,9 @@ export class HomePage implements OnInit {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
         cssClass: 'dialog-modal-4-order-success',
+        componentProps: {
+          'time': this.time,
+        },
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
@@ -115,9 +135,9 @@ export class HomePage implements OnInit {
 
   receiveOrder() {
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
-      this.nativeSvc.UpdateSidemenuItem("รับออเดอร์","order-stage");
+      this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "order-stage");
       this.router.navigate(['/order-stage'])
-    }).catch(it=>{
+    }).catch(it => {
       console.log(JSON.stringify(it));
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,9 +7,13 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./order-send-success.page.scss'],
 })
 export class OrderSendSuccessPage implements OnInit {
-
+  
+  @Input() time: string;
   public doWork: boolean;
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController) {
+    console.log(this.time);
+   }
+   
   ngOnInit() {
   }
 
