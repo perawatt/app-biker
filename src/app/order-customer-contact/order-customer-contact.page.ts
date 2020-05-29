@@ -10,19 +10,19 @@ import { BikerService } from 'src/services/biker.service';
 export class OrderCustomerContactPage implements OnInit {
 
   public order$ = Promise.resolve([]);
+  public phoneNo: string;
 
   constructor(private nativeSvc: NativeService, private bikerSvc: BikerService) { }
 
-  ionViewDidEnter() {
-    this.getCustomerInfo();
-  }
-
   ngOnInit() {
     this.nativeSvc.SetPageTitle("ติดต่อลูกค้า");
-  }
-
-  getCustomerInfo(){
     this.order$ = this.bikerSvc.getOrderInfo();
+    this.order$.then((it: any) => {
+      this.phoneNo = it.biker.tel;
+    })
   }
 
+  calling() {
+    this.nativeSvc.PhoneCall(this.phoneNo);
+  }
 }
