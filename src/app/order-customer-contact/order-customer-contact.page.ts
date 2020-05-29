@@ -18,7 +18,7 @@ export class OrderCustomerContactPage implements OnInit {
     this.nativeSvc.SetPageTitle("ติดต่อลูกค้า");
     this.order$ = this.bikerSvc.getOrderInfo();
     this.order$.then((it: any) => {
-      this.phoneNo = it.biker.tel;
+      this.phoneNo = it.customer.tel;
     })
   }
 
