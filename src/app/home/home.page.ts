@@ -32,28 +32,20 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.IsBikerOn);
-
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.getBikerStatusAndOrder();
-
     this.route.params.subscribe(param => { this.openModal = param["openModal"] });
     this.route.params.subscribe(param => { this.orderIdFinish = param["orderId"] });
-    console.log(this.orderIdFinish);
     if (this.orderIdFinish) {
-      this.bikerSvc.getOrderHistoryInfo(this.orderId).then(it => {
+      this.bikerSvc.getOrderHistoryInfo(this.orderIdFinish).then(it => {
         this.acceptRequestDate = new Date(it.acceptRequestDate);
         this.doneDate = new Date(it.doneDate);
         this.time = (this.doneDate.valueOf() - this.acceptRequestDate.valueOf());
-
-        console.log(this.acceptRequestDate);
-        console.log(this.doneDate);
-        console.log(this.time);
-
+        this.openModalOrderSendSuccess(this.openModal);
       });
+    } else {
+      this.openModalOrderSendSuccess(this.openModal);
     }
-    this.openModalOrderSendSuccess(this.openModal);
-
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
