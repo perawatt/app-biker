@@ -94,8 +94,7 @@ export class OrderStagePage implements OnInit {
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
         this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
-        clearInterval(this.progressInterval);        
-        this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess" }]);
+        this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess", orderId: this.orderId }]);
       })
     }
   }

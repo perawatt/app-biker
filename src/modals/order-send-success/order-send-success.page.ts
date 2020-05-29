@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-send-success',
@@ -7,9 +8,14 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./order-send-success.page.scss'],
 })
 export class OrderSendSuccessPage implements OnInit {
-
+  
   public doWork: boolean;
-  constructor(private modalController: ModalController) { }
+  public time: any;
+  constructor(private modalController: ModalController,private route: ActivatedRoute) {
+    this.route.params.subscribe(param => { this.time = param["time"] });
+    console.log(this.time);
+   }
+   
   ngOnInit() {
   }
 
