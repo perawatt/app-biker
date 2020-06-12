@@ -49,5 +49,12 @@
         </ion-label>
       </ion-item>
     </ion-card>
+    <ion-card color="light" class="ion-text-center" *ngIf="item.length < 1 ">
+      <br><br><br><br><br>
+      <ion-text class="ion-text-center" color="secondary">
+          <h5><b>ไม่มีรายการ</b></h5>
+      </ion-text>
+      <br><br><br><br><br>
+  </ion-card>
   </ng-container>
 </ion-content>
