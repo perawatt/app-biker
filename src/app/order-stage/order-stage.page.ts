@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NativeService } from 'src/providers/NativeService';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BikerService } from 'src/services/biker.service';
-import { ModalController } from '@ionic/angular';
-import { OrderSendSuccessPage } from '../../modals/order-send-success/order-send-success.page';
-import { OrderCancelPage } from '../order-cancel/order-cancel.page';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-stage',
@@ -13,22 +11,18 @@ import { OrderCancelPage } from '../order-cancel/order-cancel.page';
 })
 export class OrderStagePage implements OnInit {
 
-  public header: any;
   public orderId: string;
   public orderInfo$ = Promise.resolve([]);
   public page: string;
   public isCancel: boolean;
-  public acceptRequestDate: Date;
-  public shippingDate: Date;
-  public destinationDate: Date;
   public time: any;
   public progressInterval;
-  constructor(private router: Router, private nativeSvc: NativeService, private route: ActivatedRoute, private modalController: ModalController, private bikerSvc: BikerService) {
+  constructor(private router: Router, private nativeSvc: NativeService, private bikerSvc: BikerService, private alertCtr: AlertController) {
     this.page = "received";
     this.isCancel = false;
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.getOrderInfo();
   }
 
@@ -54,17 +48,29 @@ export class OrderStagePage implements OnInit {
     this.router.navigate(['/home', { openModal: modal }]);
   }
 
-  getOrderInfo() {
+  async getOrderInfo() {
+    const alert = await this.alertCtr.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.getOrderInfo()
+        },
+      }],
+      backdropDismiss: false
+    });
+
     this.orderInfo$ = this.bikerSvc.getOrderInfo();
     this.orderInfo$.then((it: any) => {
       if (it == null || it == undefined) {
         this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
         this.router.navigate(['/home']);
       }
-      else{
+      else {
         this.orderId = it._id
         this.isCancel = (it?.cancelRequestId != null && it?.cancelRequestId != "" && it?.cancelRequestId != undefined) ? true : false;
-  
+
         if (it?.destinationDate) {
           this.page = "arrived";
         } else if (it?.shippingDate) {
@@ -72,35 +78,53 @@ export class OrderStagePage implements OnInit {
         } else {
           this.page = "received";
         }
-  
-        this.acceptRequestDate = new Date(it.acceptRequestDate);
-        this.shippingDate = new Date(it.shippingDate);
-        this.destinationDate = new Date(it.destinationDate);
-  
-        this.time = new Date().valueOf() - new Date(this.acceptRequestDate).valueOf();
+        this.time = new Date().valueOf() - new Date(it.acceptRequestDate).valueOf();
       }
-
-    })
+    }, async error => {
+      alert.message = error.error.message;
+      await alert.present();
+    });
   }
 
-  changePage(footer: string) {
+  async changePage(footer: string) {
+    const alert = await this.alertCtr.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.getOrderInfo()
+        },
+      }],
+      backdropDismiss: false
+    });
+
     if (footer == "received") {
       this.bikerSvc.updateOrderStatusToShipping(this.orderId).then(it => {
         this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
       });
     }
     else if (footer == "shipping") {
       this.bikerSvc.updateOrderStatusToArrived(this.orderId).then(it => {
         this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
       });
     }
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
         this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
         this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess", orderId: this.orderId }]);
-      })
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
+      });
     }
   }
 
