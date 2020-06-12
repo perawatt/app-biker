@@ -1,31 +1,31 @@
 <ion-content mode="ios">
   <ng-container *ngIf="orderHistory$ | async as item">
-  <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
-    <ion-item color="warning">
-     
-      <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
-        <img src="assets/imgs/bikewhite.png" />
+    <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+      <ion-item color="warning">
+
+        <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
+          <img src="assets/imgs/bikewhite.png" />
+        </ion-item>
+        <ion-label>
+          <ion-note slot="start">
+            <ion-text color="light">
+              <p>จำนวนที่ส่งวันนี้</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+            </ion-text>
+          </ion-note>
+        </ion-label>
+        <ion-label>
+          <ion-note slot="end" class="ion-text-end">
+            <ion-text color="light">
+              <p>{{ item.length? item.length : 0 | number }} ครั้ง</p>
+              <p>&nbsp;</p>
+              <p>ดูวันอื่นๆ</p>
+            </ion-text>
+          </ion-note>
+        </ion-label>
       </ion-item>
-      <ion-label>
-        <ion-note slot="start">
-          <ion-text color="light">
-            <p>จำนวนที่ส่งวันนี้</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-          </ion-text>
-        </ion-note>
-      </ion-label>
-      <ion-label>
-        <ion-note slot="end" class="ion-text-end">
-          <ion-text color="light">
-            <p>{{ item.length? item.length : 0 | number }} ครั้ง</p>
-            <p>&nbsp;</p>
-            <p>ดูวันอื่นๆ</p>
-          </ion-text>
-        </ion-note>
-      </ion-label>
-    </ion-item>
-  </ion-card>
+    </ion-card>
 
     <ion-card *ngFor="let data of item" color="light" (click)="detailHistory(data._id)"
       class="ion-no-margin ion-margin-horizontal ion-margin-top">
@@ -52,9 +52,9 @@
     <ion-card color="light" class="ion-text-center" *ngIf="item.length < 1 ">
       <br><br><br><br><br>
       <ion-text class="ion-text-center" color="secondary">
-          <h5><b>ไม่มีรายการ</b></h5>
+        <h5><b>ไม่มีรายการ</b></h5>
       </ion-text>
       <br><br><br><br><br>
-  </ion-card>
+    </ion-card>
   </ng-container>
 </ion-content>
