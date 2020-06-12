@@ -1,6 +1,7 @@
 import { NativeService } from 'src/providers/NativeService';
 import { BikerService } from './../../services/biker.service';
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-history-main',
@@ -11,21 +12,38 @@ export class HistoryMainPage implements OnInit {
 
   public date = new Date();
   public orderHistory$ = Promise.resolve([]);
-  constructor(private svc: NativeService, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
+  constructor(private alertCtr: AlertController, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.getOrderHistories();
   }
 
   ngOnInit() {
-    this.svc.SetPageTitle("งานย้อนหลัง");
+    this.nativeSvc.SetPageTitle("งานย้อนหลัง");
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderHistories());
   }
 
-  getOrderHistories() {
+  async getOrderHistories() {
+    const alert = await this.alertCtr.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.nativeSvc.GoBack();
+        },
+      }],
+      backdropDismiss: false
+    });
+
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
+    // this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
       console.log(it);
+    }, async error => {
+      alert.message = error.error.message;
+
+      await alert.present();
     })
   }
 
