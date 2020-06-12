@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   public bikerInfo$ = Promise.resolve([]);
   public order$ = Promise.resolve([]);
   public IsBikerOn: boolean;
+  public IsSuspende: boolean;
   public orderId: string;
   public orderIdFinish: string;
   public acceptRequestDate: Date;
@@ -33,6 +34,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
+    this.bikerInfo$.then((it:any)=>{
+      this.IsSuspende = it.suspended;
+    });
     this.getBikerStatusAndOrder();
     this.route.params.subscribe(param => { this.openModal = param["openModal"] });
     this.route.params.subscribe(param => { this.orderIdFinish = param["orderId"] });
