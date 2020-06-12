@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { OrderSendSuccessPage } from '../../modals/order-send-success/order-send-success.page';
 import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
@@ -24,18 +24,36 @@ export class HomePage implements OnInit {
   public acceptRequestDate: Date;
   public doneDate: Date;
   public time: any;
-  constructor(public router: Router, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
+  constructor(public router: Router, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.GetOrderDetail();
     this.nativeSvc.SetPageTitle('');
+    this.loadData();
+  }
+  
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  async loadData() {
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          // this.navCtrl.back();
+        },
+      }],
+      backdropDismiss: false
+    });
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
-    this.bikerInfo$.then((it:any)=>{
+    this.bikerInfo$.then((it: any) => {
       this.IsSuspende = it.suspended;
+    }, async error => {
+      alert.message = error.error.message;
+      await alert.present();
     });
     this.getBikerStatusAndOrder();
     this.route.params.subscribe(param => { this.openModal = param["openModal"] });
@@ -46,35 +64,52 @@ export class HomePage implements OnInit {
         this.doneDate = new Date(it.doneDate);
         this.time = (this.doneDate.valueOf() - this.acceptRequestDate.valueOf());
         this.openModalOrderSendSuccess(this.openModal);
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
       });
     } else {
       this.openModalOrderSendSuccess(this.openModal);
     }
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
+
   }
 
-  GetOrderDetail() {
+  async GetOrderDetail() {
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          // this.GetOrderDetail();
+        },
+      }],
+      backdropDismiss: false
+    });
     if (this.IsBikerOn) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         console.log("order: " + JSON.stringify(it));
         this.orderId = it?._id;
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
       });
     }
   }
 
-  getBikerStatusAndOrder() {
+  async getBikerStatusAndOrder() {
     this.bikerInfo$.then((it: any) => {
       console.log(it);
       this.IsBikerOn = it?.onWorkStatus;
       if (this.IsBikerOn) this.GetOrderDetail();
       console.log("get: " + this.IsBikerOn);
-    })
+    });
   }
 
   toggleChange() {
-    console.log("toggle: " + this.IsBikerOn);
     this.IsBikerOn = !this.IsBikerOn
     if (this.IsBikerOn) {
       this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
@@ -86,6 +121,18 @@ export class HomePage implements OnInit {
   }
 
   async openModalOrderSendSuccess(text: string) {
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          // this.navCtrl.back();
+        },
+      }],
+      backdropDismiss: false
+    });
+
     if ((text != null) && (text != undefined) && (text == "openModalOrderSendSuccess")) {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
@@ -101,6 +148,10 @@ export class HomePage implements OnInit {
         console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+          this.bikerInfo$.then(() => { }, async error => {
+            alert.message = error.error.message;
+            await alert.present();
+          });
         }
         else {
           this.getBikerStatusAndOrder();
@@ -120,6 +171,10 @@ export class HomePage implements OnInit {
         console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+          this.bikerInfo$.then(() => { }, async error => {
+            alert.message = error.error.message;
+            await alert.present();
+          });
         }
         else {
           this.getBikerStatusAndOrder();
@@ -129,10 +184,24 @@ export class HomePage implements OnInit {
     }
   }
 
-  receiveOrder() {
+  async receiveOrder() {
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.loadData();
+        },
+      }],
+      backdropDismiss: false
+    });
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
       this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "order-stage");
       this.router.navigate(['/order-stage'])
+    }, async error => {
+      alert.message = error.error.message;
+      await alert.present();
     }).catch(it => {
       console.log(JSON.stringify(it));
     });
