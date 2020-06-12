@@ -32,8 +32,10 @@ export class HomePage implements OnInit {
     this.nativeSvc.SetPageTitle('');
     this.loadData();
   }
-  
+
   ngOnInit() {
+    this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
 
   async loadData() {
@@ -71,9 +73,6 @@ export class HomePage implements OnInit {
     } else {
       this.openModalOrderSendSuccess(this.openModal);
     }
-    this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
-    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
-
   }
 
   async GetOrderDetail() {
@@ -100,7 +99,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  async getBikerStatusAndOrder() {
+  getBikerStatusAndOrder() {
     this.bikerInfo$.then((it: any) => {
       console.log(it);
       this.IsBikerOn = it?.onWorkStatus;
