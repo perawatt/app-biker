@@ -30,14 +30,13 @@ export class HistoryMainPage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.nativeSvc.GoBack();
+          this.getOrderHistories();
         },
       }],
       backdropDismiss: false
     });
 
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
-    // this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
       console.log(it);
     }, async error => {
