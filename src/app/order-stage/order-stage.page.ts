@@ -73,10 +73,15 @@ export class OrderStagePage implements OnInit {
 
         if (it?.destinationDate) {
           this.page = "arrived";
+          this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
+
         } else if (it?.shippingDate) {
           this.page = "shipping";
+          this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
+
         } else {
           this.page = "received";
+          this.nativeSvc.SetPageTitle("รับออเดอร์");
         }
         this.time = new Date().valueOf() - new Date(it.acceptRequestDate).valueOf();
       }
@@ -101,7 +106,7 @@ export class OrderStagePage implements OnInit {
 
     if (footer == "received") {
       this.bikerSvc.updateOrderStatusToShipping(this.orderId).then(it => {
-        this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
+        // this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
       }, async error => {
         alert.message = error.error.message;
@@ -110,7 +115,7 @@ export class OrderStagePage implements OnInit {
     }
     else if (footer == "shipping") {
       this.bikerSvc.updateOrderStatusToArrived(this.orderId).then(it => {
-        this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
+        // this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
       }, async error => {
         alert.message = error.error.message;
