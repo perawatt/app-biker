@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
+    this.openModalOrder()
   }
 
   async loadData() {
@@ -58,6 +59,20 @@ export class HomePage implements OnInit {
       await alert.present();
     });
     this.getBikerStatusAndOrder();
+  }
+
+  async openModalOrder(){
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          // this.navCtrl.back();
+        },
+      }],
+      backdropDismiss: false
+    });
     this.route.params.subscribe(param => { this.openModal = param["openModal"] });
     this.route.params.subscribe(param => { this.orderIdFinish = param["orderId"] });
     if (this.orderIdFinish) {
