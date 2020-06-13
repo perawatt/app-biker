@@ -6,7 +6,7 @@
   </ion-item>
 
   <ng-container *ngIf="order$ | async as data">
-    <ion-card *ngIf="data._id" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+    <ion-card *ngIf="data._id && IsBikerOn" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header>
         <ion-label>
           <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
