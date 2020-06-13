@@ -108,13 +108,34 @@ export class HomePage implements OnInit {
     });
   }
 
-  toggleChange() {
+  async toggleChange() {
     this.IsBikerOn = !this.IsBikerOn
+    const alert = await this.alertController.create({
+      header: 'เกิดข้อผิดพลาด',
+      message: "",
+      buttons: [{
+        text: 'ตกลง',
+        handler: () => {
+          this.loadData();
+        },
+      }],
+      backdropDismiss: false
+    });
     if (this.IsBikerOn) {
       this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+      this.bikerInfo$.then((it: any) => {
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
+      });
     }
     else {
       this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
+      this.bikerInfo$.then((it: any) => {
+      }, async error => {
+        alert.message = error.error.message;
+        await alert.present();
+      });
     };
     this.getBikerStatusAndOrder();
   }
