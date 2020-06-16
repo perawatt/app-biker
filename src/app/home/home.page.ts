@@ -34,11 +34,11 @@ export class HomePage implements OnInit {
     this.GetOrderDetail();
     this.nativeSvc.SetPageTitle('');
     this.loadData();
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
 
   ngOnInit() {
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
-    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
     this.openModalOrder()
   }
 
@@ -110,7 +110,6 @@ export class HomePage implements OnInit {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         this.orderId = it?._id;
-        console.log(this.orderId);
         if (this.orderId != undefined && this.orderId) {
           this.setOrderTimeOut();
         }
@@ -210,9 +209,7 @@ export class HomePage implements OnInit {
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
-        console.log(it);
         this.IsBikerOn = it?.data
-        console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
           this.bikerInfo$.then(() => { }, async error => {
@@ -233,9 +230,7 @@ export class HomePage implements OnInit {
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
-        console.log(it);
         this.IsBikerOn = it?.data
-        console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
           this.bikerInfo$.then(() => { }, async error => {
@@ -256,9 +251,7 @@ export class HomePage implements OnInit {
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
-        console.log(it);
         this.IsBikerOn = it?.data
-        console.log("IsBikerOn: ", this.IsBikerOn);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
           this.bikerInfo$.then(() => { }, async error => {

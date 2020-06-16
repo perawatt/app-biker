@@ -106,7 +106,6 @@ export class OrderStagePage implements OnInit {
 
     if (footer == "received") {
       this.bikerSvc.updateOrderStatusToShipping(this.orderId).then(it => {
-        // this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
       }, async error => {
         alert.message = error.error.message;
@@ -115,7 +114,6 @@ export class OrderStagePage implements OnInit {
     }
     else if (footer == "shipping") {
       this.bikerSvc.updateOrderStatusToArrived(this.orderId).then(it => {
-        // this.nativeSvc.SetPageTitle("คำสั่งซื้อ");
         this.getOrderInfo()
       }, async error => {
         alert.message = error.error.message;
