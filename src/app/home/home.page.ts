@@ -110,7 +110,8 @@ export class HomePage implements OnInit {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         this.orderId = it?._id;
-        if (this.orderId) {
+        console.log(this.orderId);
+        if (this.orderId != undefined && this.orderId) {
           this.setOrderTimeOut();
         }
       }, async error => {
