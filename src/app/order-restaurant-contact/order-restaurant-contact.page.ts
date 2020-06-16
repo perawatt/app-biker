@@ -4,11 +4,11 @@ import { BikerService } from 'src/services/biker.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-order-customer-contact',
-  templateUrl: './order-customer-contact.page.html',
-  styleUrls: ['./order-customer-contact.page.scss'],
+  selector: 'app-order-restaurant-contact',
+  templateUrl: './order-restaurant-contact.page.html',
+  styleUrls: ['./order-restaurant-contact.page.scss'],
 })
-export class OrderCustomerContactPage implements OnInit {
+export class OrderRestaurantContactPage implements OnInit {
 
   public order$ = Promise.resolve([]);
   public phoneNo: string;
@@ -16,7 +16,7 @@ export class OrderCustomerContactPage implements OnInit {
   }
 
   ngOnInit() {
-    this.nativeSvc.SetPageTitle("ติดต่อลูกค้า");
+    this.nativeSvc.SetPageTitle("ติดต่อร้านค้า");
     this.loadData();
   }
 
@@ -38,7 +38,7 @@ export class OrderCustomerContactPage implements OnInit {
     });
     this.order$ = this.bikerSvc.getOrderInfo();
     this.order$.then((it: any) => {
-      this.phoneNo = it.customer.tel;
+      this.phoneNo = it.restaurant.tel;
     }, async error => {
       alert.message = error.error.message;
       await alert.present();

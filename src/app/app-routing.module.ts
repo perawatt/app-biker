@@ -38,7 +38,15 @@ const routes: Routes = [
   {
     path: 'order-stage',
     loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
+  },  {
+    path: 'order-restaurant-contact',
+    loadChildren: () => import('./order-restaurant-contact/order-restaurant-contact.module').then( m => m.OrderRestaurantContactPageModule)
   },
+  {
+    path: 'order-admin-contact',
+    loadChildren: () => import('./order-admin-contact/order-admin-contact.module').then( m => m.OrderAdminContactPageModule)
+  },
+
 
 
 ];
