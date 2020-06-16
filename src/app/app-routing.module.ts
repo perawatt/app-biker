@@ -39,8 +39,6 @@ const routes: Routes = [
     path: 'order-stage',
     loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
   },
-
-
 ];
 
 @NgModule({
