@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   public acceptRequestDate: Date;
   public doneDate: Date;
   public time: any;
+  public timeOut = 20;
   constructor(public router: Router, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
@@ -61,7 +62,7 @@ export class HomePage implements OnInit {
     this.getBikerStatusAndOrder();
   }
 
-  async openModalOrder(){
+  async openModalOrder() {
     const alert = await this.alertController.create({
       header: 'เกิดข้อผิดพลาด',
       message: "",
@@ -107,11 +108,22 @@ export class HomePage implements OnInit {
       this.order$.then((it: any) => {
         console.log("order: " + JSON.stringify(it));
         this.orderId = it?._id;
+        this.setOrderTimeOut();
       }, async error => {
         alert.message = error.error.message;
         await alert.present();
       });
     }
+  }
+
+  setOrderTimeOut() {
+    let OrdertimeOut = setInterval(() => {
+      this.timeOut--;
+      if (this.timeOut == 0) {
+        clearInterval(OrdertimeOut);
+      }
+      console.log(this.timeOut);
+    }, 1000);
   }
 
   getBikerStatusAndOrder() {
