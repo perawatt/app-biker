@@ -6,6 +6,7 @@ import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
 import { stringify } from 'querystring';
 import { OrderCancelApprovePage } from '../../modals/order-cancel-approve/order-cancel-approve.page';
+import { OrderTimeOutPage } from 'src/modals/order-time-out/order-time-out.page';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,8 @@ export class HomePage implements OnInit {
   public acceptRequestDate: Date;
   public doneDate: Date;
   public time: any;
+  public timeCount = 20;
+  public processOrdertimeOut;
   constructor(public router: Router, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
@@ -51,6 +54,7 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
+    console.log('loadData');
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
       this.IsSuspende = it.suspended;
@@ -80,13 +84,13 @@ export class HomePage implements OnInit {
         this.acceptRequestDate = new Date(it.acceptRequestDate);
         this.doneDate = new Date(it.doneDate);
         this.time = (this.doneDate.valueOf() - this.acceptRequestDate.valueOf());
-        this.openModalOrderSendSuccess(this.openModal);
+        this.openModals(this.openModal);
       }, async error => {
         alert.message = error.error.message;
         await alert.present();
       });
     } else {
-      this.openModalOrderSendSuccess(this.openModal);
+      this.openModals(this.openModal);
     }
   }
 
@@ -105,13 +109,26 @@ export class HomePage implements OnInit {
     if (this.IsBikerOn) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
-        console.log("order: " + JSON.stringify(it));
         this.orderId = it?._id;
+        if (this.orderId) {
+          this.setOrderTimeOut();
+        }
       }, async error => {
         alert.message = error.error.message;
         await alert.present();
       });
     }
+  }
+
+  setOrderTimeOut() {
+    this.processOrdertimeOut = setInterval(() => {
+      this.timeCount--;
+      if (this.timeCount == 0) {
+        clearInterval(this.processOrdertimeOut);
+        this.openModals("openModalOrderTimeOut");
+      }
+      console.log('timeCount',this.timeCount);
+    }, 1000);
   }
 
   getBikerStatusAndOrder() {
@@ -170,7 +187,7 @@ export class HomePage implements OnInit {
     this.getBikerStatusAndOrder();
   }
 
-  async openModalOrderSendSuccess(text: string) {
+  async openModals(text: string) {
     const alert = await this.alertController.create({
       header: 'เกิดข้อผิดพลาด',
       message: "",
@@ -182,7 +199,6 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-
     if ((text != null) && (text != undefined) && (text == "openModalOrderSendSuccess")) {
       const modal = await this.modalController.create({
         component: OrderSendSuccessPage,
@@ -232,6 +248,29 @@ export class HomePage implements OnInit {
       })
       modal.present();
     }
+    else if ((text != null) && (text != undefined) && (text == "openModalOrderTimeOut")) {
+      const modal = await this.modalController.create({
+        component: OrderTimeOutPage,
+        cssClass: 'dialog-modal-4-order-success',
+        backdropDismiss: false
+      });
+      modal.onDidDismiss().then(it => {
+        console.log(it);
+        this.IsBikerOn = it?.data
+        console.log("IsBikerOn: ", this.IsBikerOn);
+        if (this.IsBikerOn) {
+          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+          this.bikerInfo$.then(() => { }, async error => {
+            alert.message = error.error.message;
+            await alert.present();
+          });
+        }
+        else {
+          this.getBikerStatusAndOrder();
+        }
+      })
+      modal.present();
+    }
   }
 
   async receiveOrder() {
@@ -246,6 +285,8 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
+    clearInterval(this.processOrdertimeOut);
+    console.log(this.timeCount);
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
       this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "order-stage");
       this.router.navigate(['/order-stage'])

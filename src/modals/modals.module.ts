@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { OrderCancelApprovePage } from 'src/modals/order-cancel-approve/order-cancel-approve.page';
 import { OrderSendSuccessPage } from 'src/modals/order-send-success/order-send-success.page';
+import { OrderTimeOutPage } from './order-time-out/order-time-out.page';
 
 const modals = [
   OrderCancelApprovePage,
   OrderSendSuccessPage,
+  OrderTimeOutPage,
 ]
 
 @NgModule({

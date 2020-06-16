@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-order-cancel-approve',
-  templateUrl: './order-cancel-approve.page.html',
-  styleUrls: ['./order-cancel-approve.page.scss'],
+  selector: 'app-order-time-out',
+  templateUrl: './order-time-out.page.html',
+  styleUrls: ['./order-time-out.page.scss'],
 })
-export class OrderCancelApprovePage implements OnInit {
+export class OrderTimeOutPage implements OnInit {
 
   public doWork: boolean;
   constructor(private modalController: ModalController) { }
@@ -22,5 +22,6 @@ export class OrderCancelApprovePage implements OnInit {
   cancel() {
     this.modalController.dismiss();
   }
+
 
 }

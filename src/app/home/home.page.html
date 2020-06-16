@@ -56,7 +56,7 @@
 ื<ng-container *ngIf="IsBikerOn && orderId">
 <ion-footer mode="ios">
   <ion-toolbar color="medium">
-    <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน 20 วินาที</ion-title>
+    <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน {{ timeCount }} วินาที</ion-title>
   </ion-toolbar>
   <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!orderId" (click)="receiveOrder()"><b>รับออเดอร์</b>
   </ion-button>

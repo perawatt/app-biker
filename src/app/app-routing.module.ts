@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'order-stage',
     loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
-  },  {
+  },
+  {
     path: 'order-restaurant-contact',
     loadChildren: () => import('./order-restaurant-contact/order-restaurant-contact.module').then( m => m.OrderRestaurantContactPageModule)
   },
@@ -46,9 +47,22 @@ const routes: Routes = [
     path: 'order-admin-contact',
     loadChildren: () => import('./order-admin-contact/order-admin-contact.module').then( m => m.OrderAdminContactPageModule)
   },
-
-
-
+  {
+    path: 'order-customer-contact',
+    loadChildren: () => import('./order-customer-contact/order-customer-contact.module').then( m => m.OrderCustomerContactPageModule)
+  },
+  {
+    path: 'profile-main',
+    loadChildren: () => import('./profile-main/profile-main.module').then( m => m.ProfileMainPageModule)
+  },
+  {
+    path: 'order-cancel-pending',
+    loadChildren: () => import('./order-cancel-pending/order-cancel-pending.module').then( m => m.OrderCancelPendingPageModule)
+  },
+  {
+    path: 'order-stage',
+    loadChildren: () => import('./order-stage/order-stage.module').then( m => m.OrderStagePageModule)
+  },
 ];
 
 @NgModule({
