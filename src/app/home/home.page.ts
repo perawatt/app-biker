@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
     this.getBikerStatusAndOrder();
   }
 
-  async openModalOrder(){
+  async openModalOrder() {
     const alert = await this.alertController.create({
       header: 'เกิดข้อผิดพลาด',
       message: "",
@@ -136,7 +136,22 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    if (this.IsBikerOn) {
+    if (this.IsBikerOn && this.IsSuspende) {
+      const alert = await this.alertController.create({
+        header: 'หนูๆ',
+        message: "",
+        buttons: [{
+          text: 'ตกลง',
+          handler: () => {
+            this.loadData();
+          },
+        }],
+        backdropDismiss: false
+      });
+      alert.message = "พักงานจ๊ะ";
+      await alert.present();
+    }
+    else if (this.IsBikerOn) {
       this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
       this.bikerInfo$.then((it: any) => {
       }, async error => {

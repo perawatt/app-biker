@@ -146,4 +146,12 @@ export class OrderStagePage implements OnInit {
   customerContact() {
     this.nativeSvc.NavigateToPage("order-customer-contact");
   }
+
+  restaurantContact(){
+    this.nativeSvc.NavigateToPage("order-restaurant-contact");
+  }
+
+  adminContact(){
+    this.nativeSvc.NavigateToPage("order-admin-contact");
+  }
 }
