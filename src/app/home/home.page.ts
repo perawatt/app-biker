@@ -34,11 +34,11 @@ export class HomePage implements OnInit {
     this.GetOrderDetail();
     this.nativeSvc.SetPageTitle('');
     this.loadData();
+    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
 
   ngOnInit() {
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
-    this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
     this.openModalOrder()
   }
 
