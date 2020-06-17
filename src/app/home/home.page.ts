@@ -56,7 +56,6 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    console.log('loadData');
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
       this.IsSuspende = it.suspended;
@@ -133,8 +132,12 @@ export class HomePage implements OnInit {
     this.processOrdertimeOut = setInterval(() => {
       this.orderTimeOut--;
       if (this.orderTimeOut == 0) {
+        this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
         clearInterval(this.processOrdertimeOut);
-        this.openModals("openModalOrderTimeOut");
+        this.bikerInfo$.then((it: any) => {
+          console.log('bikerInfo', it);
+          this.openModals("openModalOrderTimeOut");
+        })
       }
       console.log('orderTimeOut', this.orderTimeOut);
     }, 1000);
