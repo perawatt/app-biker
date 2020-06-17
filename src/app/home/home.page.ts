@@ -25,9 +25,11 @@ export class HomePage implements OnInit {
   public acceptRequestDate: Date;
   public doneDate: Date;
   public time: any;
-  public timeCount = 20;
+  public orderTimeOut: any;
   public processOrdertimeOut;
   constructor(public router: Router, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
+    console.log(new Date().getMinutes());
+    console.log(new Date().getSeconds());
   }
 
   ionViewWillEnter() {
@@ -109,8 +111,15 @@ export class HomePage implements OnInit {
     if (this.IsBikerOn) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
-        this.orderId = it?._id;
-        if (this.orderId != undefined && this.orderId) {
+        console.log('xxx', it);
+        if (it != null && it != undefined) {
+          this.orderId = it?._id;
+          let diff = new Date(it.cancelDate).valueOf() - new Date().valueOf();
+          this.orderTimeOut = Math.round((diff % 60000) / 1000)
+
+          console.log('time now', new Date().getMinutes(), ":", new Date().getSeconds());
+          console.log('time diff', this.orderTimeOut);
+
           this.setOrderTimeOut();
         }
       }, async error => {
@@ -122,12 +131,12 @@ export class HomePage implements OnInit {
 
   setOrderTimeOut() {
     this.processOrdertimeOut = setInterval(() => {
-      this.timeCount--;
-      if (this.timeCount == 0) {
+      this.orderTimeOut--;
+      if (this.orderTimeOut == 0) {
         clearInterval(this.processOrdertimeOut);
         this.openModals("openModalOrderTimeOut");
       }
-      console.log('timeCount',this.timeCount);
+      console.log('orderTimeOut', this.orderTimeOut);
     }, 1000);
   }
 
@@ -194,7 +203,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.navCtrl.back();
+          this.loadData();
         },
       }],
       backdropDismiss: false
@@ -254,13 +263,16 @@ export class HomePage implements OnInit {
         this.IsBikerOn = it?.data
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
-          this.bikerInfo$.then(() => { }, async error => {
+          this.bikerInfo$.then((it) => {
+            console.log(it);
+            this.GetOrderDetail();
+          }, async error => {
             alert.message = error.error.message;
             await alert.present();
           });
         }
         else {
-          this.getBikerStatusAndOrder();
+          this.loadData();
         }
       })
       modal.present();
@@ -280,7 +292,7 @@ export class HomePage implements OnInit {
       backdropDismiss: false
     });
     clearInterval(this.processOrdertimeOut);
-    console.log(this.timeCount);
+    console.log(this.orderTimeOut);
     this.bikerSvc.updateOrderStatusToReceived(this.orderId).then(it => {
       this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "order-stage");
       this.router.navigate(['/order-stage'])
