@@ -9,7 +9,7 @@
     <ion-card *ngIf="data._id && IsBikerOn" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header>
         <ion-label>
-          <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
+          <h1><b>คำสั่งซื้อ {{ data.orderCode }}</b></h1>
           <ion-text color="warning">
             <h3>฿{{ data.totalPrice | number }} ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
@@ -33,7 +33,7 @@
 
         <ion-item lines="none" color="light">
           <ion-avatar slot="start">
-            <img src="assets/imgs/ordercustomer.png"/>
+            <img src="assets/imgs/ordercustomer.png" />
           </ion-avatar>
           <ion-label>
             <h3><b>{{ data.customer?.name }}</b></h3>
@@ -50,15 +50,16 @@
     <div id="biker-logo">
       <img src="assets/imgs/bikegray.png" alt="">
     </div>
-  </ng-container >
+  </ng-container>
 </ion-content>
 
 ื<ng-container *ngIf="IsBikerOn && orderId">
-<ion-footer mode="ios">
-  <ion-toolbar color="medium">
-    <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน {{ orderTimeOut }} วินาที</ion-title>
-  </ion-toolbar>
-  <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!orderId" (click)="receiveOrder()"><b>รับออเดอร์</b>
-  </ion-button>
-</ion-footer>
+  <ion-footer mode="ios">
+    <ion-toolbar color="medium">
+      <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน {{ orderTimeOut }} วินาที</ion-title>
+    </ion-toolbar>
+    <ion-button class="ion-no-margin" expand="full" color="warning" [disabled]="!orderId" (click)="receiveOrder()">
+      <b>รับออเดอร์</b>
+    </ion-button>
+  </ion-footer>
 </ng-container>
