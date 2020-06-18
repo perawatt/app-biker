@@ -18,7 +18,6 @@ export class OrderCancelPage implements OnInit {
   public orderId: string
   constructor(private svc: NativeService, public alertController: AlertController, private fb: FormBuilder, private bikerSvc: BikerService, private nativeSvc: NativeService, public route: ActivatedRoute) {
     this.route.params.subscribe(param => { this.orderId = param["orderId"] });
-    console.log('con', this.orderId);
     this.fg = this.fb.group({
       'heading': [null, Validators.required],
       'info': null,
@@ -27,7 +26,6 @@ export class OrderCancelPage implements OnInit {
 
   ngOnInit() {
     this.svc.SetPageTitle("ยกเลิกคำสั่งซื้อ");
-    console.log('nit', this.orderId);
   }
 
   async handleSubmit() {

@@ -38,7 +38,6 @@ export class HistoryMainPage implements OnInit {
 
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
-      console.log(it);
     }, async error => {
       alert.message = error.error.message;
 
