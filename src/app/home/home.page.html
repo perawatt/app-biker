@@ -9,7 +9,7 @@
     <ion-card *ngIf="data._id && IsBikerOn" color="light" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-card-header>
         <ion-label>
-          <h1><b>คำสั่งซื้อ {{ data._id }}</b></h1>
+          <h1><b>คำสั่งซื้อ {{ data.orderCode }}</b></h1>
           <ion-text color="warning">
             <h3>฿{{ data.totalPrice | number }} ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
