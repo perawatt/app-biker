@@ -33,7 +33,6 @@ export class ProfileMainPage implements OnInit {
     });
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
-      console.log("order: " + JSON.stringify(it));
     }, async error => {
       alert.message = error.error.message;
 
