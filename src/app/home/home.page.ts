@@ -172,6 +172,7 @@ export class HomePage implements OnInit {
     this.bikerInfo$.then(async (it: any) => {
       this.IsSuspende = it.suspended;
       this.IsBikerOn = it?.onWorkStatus;
+      if (this.IsBikerOn) this.GetOrderDetail();
       if (this.IsSuspende) {
         const alert = await this.alertController.create({
           message: "",
@@ -180,7 +181,7 @@ export class HomePage implements OnInit {
           }],
           backdropDismiss: false
         });
-        alert.message = "คุณอยู้ในช่วงระหว่างถูกพักงาน";
+        alert.message = "คุณอยู่ในช่วงระหว่างถูกพักงาน";
         await alert.present();
       }
       else {
