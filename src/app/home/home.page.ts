@@ -114,6 +114,9 @@ export class HomePage implements OnInit {
           this.orderTimeOut = Math.round((diff % 60000) / 1000)
           this.setOrderTimeOut();
         }
+        else {
+          this.orderId = null;
+        }
       }, async error => {
         alert.message = error.error.message;
         await alert.present();
