@@ -55,6 +55,7 @@ export class HomePage implements OnInit {
     });
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
+      this.IsBikerOn = it?.onWorkStatus;
       this.IsSuspende = it.suspended;
     }, async error => {
       alert.message = error.error.message;
@@ -142,6 +143,8 @@ export class HomePage implements OnInit {
         clearInterval(this.processOrdertimeOut);
         this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
         this.bikerInfo$.then((it: any) => {
+          this.order$ = null
+          this.orderId = null
           this.openModals("openModalOrderTimeOut");
         }, async error => {
           alert.message = error.error.message;
@@ -175,7 +178,6 @@ export class HomePage implements OnInit {
     this.bikerInfo$.then(async (it: any) => {
       this.IsSuspende = it.suspended;
       this.IsBikerOn = it?.onWorkStatus;
-      if (this.IsBikerOn) this.GetOrderDetail();
       if (this.IsSuspende) {
         const alert = await this.alertController.create({
           message: "",
@@ -206,7 +208,6 @@ export class HomePage implements OnInit {
           });
         };
       }
-      this.getBikerStatusAndOrder();
     },
       async error => {
         alert.message = error.error.message;
@@ -244,9 +245,6 @@ export class HomePage implements OnInit {
             await alert.present();
           });
         }
-        else {
-          this.getBikerStatusAndOrder();
-        }
       })
       modal.present();
     }
@@ -265,9 +263,6 @@ export class HomePage implements OnInit {
             await alert.present();
           });
         }
-        else {
-          this.getBikerStatusAndOrder();
-        }
       })
       modal.present();
     }
@@ -282,14 +277,10 @@ export class HomePage implements OnInit {
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
           this.bikerInfo$.then((it) => {
-            this.GetOrderDetail();
           }, async error => {
             alert.message = error.error.message;
             await alert.present();
           });
-        }
-        else {
-          this.loadData();
         }
       })
       modal.present();
