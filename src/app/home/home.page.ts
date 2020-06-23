@@ -202,6 +202,11 @@ export class HomePage implements OnInit {
         else {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
           this.bikerInfo$.then((it: any) => {
+            clearInterval(this.processOrdertimeOut);
+            this.order$ = this.bikerSvc.getNewOrderInfo();
+            this.order$.then((it: any) => {
+              this.orderId = null;
+            })
           }, async error => {
             alert.message = error.error.message;
             await alert.present();
