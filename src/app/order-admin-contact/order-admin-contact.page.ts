@@ -31,7 +31,7 @@ export class OrderAdminContactPage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.navCtrl.back();
+          this.nativeSvc.GoBack();
         },
       }],
       backdropDismiss: false

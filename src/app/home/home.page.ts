@@ -48,7 +48,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.loadData;
+          this.loadData();
         },
       }],
       backdropDismiss: false
@@ -71,7 +71,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.navCtrl.back();
+          this.loadData();
         },
       }],
       backdropDismiss: false
@@ -100,7 +100,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.GetOrderDetail();
+          this.loadData();
         },
       }],
       backdropDismiss: false

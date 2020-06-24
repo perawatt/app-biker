@@ -26,7 +26,7 @@ export class ProfileMainPage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.svc.GoBack();
+          this.loadData;
         },
       }],
       backdropDismiss: false

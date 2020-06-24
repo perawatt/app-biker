@@ -31,7 +31,7 @@ export class OrderRestaurantContactPage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.navCtrl.back();
+          this.nativeSvc.GoBack();
         },
       }],
       backdropDismiss: false
