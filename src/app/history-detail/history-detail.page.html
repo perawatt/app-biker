@@ -67,21 +67,22 @@
           <ion-label color="dark">
             <p>x{{ data.quantity }} {{ data.name }}</p>
             <ion-text color="danger">
-              <p>{{ data.option }}</p>
+              <p *ngIf="data.option">{{ data.option }}</p>
+              <p *ngIf="!data.option">&nbsp;</p>
             </ion-text>
           </ion-label>
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>฿{{ data.price | number }}</p>
+                <p>฿{{ data.quantity * data.price | number }}</p>
+                <!-- <p>ยกเลิก</p>  -->
                 <p>&nbsp;</p>
-                <!-- <p>ยกเลิก</p> -->
               </ion-text>
             </ion-note>
           </ion-label>
         </ion-item>
       </ion-list>
     </ion-card>
-</ng-container>
+  </ng-container>
 
 </ion-content>
