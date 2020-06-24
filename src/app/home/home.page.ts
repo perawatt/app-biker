@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { OrderSendSuccessPage } from '../../modals/order-send-success/order-send-success.page';
 import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   public time: any;
   public orderTimeOut: any;
   public processOrdertimeOut;
-  constructor(public router: Router, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
+  constructor(public router: Router,private navCtrl: NavController, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
   ionViewWillEnter() {
@@ -242,16 +242,20 @@ export class HomePage implements OnInit {
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
+        
         this.IsBikerOn = it?.data
+        console.log('1',it.data);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
-          this.bikerInfo$.then(() => { }, async error => {
+          this.bikerInfo$.then((it:any) => {}, async error => {
             alert.message = error.error.message;
             await alert.present();
           });
         }
       })
       modal.present();
+      // this.navCtrl.setDirection('root');
+      // this.router.navigateByUrl("/home");
     }
     else if ((text != null) && (text != undefined) && (text == "openModalCancelApprove")) {
       const modal = await this.modalController.create({
