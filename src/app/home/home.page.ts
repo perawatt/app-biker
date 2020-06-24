@@ -48,7 +48,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          // this.navCtrl.back();
+          // this.loadData;
         },
       }],
       backdropDismiss: false
