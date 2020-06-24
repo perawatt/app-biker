@@ -10,6 +10,7 @@
       <ion-label></ion-label>
       <ion-select formControlName="heading" cancelText="ยกเลิก" interface="action-sheet" slot="end">
         <ion-select-option value="รถเสีย" text-left>รถเสีย</ion-select-option>
+        <ion-select-option value="ร้านอาหารไม่สามารถทำได้" text-left>ร้านอาหารไม่สามารถทำได้</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -24,6 +25,6 @@
   </form>
 </ion-content>
 
-<ion-footer>
+<ion-footer mode="ios">
   <ion-button class="ion-no-margin" expand="full" (click)="handleSubmit()" color="warning" [disabled]="fg.invalid"><b>ตกลง</b></ion-button>
 </ion-footer>

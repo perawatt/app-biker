@@ -42,10 +42,10 @@
             <h3><img src="assets/imgs/bikedark.png" alt="" height="13"> {{ data.distance? null:0}}</h3>
             <h3>
               <ion-icon name="time-outline" color="dark"></ion-icon>
-              {{data.predictDeliveryTime?.hours }}:{{data.predictDeliveryTime?.minutes }} นาที
+              {{ time | date:'mm:ss' }} นาที
             </h3>
             <ion-text>
-              <h3> ค่าคอมมิชชั่น :{{data.commissionPrice }} บาท </h3>
+              <h3> ค่าคอมมิชชั่น : {{data.commissionPriceTHB }} บาท </h3>
               <h3> คะแนน : -</h3>
             </ion-text>
           </ion-label>
@@ -74,7 +74,8 @@
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
                 <p>฿{{ data.price | number }}</p>
-                <p>ยกเลิก</p>
+                <p>&nbsp;</p>
+                <!-- <p>ยกเลิก</p> -->
               </ion-text>
             </ion-note>
           </ion-label>
