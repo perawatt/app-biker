@@ -38,6 +38,7 @@ export class HistoryMainPage implements OnInit {
 
     this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
     this.orderHistory$.then((it: any) => {
+      it.sort((a, b) => new Date(b.acceptRequestDate).getTime() - new Date(a.acceptRequestDate).getTime());
     }, async error => {
       alert.message = error.error.message;
 
