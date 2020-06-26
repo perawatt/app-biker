@@ -113,7 +113,7 @@ export class HomePage implements OnInit {
           this.orderId = it?._id;
           let diff = new Date(it.cancelDate).valueOf() - new Date().valueOf();
           this.orderTimeOut = Math.round((diff % 60000) / 1000)
-          this.setOrderTimeOut();
+          // this.setOrderTimeOut();
         }
         else {
           this.orderId = null;
