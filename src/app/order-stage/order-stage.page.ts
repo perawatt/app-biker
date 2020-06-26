@@ -122,6 +122,7 @@ export class OrderStagePage implements OnInit {
     }
     else if (footer == "arrived") {
       this.bikerSvc.updateOrderStatusToSendSuccess(this.orderId).then(it => {
+        clearInterval(this.progressInterval);
         this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "home");
         this.router.navigate(['/home', { openModal: "openModalOrderSendSuccess", orderId: this.orderId }]);
       }, async error => {
