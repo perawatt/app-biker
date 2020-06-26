@@ -105,7 +105,7 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    if (this.IsBikerOn) {
+    if (this.IsBikerOn && !this.order$) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         console.log('xxx', it);
