@@ -303,7 +303,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.loadData();
+          this.GetOrderDetail();
         },
       }],
       backdropDismiss: false
