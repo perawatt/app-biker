@@ -105,24 +105,38 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    if (this.IsBikerOn) {
+    console.log('9');  
+    if (this.IsBikerOn && (this.orderId == null || this.orderId == undefined)) {
+      console.log('8');
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         console.log('xxx', it);
-        if (it != null && it != undefined) {
-          this.orderId = it?._id;
+        this.orderId = it?._id;
+        if (this.orderId == null || this.orderId == undefined) {
+          console.log('7');
+        }
+        else {
+          console.log('6');
           let diff = new Date(it.cancelDate).valueOf() - new Date().valueOf();
           this.orderTimeOut = Math.round((diff % 60000) / 1000)
           this.setOrderTimeOut();
-        }
-        else {
-          this.orderId = null;
         }
       }, async error => {
         alert.message = error.error.message;
         await alert.present();
       });
     }
+    else if (this.IsBikerOn && (this.orderId != null || this.orderId != undefined)) {
+      console.log('5');
+      this.order$ = this.bikerSvc.getNewOrderInfo();
+      this.order$.then((it: any) => {
+        console.log('xxx', it);
+        this.orderId = it?._id;
+        let diff = new Date(it.cancelDate).valueOf() - new Date().valueOf();
+        this.orderTimeOut = Math.round((diff % 60000) / 1000)
+        this.setOrderTimeOut();
+      })
+    };
   }
 
   async setOrderTimeOut() {
@@ -139,7 +153,7 @@ export class HomePage implements OnInit {
     });
     this.processOrdertimeOut = setInterval(() => {
       this.orderTimeOut--;
-      if (this.orderTimeOut == 0) {
+      if (this.orderTimeOut <= 0) {
         clearInterval(this.processOrdertimeOut);
         this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
         this.bikerInfo$.then((it: any) => {
