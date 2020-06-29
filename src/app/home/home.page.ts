@@ -26,11 +26,10 @@ export class HomePage implements OnInit {
   public time: any;
   public orderTimeOut: any;
   public processOrdertimeOut;
-  constructor(public router: Router,private navCtrl: NavController, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
+  constructor(public router: Router, private navCtrl: NavController, public alertController: AlertController, private route: ActivatedRoute, private modalController: ModalController, private nativeSvc: NativeService, private bikerSvc: BikerService) {
   }
 
   ionViewWillEnter() {
-    this.GetOrderDetail();
     this.nativeSvc.SetPageTitle('');
     this.loadData();
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
@@ -57,11 +56,12 @@ export class HomePage implements OnInit {
     this.bikerInfo$.then((it: any) => {
       this.IsBikerOn = it?.onWorkStatus;
       this.IsSuspende = it.suspended;
+      if (this.IsBikerOn) this.GetOrderDetail();
     }, async error => {
       alert.message = error.error.message;
       await alert.present();
     });
-    this.getBikerStatusAndOrder();
+    // this.getBikerStatusAndOrder();
   }
 
   async openModalOrder() {
@@ -242,12 +242,12 @@ export class HomePage implements OnInit {
         backdropDismiss: false
       });
       modal.onDidDismiss().then(it => {
-        
+
         this.IsBikerOn = it?.data
-        console.log('1',it.data);
+        console.log('1', it.data);
         if (this.IsBikerOn) {
           this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
-          this.bikerInfo$.then((it:any) => {}, async error => {
+          this.bikerInfo$.then((it: any) => { }, async error => {
             alert.message = error.error.message;
             await alert.present();
           });
