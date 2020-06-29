@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
 
   async loadData() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด1',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
 
   async openModalOrder() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด2',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -95,7 +95,7 @@ export class HomePage implements OnInit {
 
   async GetOrderDetail() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด3',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -127,7 +127,7 @@ export class HomePage implements OnInit {
 
   async setOrderTimeOut() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด4',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -164,7 +164,7 @@ export class HomePage implements OnInit {
 
   async toggleChange() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด5',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -222,7 +222,7 @@ export class HomePage implements OnInit {
 
   async openModals(text: string) {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด6',
       message: "",
       buttons: [{
         text: 'ตกลง',
@@ -298,7 +298,7 @@ export class HomePage implements OnInit {
 
   async receiveOrder() {
     const alert = await this.alertController.create({
-      header: 'เกิดข้อผิดพลาด',
+      header: 'เกิดข้อผิดพลาด7',
       message: "",
       buttons: [{
         text: 'ตกลง',
