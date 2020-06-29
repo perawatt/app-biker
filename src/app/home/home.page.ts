@@ -105,7 +105,7 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    if (this.IsBikerOn && this.orderId == undefined) {
+    if (this.IsBikerOn) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         console.log('xxx', it);
@@ -303,7 +303,7 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.GetOrderDetail();
+          this.loadData();
         },
       }],
       backdropDismiss: false
