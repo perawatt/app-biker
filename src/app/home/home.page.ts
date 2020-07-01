@@ -35,6 +35,10 @@ export class HomePage implements OnInit {
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
 
+  ionViewWillLeave() {
+    clearInterval(this.processOrdertimeOut);
+  }
+
   ngOnInit() {
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.openModalOrder()
