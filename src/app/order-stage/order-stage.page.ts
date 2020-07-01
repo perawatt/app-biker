@@ -23,14 +23,18 @@ export class OrderStagePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.progressInterval = setInterval(() => {
+      this.time += 1000
+    }, 1000);
     this.getOrderInfo();
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.getOrderInfo());
   }
 
+  ionViewWillLeave() {
+    clearInterval(this.progressInterval);
+  }
+
   ngOnInit() {
-    this.progressInterval = setInterval(() => {
-      this.time += 1000
-    }, 1000);
     this.nativeSvc.SetPageTitle("รับออเดอร์");
     this.nativeSvc.RegisterNotificationHander("UpdateOrderStatus", (param) => this.notificationhandler(param));
   }
