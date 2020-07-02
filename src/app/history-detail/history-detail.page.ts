@@ -21,8 +21,11 @@ export class HistoryDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData();
     this.svc.SetPageTitle("รายละเอียดงาน");
+  }
+  
+  ionViewWillEnter(){
+    this.loadData();
   }
 
   async loadData() {
