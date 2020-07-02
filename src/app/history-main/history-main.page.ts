@@ -30,7 +30,7 @@ export class HistoryMainPage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.getOrderHistories();
+          // this.getOrderHistories();
         },
       }],
       backdropDismiss: false
