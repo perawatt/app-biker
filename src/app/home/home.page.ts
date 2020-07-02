@@ -35,11 +35,11 @@ export class HomePage implements OnInit {
     this.loadData();
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
   }
-  
+
   ionViewWillLeave() {
     clearInterval(this.processOrdertimeOut);
   }
-  
+
   ngOnInit() {
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.openModalOrder()
@@ -56,7 +56,7 @@ export class HomePage implements OnInit {
         },
       }],
       backdropDismiss: false
-    });    
+    });
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then((it: any) => {
       this.IsBikerOn = it?.onWorkStatus;
@@ -118,7 +118,20 @@ export class HomePage implements OnInit {
           this.orderId = it?._id;
           let diff = new Date(it.cancelDate).valueOf() - new Date().valueOf();
           this.orderTimeOut = Math.round((diff % 60000) / 1000)
-          this.setOrderTimeOut();
+          if (this.orderTimeOut > 0) {
+            this.setOrderTimeOut();
+          }
+          else {
+            this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
+            this.bikerInfo$.then((it: any) => {
+              this.order$ = null
+              this.orderId = null
+              this.openModals("openModalOrderTimeOut");
+            }, async error => {
+              alert.message = error.error.message;
+              await alert.present();
+            })
+          }
         }
         else {
           this.orderId = null;
