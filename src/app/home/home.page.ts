@@ -34,14 +34,14 @@ export class HomePage implements OnInit {
     this.orderId = null;
     this.loadData();
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
+    this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
   }
-
+  
   ionViewWillLeave() {
     clearInterval(this.processOrdertimeOut);
   }
-
+  
   ngOnInit() {
-    this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
     this.openModalOrder()
   }
 
@@ -110,7 +110,7 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
-    if (this.IsBikerOn && this.orderId == undefined) {
+    if (this.IsBikerOn && this.orderId == null) {
       this.order$ = this.bikerSvc.getNewOrderInfo();
       this.order$.then((it: any) => {
         console.log('xxx', it);
