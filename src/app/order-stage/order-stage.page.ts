@@ -135,10 +135,8 @@ export class OrderStagePage implements OnInit {
     }
   }
 
-  public OpenMap(coordinates: string) {
-    var splitted = coordinates.split(',', 2);
-    console.log(parseFloat(splitted[0]), parseFloat(splitted[1]));
-    this.nativeSvc.OpenMapDirection(parseFloat(splitted[0]), parseFloat(splitted[1]));
+  public OpenMap(latitude: string, longitude: string) {
+    this.nativeSvc.OpenMapDirection(parseFloat(latitude), parseFloat(longitude));
   }
 
   requestCancel() {
