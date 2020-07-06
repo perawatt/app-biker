@@ -38,7 +38,7 @@ export class OrderAdminContactPage implements OnInit {
     });
     this.order$ = this.bikerSvc.getOrderInfo();
     this.order$.then((it: any) => {
-      this.phoneNo = it.delivery.phoneNumber;
+      this.phoneNo = it.delivery?.phoneNumber;
     }, async error => {
       alert.message = error.error.message;
       await alert.present();
