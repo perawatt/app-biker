@@ -6,6 +6,7 @@ import { NativeService } from '../../providers/NativeService';
 import { BikerService } from '../../services/biker.service';
 import { OrderCancelApprovePage } from '../../modals/order-cancel-approve/order-cancel-approve.page';
 import { OrderTimeOutPage } from 'src/modals/order-time-out/order-time-out.page';
+import { CancelledOrderPage } from 'src/modals/cancelled-order/cancelled-order.page';
 
 @Component({
   selector: 'app-home',
@@ -36,11 +37,11 @@ export class HomePage implements OnInit {
     this.nativeSvc.RegisterRefreshOnGoBack(() => this.GetOrderDetail());
     this.nativeSvc.RegisterNotificationHander("SendOrder", (param) => this.GetOrderDetail());
   }
-  
+
   ionViewWillLeave() {
     clearInterval(this.processOrdertimeOut);
   }
-  
+
   ngOnInit() {
     this.openModalOrder()
   }
@@ -64,6 +65,7 @@ export class HomePage implements OnInit {
       if (this.IsBikerOn) this.GetOrderDetail();
     }, async error => {
       alert.message = error.error.message;
+      console.log('เกิดข้อผิดพลาด1 getBikerInfo', error.error.message);
       await alert.present();
     });
     // this.getBikerStatusAndOrder();
@@ -105,7 +107,8 @@ export class HomePage implements OnInit {
       buttons: [{
         text: 'ตกลง',
         handler: () => {
-          this.loadData();
+          // TODO:
+          // this.loadData();
         },
       }],
       backdropDismiss: false
@@ -129,6 +132,7 @@ export class HomePage implements OnInit {
               this.openModals("openModalOrderTimeOut");
             }, async error => {
               alert.message = error.error.message;
+              console.log('เกิดข้อผิดพลาด3 updateBikerStatusOff', error.error.message);
               await alert.present();
             })
           }
@@ -138,6 +142,7 @@ export class HomePage implements OnInit {
         }
       }, async error => {
         alert.message = error.error.message;
+        console.log('เกิดข้อผิดพลาด3 getNewOrderInfo', error.error.message);
         await alert.present();
       });
     }
@@ -165,8 +170,18 @@ export class HomePage implements OnInit {
           this.orderId = null
           this.openModals("openModalOrderTimeOut");
         }, async error => {
-          alert.message = error.error.message;
-          await alert.present();
+          console.log('เกิดข้อผิดพลาด4 updateBikerStatusOff', error.error.message);
+          if (error.error.message == "Id match, queue not found") {
+            console.log("yes");
+            this.order$ = null
+            this.orderId = null
+            this.loadData();
+            this.openModals("openModalOrderTimeOut");
+          }
+          else {
+            alert.message = error.error.message;
+            await alert.present();
+          }
         })
       }
     }, 1000);
@@ -312,6 +327,24 @@ export class HomePage implements OnInit {
       })
       modal.present();
     }
+    else if ((text != null) && (text != undefined) && (text == "orderWasCancelled")) {
+      const modal = await this.modalController.create({
+        component: CancelledOrderPage,
+        cssClass: 'dialog-modal-4-order-success',
+        backdropDismiss: false
+      });
+      modal.onDidDismiss().then(it => {
+        this.IsBikerOn = it?.data
+        if (this.IsBikerOn) {
+          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+          this.bikerInfo$.then(() => { }, async error => {
+            alert.message = error.error.message;
+            await alert.present();
+          });
+        }
+      })
+      modal.present();
+    }
   }
 
   async receiveOrder() {
@@ -331,8 +364,19 @@ export class HomePage implements OnInit {
       this.nativeSvc.UpdateSidemenuItem("รับออเดอร์", "order-stage");
       this.router.navigate(['/order-stage'])
     }, async error => {
-      alert.message = error.error.message;
-      await alert.present();
+      console.log('เกิดข้อผิดพลาด7 updateOrderStatusToReceived', error.error.message);
+      if (error.error.message == "request expired") {
+        this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
+        this.bikerInfo$.then((it: any) => {
+          this.order$ = null
+          this.orderId = null
+          this.openModals("orderWasCancelled");
+        });
+      }
+      else {
+        alert.message = error.error.message;
+        await alert.present();
+      }
     }).catch(it => {
     });
   }
