@@ -171,12 +171,17 @@ export class HomePage implements OnInit {
           this.openModals("openModalOrderTimeOut");
         }, async error => {
           console.log('เกิดข้อผิดพลาด4 updateBikerStatusOff', error.error.message);
-          if (error.error.message == "Id match, queue not found") {
-            console.log("yes");
-            this.order$ = null
-            this.orderId = null
-            this.loadData();
-            this.openModals("openModalOrderTimeOut");
+          if (error.error.message == "Id match, biker not found") {
+            this.bikerInfo$ = this.bikerSvc.getBikerInfo();
+            this.bikerInfo$.then((it: any) => {
+              this.order$ = null
+              this.orderId = null
+              this.openModals("openModalOrderTimeOut");
+            }, async error => {
+              console.log('เกิดข้อผิดพลาด4 getBikerInfo', error.error.message);
+              alert.message = error.error.message;
+              await alert.present();
+            });
           }
           else {
             alert.message = error.error.message;
@@ -366,7 +371,7 @@ export class HomePage implements OnInit {
     }, async error => {
       console.log('เกิดข้อผิดพลาด7 updateOrderStatusToReceived', error.error.message);
       if (error.error.message == "request expired") {
-        this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
+        this.bikerInfo$ = this.bikerSvc.getBikerInfo();
         this.bikerInfo$.then((it: any) => {
           this.order$ = null
           this.orderId = null
