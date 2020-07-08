@@ -371,6 +371,10 @@ export class HomePage implements OnInit {
           this.order$ = null
           this.orderId = null
           this.openModals("orderWasCancelled");
+        }, async error => {
+          console.log('เกิดข้อผิดพลาด7 updateBikerStatusOff', error.error.message);
+          alert.message = error.error.message;
+          await alert.present();
         });
       }
       else {
