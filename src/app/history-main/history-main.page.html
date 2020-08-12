@@ -2,7 +2,6 @@
   <ng-container *ngIf="orderHistory$ | async as item">
     <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
       <ion-item color="warning">
-
         <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
           <img src="assets/imgs/bikewhite.png" />
         </ion-item>
@@ -28,15 +27,18 @@
     </ion-card>
 
     <ion-card *ngFor="let data of item" color="light" (click)="detailHistory(data._id)"
-      class="ion-no-margin ion-margin-horizontal ion-margin-top">
-      <ion-card-header class="ion-no-padding ion-padding-horizontal ion-margin-top">
-        <ion-label>
+      class="ion-margin-top ion-padding-vertical">
+      <ion-item color="light" lines="none">
+        <ion-label slot="start">
           <h1><b>คำสั่งซื้อ {{data.orderCode}} </b></h1>
-          <ion-text color="secondary">
-            <p>{{data.acceptRequestDate | date:'M/d/yyy (H:mm)'}} </p>
-          </ion-text>
+          <p> {{data.acceptRequestDate | date:'M/d/yyy (H:mm)'}} </p>
         </ion-label>
-      </ion-card-header>
+        <ion-note slot="end">
+          <ion-text *ngIf="data.cancelRequestId" color="danger">ยกเลิกคำสั่งซื้อ !</ion-text>
+          &nbsp;
+        </ion-note>
+      </ion-item>
+
       <ion-item lines="none" color="light">
         <ion-avatar slot="start">
           <img src="assets/imgs/ordercustomer.png" />
@@ -49,6 +51,7 @@
         </ion-label>
       </ion-item>
     </ion-card>
+
     <ion-card color="light" class="ion-text-center" *ngIf="item.length < 1 ">
       <br><br><br><br><br>
       <ion-text class="ion-text-center" color="secondary">

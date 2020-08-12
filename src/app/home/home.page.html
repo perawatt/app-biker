@@ -46,6 +46,16 @@
     </ion-card>
   </ng-container>
 
+  <ng-container *ngIf="!orderId && IsBikerOn" >
+    <ion-card color="light" class="ion-text-center">
+      <ion-text class="ion-text-center" color="dark">
+        <br><br><br><br><br>
+          <h5><b>ยังไม่มีออเดอร์เข้า</b></h5>
+          <br><br><br><br><br>
+      </ion-text>
+    </ion-card>
+  </ng-container>
+
   <ng-container *ngIf="!IsBikerOn">
     <div id="biker-logo">
       <img src="assets/imgs/bikegray.png" alt="">
