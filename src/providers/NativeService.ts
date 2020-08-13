@@ -72,6 +72,12 @@ export class NativeService {
         this.NotificationCannel.set(notiChannel, fn);
     }
 
+    public UnRegisterNotificationHander(notiChannel: string) {
+        if (this.NotificationCannel.has(notiChannel)) {
+            this.NotificationCannel.delete(notiChannel);
+        }
+    }
+
     public async ExecuteNotiIfExist(notiChannel: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
