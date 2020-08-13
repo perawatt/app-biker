@@ -40,6 +40,7 @@ export class HomePage implements OnInit {
 
   ionViewWillLeave() {
     clearInterval(this.processOrdertimeOut);
+    this.nativeSvc.UnRegisterNotificationHander("SendOrder");
   }
 
   ngOnInit() {
