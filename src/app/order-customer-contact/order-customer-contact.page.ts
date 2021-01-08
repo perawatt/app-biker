@@ -21,7 +21,9 @@ export class OrderCustomerContactPage implements OnInit {
   }
 
   calling() {
-    this.nativeSvc.PhoneCall(this.phoneNo);
+    if (this.phoneNo != null) {
+      this.nativeSvc.PhoneCall(this.phoneNo);
+    }    
   }
 
   async loadData() {
