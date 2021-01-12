@@ -301,7 +301,7 @@
 
         <ion-item color="light" lines="none">
           <ion-label color="warning">
-            <h3>฿{{ data.totalPrice | number }} ({{ data.totalQuantity | number }} รายการ)</h3>
+            <h3>{{ data.totalPrice | number }} THB ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-label>
         </ion-item>
 
@@ -316,7 +316,7 @@
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>฿{{ item.quantity * item.price | number }}</p>
+                <p>{{ item.quantity * item.price | number }} THB</p>
                 <!-- <p>ยกเลิก</p> -->
                 <p>&nbsp;</p>
               </ion-text>
