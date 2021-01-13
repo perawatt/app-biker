@@ -13,9 +13,6 @@ export class HistoryDetailPage implements OnInit {
 
   public _id: string;
   public orderInfo$ = Promise.resolve([]);
-  public acceptRequestDate: Date;
-  public doneDate: Date;
-  public time: any;
   constructor(private alertCtr: AlertController, private svc: NativeService, private route: ActivatedRoute, private bikerSvc: BikerService) {
     this.route.params.subscribe(param => { this._id = param["id"] });
   }
@@ -42,9 +39,6 @@ export class HistoryDetailPage implements OnInit {
     });
     this.orderInfo$ = this.bikerSvc.getOrderHistoryInfo(this._id);
     this.orderInfo$.then((it: any) => {
-      this.acceptRequestDate = new Date(it.acceptRequestDate);
-      this.doneDate = new Date(it.doneDate);
-      this.time = (this.doneDate.valueOf() - this.acceptRequestDate.valueOf());
     }, async error => {
       alert.message = error.error.message;
       await alert.present();
