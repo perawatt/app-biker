@@ -51,7 +51,7 @@ export class NativeService {
     public async SetPageTitle(title: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("SetPageTitle", title);
+            this.callAppMethod("SetPageTitle", JSON.stringify({ title: title}));
         }
     }
 
@@ -81,7 +81,7 @@ export class NativeService {
     public async ExecuteNotiIfExist(notiChannel: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("ExecuteNotiIfExist", notiChannel);
+            this.callAppMethod("ExecuteNotiIfExist", JSON.stringify({ notiChannel: notiChannel}));
         } else {
             console.log("ExecuteNotiIfExist with key: " + notiChannel);
         }
@@ -90,7 +90,7 @@ export class NativeService {
     public async RemoveNotificationChannel(notiChannel: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("RemoveNotificationChannel", notiChannel);
+            this.callAppMethod("RemoveNotificationChannel", JSON.stringify({ notiChannel: notiChannel}));
         } else {
             console.log("RemoveNotificationChannel with key: " + notiChannel);
         }
