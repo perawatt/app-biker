@@ -48,7 +48,7 @@
             <h3><img src="assets/imgs/bikedark.png" height="13"> {{ data.distanceMeters? 0:data.distanceMeters }} กม.</h3>
             <h3>
               <ion-icon name="time-outline" color="dark"></ion-icon>
-              {{ time | date:'mm:ss' }} นาที
+              {{ data.deliveryTotalMinutes }} นาที
             </h3>
             <ion-text>
               <h3> ค่าคอมมิชชั่น : {{data.commissionPriceTHB }} บาท </h3>
