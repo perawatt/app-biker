@@ -112,7 +112,7 @@ export class NativeService {
     public async PhoneCall(phoneNumber: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("PhoneCall", phoneNumber);
+            this.callAppMethod("PhoneCall", JSON.stringify({ phoneNumber: phoneNumber}));
         }
     }
 
