@@ -14,7 +14,7 @@
             <h3>{{ data.totalPrice | number }} THB ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
           <ion-text color="secondary">
-            <p>-</p>
+            <p>{{ data.distanceMeters? 0:data.distanceMeters }}</p>
           </ion-text>
         </ion-label>
       </ion-card-header>
