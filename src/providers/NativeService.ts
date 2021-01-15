@@ -32,6 +32,22 @@ export class NativeService {
         }
     }
 
+    //this.nativeSvc.GetCurrentLocation().then(location => { alert(JSON.stringify(location)); });
+    public async GetCurrentLocation() {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            return this.callNativeFunc("GetCurrentLocation", "");
+        } else {
+            return new Promise<any>(async (res, rej) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        res({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+                    })
+                } else rej();
+            });
+        }
+    }
+
     public async GoBack() {
         if (environment.production) {
             this.callAppMethod("Goback", "");
@@ -51,7 +67,7 @@ export class NativeService {
     public async SetPageTitle(title: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("SetPageTitle", JSON.stringify({ title: title}));
+            this.callAppMethod("SetPageTitle", JSON.stringify({ title: title }));
         }
     }
 
@@ -81,7 +97,7 @@ export class NativeService {
     public async ExecuteNotiIfExist(notiChannel: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("ExecuteNotiIfExist", JSON.stringify({ notiChannel: notiChannel}));
+            this.callAppMethod("ExecuteNotiIfExist", JSON.stringify({ notiChannel: notiChannel }));
         } else {
             console.log("ExecuteNotiIfExist with key: " + notiChannel);
         }
@@ -90,7 +106,7 @@ export class NativeService {
     public async RemoveNotificationChannel(notiChannel: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("RemoveNotificationChannel", JSON.stringify({ notiChannel: notiChannel}));
+            this.callAppMethod("RemoveNotificationChannel", JSON.stringify({ notiChannel: notiChannel }));
         } else {
             console.log("RemoveNotificationChannel with key: " + notiChannel);
         }
@@ -112,7 +128,7 @@ export class NativeService {
     public async PhoneCall(phoneNumber: string) {
         if (environment.production) {
             await this.retry(() => this.WaitForNativeAppReady());
-            this.callAppMethod("PhoneCall", JSON.stringify({ phoneNumber: phoneNumber}));
+            this.callAppMethod("PhoneCall", JSON.stringify({ phoneNumber: phoneNumber }));
         }
     }
 
@@ -150,7 +166,7 @@ export class NativeService {
             if (typeof TheSHybridFunc == "undefined" || !TheSHybridFunc) {
                 reject();
             } else {
-                resolve();
+                resolve("");
             }
         });
     }
