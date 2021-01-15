@@ -8,7 +8,7 @@
             <p> {{ data.acceptRequestDate | date:'M/d/yyy (H:mm)'}} </p>
           </ion-text>
           <ion-text color="warning">
-            <h3> ฿{{ data.totalPrice | number }} ({{ data.totalQuantity | number }} รายการ)</h3>
+            <h3> {{ data.totalPrice | number }} THB ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
         </ion-label>
         <ion-note slot="end">
@@ -80,7 +80,7 @@
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>฿{{ data.quantity * data.price | number }}</p>
+                <p>{{ data.quantity * data.price | number }} THB</p>
                 <!-- <p>ยกเลิก</p>  -->
                 <p>&nbsp;</p>
               </ion-text>
