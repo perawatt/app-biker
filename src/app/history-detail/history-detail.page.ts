@@ -12,6 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class HistoryDetailPage implements OnInit {
 
   public _id: string;
+  public distanceMeters: Number = 0;
   public orderInfo$ = Promise.resolve([]);
   constructor(private alertCtr: AlertController, private svc: NativeService, private route: ActivatedRoute, private bikerSvc: BikerService) {
     this.route.params.subscribe(param => { this._id = param["id"] });
@@ -20,8 +21,8 @@ export class HistoryDetailPage implements OnInit {
   ngOnInit() {
     this.svc.SetPageTitle("รายละเอียดงาน");
   }
-  
-  ionViewWillEnter(){
+
+  ionViewWillEnter() {
     this.loadData();
   }
 
@@ -39,6 +40,7 @@ export class HistoryDetailPage implements OnInit {
     });
     this.orderInfo$ = this.bikerSvc.getOrderHistoryInfo(this._id);
     this.orderInfo$.then((it: any) => {
+      this.distanceMeters = it.distanceMeters / 1000;      
     }, async error => {
       alert.message = error.error.message;
       await alert.present();
