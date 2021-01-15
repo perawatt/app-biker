@@ -1,31 +1,39 @@
 <ion-content mode="ios">
-  <ng-container *ngIf="orderHistory$ | async as item">
-    <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
-      <ion-item color="warning">
-        <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
-          <img src="assets/imgs/bikewhite.png" />
-        </ion-item>
-        <ion-label>
-          <ion-note slot="start">
-            <ion-text color="light">
-              <p>จำนวนที่ส่งวันนี้</p>
-              <p>&nbsp;</p>
-              <p>&nbsp;</p>
-            </ion-text>
-          </ion-note>
-        </ion-label>
-        <ion-label>
-          <ion-note slot="end" class="ion-text-end">
-            <ion-text color="light">
-              <p>{{ item.length? item.length : 0 | number }} ครั้ง</p>
-              <p>&nbsp;</p>
-              <p>ดูวันอื่นๆ</p>
-            </ion-text>
-          </ion-note>
-        </ion-label>
+  <ion-card color="warning" class="ion-no-margin ion-margin-horizontal ion-margin-top">
+    <ion-item color="warning" lines="none">
+      <ion-item slot="start" color="warning" lines="none" class="ion-no-margin ion-no-padding">
+        <img src="assets/imgs/bikewhite3x.png" />
       </ion-item>
-    </ion-card>
+      <ion-label>
+        <ion-note slot="start">
+          <ion-text color="light">
+            <p>&nbsp;</p>
+            <p>รายการวันที่ {{ date | date:'d/M/yyy' }}</p>
+            <p>&nbsp;</p>
+          </ion-text>
+        </ion-note>
+      </ion-label>
+      <ion-label>
+        <ion-note slot="end" class="ion-text-end">
+          <ion-text color="light">
+            <p>&nbsp;</p>
+            <p>{{ orderCount | number }} ครั้ง</p>
+            <p>&nbsp;</p>
+          </ion-text>
+        </ion-note>
+      </ion-label>
+    </ion-item>
+    <ion-item color="warning" lines="none" (click)="datePicker.open()">
+      <ion-label color="light" class="ion-text-center">
+        <p>ดูรายได้วันอื่นๆ</p>
+        <ion-datetime #datePicker hidden display-format="DD-MMMM-YYYY" [(ngModel)]="date" min="2021" max={{maxDate}}
+          (ionChange)="getOrderHistories()">
+        </ion-datetime>
+      </ion-label>
+    </ion-item>
+  </ion-card>
 
+  <ng-container *ngIf="orderHistory$ | async as item">
     <ion-card *ngFor="let data of item" color="light" (click)="detailHistory(data._id)"
       class="ion-margin-top ion-padding-vertical">
       <ion-item color="light" lines="none">
@@ -52,7 +60,7 @@
       </ion-item>
     </ion-card>
 
-    <ion-card color="light" class="ion-text-center" *ngIf="item.length < 1 ">
+    <ion-card color="light" class="ion-text-center" *ngIf="item.length == 0 ">
       <br><br><br><br><br>
       <ion-text class="ion-text-center" color="secondary">
         <h5><b>ไม่มีรายการ</b></h5>

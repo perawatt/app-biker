@@ -1,6 +1,6 @@
 import { NativeService } from 'src/providers/NativeService';
 import { BikerService } from './../../services/biker.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -10,7 +10,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class HistoryMainPage implements OnInit {
 
-  public date = new Date();
+  @ViewChild('datePicker') datePicker;
+  public date: any;
+  public maxDate: string;
+  public orderCount: Number = 0;
   public orderHistory$ = Promise.resolve([]);
   constructor(private alertCtr: AlertController, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
@@ -36,12 +39,19 @@ export class HistoryMainPage implements OnInit {
       backdropDismiss: false
     });
 
-    this.orderHistory$ = this.bikerSvc.getOrderHistories(this.date);
-    this.orderHistory$.then((it: any) => {
-      it.sort((a, b) => new Date(b.acceptRequestDate).getTime() - new Date(a.acceptRequestDate).getTime());
+    this.maxDate = new Date(Date.now()).toISOString().substring(0, 10);
+    let doneDate = this.date ? new Date(this.date) : new Date(Date.now());
+    doneDate.setHours(7);
+
+    this.orderHistory$ = this.bikerSvc.getOrderHistories(doneDate);
+    this.orderHistory$.then(it => {
+      this.orderCount = it.length;
+      if (it.length > 0) {
+        console.log(it.length);
+        it.sort((a, b) => new Date(b.acceptRequestDate).getTime() - new Date(a.acceptRequestDate).getTime());
+      }
     }, async error => {
       alert.message = error.error.message;
-
       await alert.present();
     })
   }
