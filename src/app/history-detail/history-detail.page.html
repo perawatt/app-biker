@@ -8,7 +8,7 @@
             <p> {{ data.acceptRequestDate | date:'M/d/yyy (H:mm)'}} </p>
           </ion-text>
           <ion-text color="warning">
-            <h3> {{ data.totalPrice | number }} THB ({{ data.totalQuantity | number }} รายการ)</h3>
+            <h3> {{ data.totalPrice | number }} <small>THB</small> ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
         </ion-label>
         <ion-note slot="end">
@@ -51,7 +51,7 @@
               {{ data.deliveryTotalMinutes }} นาที
             </h3>
             <ion-text>
-              <h3> ค่าคอมมิชชั่น : {{data.commissionPriceTHB }} THB </h3>
+              <h3> ค่าคอมมิชชั่น : {{data.commissionPriceTHB }} <small>THB</small> </h3>
               <h3> คะแนน : -</h3>
             </ion-text>
           </ion-label>
@@ -80,7 +80,7 @@
           <ion-label>
             <ion-note slot="end" class="ion-text-end">
               <ion-text color="dark">
-                <p>{{ data.quantity * data.price | number }} THB</p>
+                <p>{{ data.quantity * data.price | number }} <small>THB</small></p>
                 <!-- <p>ยกเลิก</p>  -->
                 <p>&nbsp;</p>
               </ion-text>
