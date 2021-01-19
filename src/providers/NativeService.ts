@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment, BikerId } from 'src/environments/environment';
 import { NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 declare function TheSHybridCall(methodName: string, parameter: any): void;
 declare function TheSHybridFunc(methodName: string, parameter: string, callback: any): void;
@@ -12,7 +13,7 @@ export class NativeService {
     private NotificationCannel = new Map();
     private callBackFunc: () => void;
 
-    constructor(private router: Router, private zone: NgZone, private navCtrl: NavController) {
+    constructor(private router: Router, private zone: NgZone, private navCtrl: NavController, private http: HttpClient) {
         (<any>window).onSendNotification = (notiChannel: any, params: any) => { this.executeOnNotification(notiChannel, params) };
         (<any>window).refreshOnGoBack = () => { this.executeCallBackFunc() }
     }
@@ -29,6 +30,33 @@ export class NativeService {
         } else {
             if (params != null && params != undefined) { this.router.navigate(['/' + pageName, params]); }
             else { this.router.navigate(['/' + pageName]); }
+        }
+    }
+    
+    public async callApiGet(url: string): Promise<any> {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            return this.callNativeFunc('CallApiGet', JSON.stringify({ url: url }));
+        } else {
+            this.http.get(url).toPromise();
+        }
+    }
+
+    public async callApiPost(url: string, data: any): Promise<any> {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            return this.callNativeFunc('CallApiPost', JSON.stringify({ url: url, data: data }));
+        } else {
+            this.http.post(url, data).toPromise();
+        }
+    }
+
+    public async callApiPut(url: string, data: any): Promise<any> {
+        if (environment.production) {
+            await this.retry(() => this.WaitForNativeAppReady());
+            return this.callNativeFunc('CallApiPut', JSON.stringify({ url: url, data: data }));
+        } else {
+            this.http.put(url, data).toPromise();
         }
     }
 
