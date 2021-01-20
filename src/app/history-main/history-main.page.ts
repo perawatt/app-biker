@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
 export class HistoryMainPage implements OnInit {
 
   @ViewChild('datePicker') datePicker;
-  public date: any;
+  public date = Date.now();
   public maxDate: string;
   public orderCount: Number = 0;
   public orderHistory$ = Promise.resolve([]);
