@@ -38,7 +38,7 @@ export class NativeService {
             await this.retry(() => this.WaitForNativeAppReady());
             return this.callNativeFunc('CallApiGet', JSON.stringify({ url: url }));
         } else {
-            this.http.get(url).toPromise();
+            return this.http.get(url).toPromise();
         }
     }
 
@@ -47,7 +47,7 @@ export class NativeService {
             await this.retry(() => this.WaitForNativeAppReady());
             return this.callNativeFunc('CallApiPost', JSON.stringify({ url: url, data: data }));
         } else {
-            this.http.post(url, data).toPromise();
+            return this.http.post(url, data).toPromise();
         }
     }
 
@@ -56,7 +56,7 @@ export class NativeService {
             await this.retry(() => this.WaitForNativeAppReady());
             return this.callNativeFunc('CallApiPut', JSON.stringify({ url: url, data: data }));
         } else {
-            this.http.put(url, data).toPromise();
+            return this.http.put(url, data).toPromise();
         }
     }
 
