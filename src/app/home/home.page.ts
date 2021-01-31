@@ -47,6 +47,12 @@ export class HomePage implements OnInit {
     this.openModalOrder()
   }
 
+  doRefresh(event) {
+    this.GetOrderDetail().then(() => {
+      event.target.complete();
+    });
+  }
+
   async loadData() {
     const alert = await this.alertController.create({
       header: 'เกิดข้อผิดพลาด1',

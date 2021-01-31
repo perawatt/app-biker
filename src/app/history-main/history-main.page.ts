@@ -11,13 +11,14 @@ import { AlertController } from '@ionic/angular';
 export class HistoryMainPage implements OnInit {
 
   @ViewChild('datePicker') datePicker;
-  public date: any;
+  public date: Date;
   public maxDate: string;
   public orderCount: Number = 0;
   public orderHistory$ = Promise.resolve([]);
   constructor(private alertCtr: AlertController, private bikerSvc: BikerService, private nativeSvc: NativeService) { }
 
   ionViewWillEnter() {
+    this.date = new Date();
     this.getOrderHistories();
   }
 
@@ -47,7 +48,6 @@ export class HistoryMainPage implements OnInit {
     this.orderHistory$.then(it => {
       this.orderCount = it.length;
       if (it.length > 0) {
-        console.log(it.length);
         it.sort((a, b) => new Date(b.acceptRequestDate).getTime() - new Date(a.acceptRequestDate).getTime());
       }
     }, async error => {

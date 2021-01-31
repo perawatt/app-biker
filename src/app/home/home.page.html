@@ -1,4 +1,11 @@
 <ion-content mode="ios">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-item lines="none" color="light">
     <ion-label><b>เปิดรับงาน</b></ion-label>
     <ion-toggle slot="end" name="blackberry" [(ngModel)]="IsBikerOn" (click)="toggleChange()">
@@ -11,7 +18,7 @@
         <ion-label>
           <h1><b>คำสั่งซื้อ {{ data.orderCode }}</b></h1>
           <ion-text color="warning">
-            <h3>{{ data.totalPrice | number }} THB ({{ data.totalQuantity | number }} รายการ)</h3>
+            <h3>{{ data.totalPrice | number }} <small>THB</small> ({{ data.totalQuantity | number }} รายการ)</h3>
           </ion-text>
           <ion-text color="secondary">
             <p>{{ data.distanceMeters }} m.</p>
@@ -63,7 +70,7 @@
   </ng-container>
 </ion-content>
 
-ื<ng-container *ngIf="IsBikerOn && orderId">
+<ng-container *ngIf="IsBikerOn && orderId">
   <ion-footer mode="ios">
     <ion-toolbar color="medium">
       <ion-title class="ion-no-padding" color="secondary">กรุณากดรับออเดอร์ภายใน {{ orderTimeOut }} วินาที</ion-title>
