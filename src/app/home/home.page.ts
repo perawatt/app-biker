@@ -213,6 +213,8 @@ export class HomePage implements OnInit {
       }],
       backdropDismiss: false
     });
+
+
     this.bikerInfo$ = this.bikerSvc.getBikerInfo();
     this.bikerInfo$.then(async (it: any) => {
       this.IsSuspende = it.suspended;
@@ -229,28 +231,34 @@ export class HomePage implements OnInit {
         await alert.present();
       }
       else {
-        this.IsBikerOn = !this.IsBikerOn
-        if (this.IsBikerOn) {
-          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
-          this.bikerInfo$.then((it: any) => {
-          }, async error => {
-            alert.message = error.error.message;
-            await alert.present();
+        this.nativeSvc.GetCurrentLocation().then(location => {
+          let js = { "latitude": location.latitude.toString(), "longitude": location.longitude.toString() };
+          this.bikerSvc.updateBikerGPS(js).then(it => {
+            this.IsBikerOn = !this.IsBikerOn
+            if (this.IsBikerOn) {
+              this.bikerInfo$ = this.bikerSvc.updateBikerStatusOn();
+              this.bikerInfo$.then((it: any) => {
+              }, async error => {
+                alert.message = error.error.message;
+                await alert.present();
+              });
+            }
+            else {
+              this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
+              this.bikerInfo$.then((it: any) => {
+                clearInterval(this.processOrdertimeOut);
+                this.order$ = this.bikerSvc.getNewOrderInfo();
+                this.order$.then((it: any) => {
+                  this.orderId = null;
+                })
+              }, async error => {
+                alert.message = error.error.message;
+                await alert.present();
+              });
+            };
           });
-        }
-        else {
-          this.bikerInfo$ = this.bikerSvc.updateBikerStatusOff();
-          this.bikerInfo$.then((it: any) => {
-            clearInterval(this.processOrdertimeOut);
-            this.order$ = this.bikerSvc.getNewOrderInfo();
-            this.order$.then((it: any) => {
-              this.orderId = null;
-            })
-          }, async error => {
-            alert.message = error.error.message;
-            await alert.present();
-          });
-        };
+        });
+
       }
     },
       async error => {

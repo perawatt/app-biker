@@ -82,6 +82,12 @@ export class BikerService implements IBikerService {
     return this.http.post(apiUrl, data).toPromise();
   }
 
+  async updateBikerGPS( data: any): Promise<any> {
+    var bikerId = await this.svc.GetBikerId();
+    let apiUrl = this.baseUrl + "UpdateBikerGPS/" + bikerId;
+    return this.http.put(apiUrl, data).toPromise();
+  }
+
   private baseUrl: string = API_URL;
   constructor(private http: HttpClient, private svc: NativeService) { }
 }
